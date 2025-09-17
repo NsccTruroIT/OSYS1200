@@ -1,5 +1,9 @@
 # Windows 11 Tools and Utilities
 
+>💡To ensure consistency, this activitiy is designed to be completed using your provided Windows 11 Virtual Machine. Use our Get-VM Console page to start and connect to your Virtual Machine.
+
+>💡Practice your workflow. Keep these instructions and your Lab Documentation open on your local machine and use the console to your Virtual Machine to execute the steps. Screenshots will be easiest to work with if you switch back to your local machine and then take a screenshot of the console window. 
+
 ## Activity 1 – System Settings VS Control Panel (Windows 11 Edition)
 
 1. **Start your computer and sign in** if necessary.
@@ -163,7 +167,7 @@ Instructions
 1. View Service Properties:
     - Double-click Network Connection Broker.
     - On the General tab, review the service name, description, path to executable, and startup type.
-    - <mark>Take a screenshot of this tab.<mark>
+    - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
 1. Check Log On Settings:
     - Click the Log On tab.
     - Observe whether the service runs under a system account or a specific user account.
@@ -184,18 +188,18 @@ Instructions
 1. Start your computer and sign in, if necessary.
 1. Open Command Prompt:
     - Click the Start button or press the Windows key.
-    - Type cmd in the search bar.
+    - Type `cmd` in the search bar.
     - You’ll see an option to Run as administrator on the right or below the result. This is required for some administrative tasks.
 1. Launch Command Prompt:
     - Click Command Prompt in the search results (you can choose to run it normally or as administrator depending on your task).
 1. View Network Configuration:
-    - At the command prompt, type: **ipconfig** and press Enter.
+    - At the command prompt, type: `ipconfig` and press Enter.
     - This displays your network configuration. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
 1. View Help for ipconfig:
-    - Type: **ipconfig /?** and press Enter.
+    - Type: `ipconfig /?` and press Enter.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark> of the Help Output:
 1. List Files in the Current Directory:
-    - Type: **dir** and press Enter.
+    - Type: `dir` and press Enter.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
     - This shows the contents of the current directory. Note that ipconfig is not listed because it resides in a system folder.
 1. View the PATH Environment Variable:
@@ -203,15 +207,15 @@ Instructions
     - This displays the directories that Windows searches when you run a command.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
 1. Try Running a Built-in Command as an Executable:
-    - Type: **dir.exe** and press Enter.
+    - Type: `dir.exe` and press Enter.
     - This will fail, because dir is a built-in command, not a separate executable file.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
 1. View Help for the dir Command:
-    - Type: **dir /?** and press Enter.
+    - Type: `dir /?` and press Enter.
     - This displays help information for the built-in dir command.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
 1. Close the Command Prompt:
-    - Type exit or click the X in the top-right corner of the window.
+    - Type `exit` or click the **X** in the top-right corner of the window.
 
 # Activity 8 – Powershell!
 
