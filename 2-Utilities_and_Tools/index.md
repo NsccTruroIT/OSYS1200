@@ -17,12 +17,6 @@
     - Review the list of apps that launch at startup.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark> of this list.
     >💡 _Tip: If you're using a remote desktop or Azure Labs, take the screenshot from your host machine using_ **_Win + Shift + S_** _after clicking outside the remote window._
-
-1. Use the **search bar** in Settings to search for **Tablet settings**.
-    - Click **Tablet** under System settings.
-    - Review the default configuration.
-1. Under **Tablet settings**, find the option **Hide app icons on the taskbar when in tablet mode**.
-    - **Turn this off** and <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>.
 1. Go back to **System > Storage**, then click **Show more categories** under “Local Disk (C:)”.
     - Review the breakdown of storage usage by category.
 1. Return to the **Settings home page** and explore other available settings.
