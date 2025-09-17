@@ -36,14 +36,14 @@
     - This should redirect you back to the **Control Panel**.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark> of this page.
 
-## Activity 2 – Discord is the Devil
+## Activity 2 – Steam is the Devil
 
 Some users have complained recently about an application that seems to start every time the log in to their machine. Please **provide a set of instructions** that can be followed to stop this application from running.
 
 Option (Choose One):
 
-1. Document the steps to stop Discord from starting automatically.
-2. Document the steps to uninstall/remove Discord.
+1. Document the steps to stop Steam from starting automatically.
+2. Document the steps to uninstall/remove Steam.
 
 ## Activity 3 – Configure AutoPlay (Windows 11 Edition)
 
