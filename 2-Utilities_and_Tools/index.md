@@ -11,7 +11,7 @@
 1. In the **Settings** window, click **System**, then scroll down and click **About**.
 1. **Review your device specifications**: processor type and speed, installed RAM, device name, and Windows specifications. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot 📷</mark>
 1. In the left-hand menu (or use the search bar at the top), click **Apps**, then **Installed apps**.
-    - Use the search bar to find **Discord**.
+    - Use the search bar to find **Steam**.
     - Note the version number listed.
 1. In the **Apps** section, click **Startup**.
     - Review the list of apps that launch at startup.
