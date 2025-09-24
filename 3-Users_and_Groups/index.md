@@ -126,7 +126,7 @@ Let’s try that again, but this time with some scripting! (Sort of… interacti
 
 ### Part A – Public Profile
 
-This is pretty slick… let’s say you need to make sure every user on the system has a shortcut to an important App. One way to accomplish this is to create the shortcut in the public profile. Try creating a shortcut to Steam (or any other app, you can just copy an existing shortcut) and saving it to **C:\Users\Public\Public Desktop** (note this folder may be hidden by default, in explorer click View→Show->Hidden Items). Check to see if the new shortcut showed up on your desktop. Test your solution by logging in as a different user and see if the shortcut is there. 
+This is pretty slick… let’s say you need to make sure every user on the system has a shortcut to an important App. One way to accomplish this is to create the shortcut in the public profile. Try creating a shortcut to Steam (or any other app, you can just copy an existing shortcut like from your "Links" folder) and saving it to **C:\Users\Public\Public Desktop** (note this folder may be hidden by default, in explorer click View→Show->Hidden Items). Check to see if the new shortcut showed up on your desktop. Test your solution by logging in as a different user and see if the shortcut is there. 
 
 **Create a set of instructions (written, screenshots, recorded or a combination) for other admins to follow to add additional shortcuts to the public profile.**
 
@@ -218,17 +218,17 @@ Groups will be used to simplify the assignment of privileges and file system per
 ### Part A - Creating Groups
 
 1. Press **`Win + X`** on your keyboard to open the Power User Menu.
-2. Let’s create another group via MMC. Select **Computer Management** from the menu to open the Computer Management console.
-3. In the Computer Management console, expand **Local Users and Groups** in the left panel.
-4. Right-click on the **Groups** folder and choose **New Group.**
-5. In the "New Group" dialog box:
+1. Let’s create another group via MMC. Select **Computer Management** from the menu to open the Computer Management console.
+1. In the Computer Management console, expand **Local Users and Groups** in the left panel.
+1. Right-click on the **Groups** folder and choose **New Group.**
+1. In the "New Group" dialog box:
     - Enter a "Group Name" of `redteam`
     - Provide a "Description" for the group like `This group will pose as a threat actor and is authorized to conduct a variety of attacks and exploits targeting hosts on our network.`
     - This would be a convenient time to add users to our group, but we’ll do that after it’s created. **Grab a screenshot** instead!
-6. Click **Create** to create the group. Close the Create Group dialogue window.
-7. But wait… If you guessed that we might need another group, you were right!  Leave Computer Management open, and launch Powershell as Administrator. Press **`Win + X`** on your keyboard.
-8. Select **Windows PowerShell (Admin)**
-9. In the PowerShell window, you can use the **`New-LocalGroup`** cmdlet to create a new local group. Here's the basic syntax:
+1. Click **Create** to create the group. Close the Create Group dialogue window.
+1. But wait… If you guessed that we might need another group, you were right!  Leave Computer Management open, and launch Powershell as Administrator. Press **`Win + X`** on your keyboard.
+1. Select **Windows PowerShell (Admin)**
+1. In the PowerShell window, you can use the **`New-LocalGroup`** cmdlet to create a new local group. Here's the basic syntax:
 
 ```powershell
 
@@ -257,19 +257,19 @@ Get-LocalGroup
 ### Part B - Manage Group Members
 
 1. Return to **Computer Management**. Expand the groups folder and right click on the **redteam** group.
-2. Choose **Properties** and under Members click **Add…**
-3. In the "Select Users" dialog box, click **Advanced** to search for users.
-4. Click **Find Now** to list all available users on the system.
-5. Select the Bad user, and click **OK.** Click **OK** again to add the selected users to the group. Notice that we could also remove a user from this group from this same Properties window. 
-6. AND click **OK** one more time to save the group properties.
-7. To modify group membership later, right-click on the group in the Groups folder and choose "Properties."
-8. Now let’s add Jacob to the blueteam, but since we only want to add Jacob we’ll configure it on his account (not the group).
-9. Under Computer Management expand **Users,** right-click **Jacob** and click **Properties.**
-10. Click on the **Member Of** tab and click **Add…**
-11. In the "Select Groups" dialog box, click **Advanced** to search for users.
-12. Click **Find Now** to list all available users on the system.
-13. Select the blueteam group, and click **OK.** Click **OK** again to add the selected users to the group. Notice that we could also remove this user from a group from this same Properties window. **Grab a screenshot!**
-14. AND click **OK** one more time to save the group properties.
+1. Choose **Properties** and under Members click **Add…**
+1. In the "Select Users" dialog box, click **Advanced** to search for users.
+1. Click **Find Now** to list all available users on the system.
+1. Select the Bad user, and click **OK.** Click **OK** again to add the selected users to the group. Notice that we could also remove a user from this group from this same Properties window. 
+1. AND click **OK** one more time to save the group properties.
+1. To modify group membership later, right-click on the group in the Groups folder and choose "Properties."
+1. Now let’s add Jacob to the blueteam, but since we only want to add Jacob we’ll configure it on his account (not the group).
+1. Under Computer Management expand **Users,** right-click **Jacob** and click **Properties.**
+1. Click on the **Member Of** tab and click **Add…**
+1. In the "Select Groups" dialog box, click **Advanced** to search for users.
+1. Click **Find Now** to list all available users on the system.
+1. Select the blueteam group, and click **OK.** Click **OK** again to add the selected users to the group. Notice that we could also remove this user from a group from this same Properties window. **Grab a screenshot!**
+1. AND click **OK** one more time to save the group properties.
 
 ## What to submit
 1. Activity 1: Requested screenshots w/ descriptions.
