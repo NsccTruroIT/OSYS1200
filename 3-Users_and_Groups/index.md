@@ -2,7 +2,9 @@
 
 # Lab 3 - Managing Users and Groups
 
-While the activities contained in this lab could be completed on any Windows 10 computer, the activities have been tailored to work in our Azure labs environment. If you would rather not make changes to your local machine, please use your VM at [172.16.144.118](http://172.16.144.118/) . You should have the hang of connecting to this by now, but if you forgot jump [back to Lab 2](https://nscctruroit.github.io/OSYS1200/2-Utilities_and_Tools/).
+> Please use your VM at [172.16.144.118](http://172.16.144.118/) . You should have the hang of connecting to this by now, but if you forgot jump [back to Lab 2](https://nscctruroit.github.io/OSYS1200/2-Utilities_and_Tools/).
+
+> Connectivity from F305 and F308 should now be working! Just connect to the Sysnet wifi and you should be good to go!
 
 ## Activity 1 – Creating Users and Groups
 
