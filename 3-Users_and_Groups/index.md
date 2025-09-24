@@ -126,7 +126,7 @@ Let’s try that again, but this time with some scripting! (Sort of… interacti
 
 ### Part A – Public Profile
 
-This is pretty slick… let’s say you need to make sure every user on the system has a shortcut to an important App. One way to accomplish this is to create the shortcut in the public profile. Try creating a shortcut to Discord (or any other app, you can just copy an existing shortcut) and saving it to **C:\Users\Public\Public Desktop** (note this folder may be hidden by default, in class I demonstrated how to show hidden files in explorer by clicking View→Hidden Items ). Check to see if the new shortcut showed up on your desktop. Test your solution by logging in as a different user and see if the shortcut is there. 
+This is pretty slick… let’s say you need to make sure every user on the system has a shortcut to an important App. One way to accomplish this is to create the shortcut in the public profile. Try creating a shortcut to Steam (or any other app, you can just copy an existing shortcut) and saving it to **C:\Users\Public\Public Desktop** (note this folder may be hidden by default, in class I demonstrated how to show hidden files in explorer by clicking View→Hidden Items ). Check to see if the new shortcut showed up on your desktop. Test your solution by logging in as a different user and see if the shortcut is there. 
 
 **Create a set of instructions (written, screenshots, recorded or a combination) for other admins to follow to add additional shortcuts to the public profile.**
 
