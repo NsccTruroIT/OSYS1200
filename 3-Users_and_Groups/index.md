@@ -118,7 +118,11 @@ Let’s try that again, but this time with some scripting! (Sort of… interacti
     Set-LocalUser -Name Jacob -Password $NewPassword
     ```
 
-1. **Take a screenshot** and close Powershell.
+1. **Take a screenshot**
+1. Let's also save your hard work to a text file:
+    ```powershell
+    get-history | Out-File -FilePath "C:\Users\itstudent\Documents\ps-history.txt"
+    ```
 
 ## Activity 3 – Profile Management
 
@@ -250,10 +254,7 @@ Get-LocalGroup
 
 ```
 
-<aside>
-❓ Up for a challenge? Remember we added a description to redteam try using powershell  to add the following description to  blueteam:  `This group will valiantly defend our confidentiality, Integrity and ensure Availability.` **Hint**: use `Set-LocalGroup` and specify the group using the `-Name` option
-
-</aside>
+> Up for a challenge? Remember we added a description to redteam try using powershell  to add the following description to  blueteam:  `This group will valiantly defend our confidentiality, Integrity and ensure Availability.` **Hint**: use `Set-LocalGroup` and specify the group using the `-Name` option
 
 ### Part B - Manage Group Members
 
@@ -271,3 +272,9 @@ Get-LocalGroup
 12. Click **Find Now** to list all available users on the system.
 13. Select the blueteam group, and click **OK.** Click **OK** again to add the selected users to the group. Notice that we could also remove this user from a group from this same Properties window. **Grab a screenshot!**
 14. AND click **OK** one more time to save the group properties.
+
+## What to submit
+1. Activity 1: Requested screenshots w/ descriptions.
+1. Activity 2:Requests screenshots & contents of ps-history.txt
+1. Activity 3: Your own instructions & descriptions
+1. 
