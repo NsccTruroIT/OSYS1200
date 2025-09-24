@@ -278,7 +278,7 @@ Get-LocalGroup
 1. Activity 4 & 5:
     Screenshot the output of this script to confirm completion
     1. Launch Powershell(Admin) with WIN+X
-    1. Navigate to Documents `Set-Location "C:\Users\itstudent\Documents"`
+    1. Navigate to Documents `Set-Location "C:\Users\Student\Documents"`
     1. Download the "Grade-A-Tron" script  (this is one line):
     
     `Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NsccTruroIT/OSYS1200/refs/heads/main/3-Users_and_Groups/Lab3-Grade-A-Tron.ps1" -OutFile ".\Lab3-Grade-A-Tron.ps1"`
