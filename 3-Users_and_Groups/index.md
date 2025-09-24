@@ -119,7 +119,7 @@ Let’s try that again, but this time with some scripting! (Sort of… interacti
 1. **Take a screenshot**
 1. Let's also save your hard work to a text file:
     ```powershell
-    get-history | Out-File -FilePath "C:\Users\itstudent\Documents\ps-history.txt"
+    get-history | Out-File -FilePath "C:\Users\Student\Documents\ps-history.txt"
     ```
 
 ## Activity 3 – Profile Management
