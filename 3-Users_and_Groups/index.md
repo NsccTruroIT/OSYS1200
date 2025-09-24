@@ -57,8 +57,8 @@ While the activities contained in this lab could be completed on any Windows 10 
     1. On the **Member Of** tab, click **Add**
     1. Click **Advanced** and **Find Now**
     1. Select **Remote Desktop Users** and click ok twice
-1. Log in as Jacob. For Azure, you can only be logged in remotely to one account at a time so if you see a message similar to the one below, click **Yes**.
-
+    > This will be important later!
+1. Log in as Jacob.
 1. Click **OK** and wait for the new profile to be created.
 1. On the Choose privacy settings for your device screen, click **Accept**.
 1. Launch **Task Manager** and click the **Users** tab. **Take a screenshot**.
