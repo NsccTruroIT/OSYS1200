@@ -160,7 +160,7 @@ Steps:
         Computer Management
         Windows PowerShell
 
-> 📝 Note: In Windows 11, pinned apps appear in the Pinned section of the Start menu. You can drag and drop to rearrange them.
+    > 📝 Note: In Windows 11, pinned apps appear in the Pinned section of the Start menu. You can drag and drop to rearrange them.
 
 1. Organize Pinned Apps
 
