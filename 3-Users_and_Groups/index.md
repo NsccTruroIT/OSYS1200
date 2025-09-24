@@ -2,7 +2,7 @@
 
 # Lab 3 - Managing Users and Groups
 
-While the activities contained in this lab could be completed on any Windows 10 computer, the activities have been tailored to work in our Azure labs environment. If you would rather not make changes to your local machine, please use your VM at [172.16.144.118](https://172.16.144.118/) . You should have the hang of connecting to this by now, but if you forgot jump [back to Lab 2](https://nscctruroit.github.io/OSYS1200/2-Utilities_and_Tools/).
+While the activities contained in this lab could be completed on any Windows 10 computer, the activities have been tailored to work in our Azure labs environment. If you would rather not make changes to your local machine, please use your VM at [172.16.144.118](http://172.16.144.118/) . You should have the hang of connecting to this by now, but if you forgot jump [back to Lab 2](https://nscctruroit.github.io/OSYS1200/2-Utilities_and_Tools/).
 
 ## Activity 1 – Creating Users and Groups
 
@@ -59,8 +59,6 @@ While the activities contained in this lab could be completed on any Windows 10 
     1. Select **Remote Desktop Users** and click ok twice
     > This will be important later!
 1. Log in as Jacob.
-1. Click **OK** and wait for the new profile to be created.
-1. On the Choose privacy settings for your device screen, click **Accept**.
 1. Launch **Task Manager** and click the **Users** tab. **Take a screenshot**.
 1. Log out.
 
