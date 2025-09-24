@@ -59,8 +59,6 @@ While the activities contained in this lab could be completed on any Windows 10 
     1. Select **Remote Desktop Users** and click ok twice
 1. Log in as Jacob. For Azure, you can only be logged in remotely to one account at a time so if you see a message similar to the one below, click **Yes**.
 
-![Untitled](Untitled.png)
-
 1. Click **OK** and wait for the new profile to be created.
 1. On the Choose privacy settings for your device screen, click **Accept**.
 1. Launch **Task Manager** and click the **Users** tab. **Take a screenshot**.
@@ -281,6 +279,6 @@ Get-LocalGroup
     Screenshot the output of this script to confirm completion
     1. Launch Powershell(Admin) with WIN+X
     1. Navigate to Documents `Set-Location "C:\Users\itstudent\Documents"`
-    1. Download the "Grade-A-Tron" script  (this is one line)`Invoke-WebRequest -Uri "https://nscctruroit.github.io/OSYS1200/3-Users_and_Groups/" -OutFile ".\Lab3-Grade-A-Tron.ps1"`
+    1. Download the "Grade-A-Tron" script  (this is one line)`Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NsccTruroIT/OSYS1200/refs/heads/main/3-Users_and_Groups/Lab3-Grade-A-Tron.ps1" -OutFile ".\Lab3-Grade-A-Tron.ps1"`
     1. Allow script execution `Set-ExecutionPolicy RemoteSigned`
     1. Run the script `.\Lab3-Grade-A-Tron.ps1`
