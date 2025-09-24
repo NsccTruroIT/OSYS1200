@@ -277,4 +277,10 @@ Get-LocalGroup
 1. Activity 1: Requested screenshots w/ descriptions.
 1. Activity 2:Requests screenshots & contents of ps-history.txt
 1. Activity 3: Your own instructions & descriptions
-1. 
+1. Activity 4 & 5:
+    Screenshot the output of this script to confirm completion
+    1. Launch Powershell(Admin) with WIN+X
+    1. Navigate to Documents `Set-Location "C:\Users\itstudent\Documents"`
+    1. Download the "Grade-A-Tron" script  (this is one line)`Invoke-WebRequest -Uri "https://nscctruroit.github.io/OSYS1200/3-Users_and_Groups/" -OutFile ".\Lab3-Grade-A-Tron.ps1"`
+    1. Allow script execution `Set-ExecutionPolicy RemoteSigned`
+    1. Run the script `.\Lab3-Grade-A-Tron.ps1`
