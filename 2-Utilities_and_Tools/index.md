@@ -297,20 +297,6 @@ Instructions
 11. Click Cancel to close the dialog.
 12. Close Device Manager.
 
-## Activity 11 – Task Scheduler in Windows 11
-
-1. Start your computer and sign in.
-2. Right-click the Start button and click Computer Management.
-3. In the left pane, click Task Scheduler. The middle pane displays the Task Scheduler Summary, showing the status of currently running and previously run tasks. Future scheduled tasks are listed under Active Tasks.
-4. In the Actions pane, click Enable All Tasks History. This enables logging for troubleshooting.
-5. In the left pane, expand Task Scheduler, then expand Task Scheduler Library, Microsoft, Windows, and click Defrag.
-6. In the middle pane, click the Triggers tab. Note that the ScheduledDefrag task does not have a schedule because it is triggered by automatic maintenance.
-7. Click the Actions tab. This shows that the task runs the defrag.exe program.
-8. Click the Conditions tab. This shows that the task runs only when the computer is on AC power. It stops if the computer switches to battery power.
-9. Click the Settings tab. This shows that if the computer is off when the task is scheduled to run, it will start as soon as possible after the computer is turned on. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark> of this tab.
-10. Click the History tab. This displays event log entries for the task, including start and completion times, and any errors.
-11. Close the Computer Management window.
-
 ## Activity 11 – Task Scheduler in Windows 11**
 
 1. Start your computer and sign in.
