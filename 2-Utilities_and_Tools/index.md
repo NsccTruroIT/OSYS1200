@@ -220,7 +220,7 @@ Instructions
 5. Type `Get-Service | Sort-Object Status` and then press Enter. This command sends the list of services to the Sort-Object cmdlet which sorts the services based on the value of the Status property.
 6. Type `Get-Service -Name w32time` and then press Enter. This gets information for just one service.
 7. Type `Get-Service w32time | Format-List` and then press Enter. This displays the information for the service in a list format.
-8. Type `Get-Service w32time | Format-List \*` and then press Enter. This displays ALL (\*) properties in a list format.
+8. Type `Get-Service w32time | Format-List *` and then press Enter. This displays ALL (\*) properties in a list format.
 9. Type `Get-Service w32time | Format-Table Name,DisplayName,Status,StartType` and then press Enter. This displays specific properties in a table format. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>.
 10. Type `Get-Process | Out-GridView` and then press Enter. This displays information in a sortable grid view similar to a spreadsheet. The information in grid view is a snapshot and does not update. You can sort the data by clicking the column names.
 11. Close the `Get-Process | Out-GridView` window.
