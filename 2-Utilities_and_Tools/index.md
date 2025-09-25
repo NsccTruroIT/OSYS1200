@@ -314,50 +314,50 @@ Instructions
 ## Activity 12 – Scheduling with PowerShell in Windows 11
 
 1. Start your computer and sign in.
-2. Right-click the Start button and click Windows PowerShell.
-3. At the PowerShell prompt, type:
+1. Right-click the Start button and click Windows PowerShell.
+1. At the PowerShell prompt, type:
     - `md C:\Scripts`
     - Press Enter to create a folder for scripts.
-4. Type:
+1. Type:
     - `md C:\AppTemp`
     - Press Enter to create a folder for temporary application files.
-5. Type:
+1. Type:
     - `"unneeded log file" | Set-Content C:\AppTemp\LogFile.txt`
     - Press Enter to create a sample log file.
-6. Type:
+1. Type:
     - `Get-ChildItem C:\AppTemp`
     - Press Enter to verify that LogFile.txt exists.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
-7. Type:
+1. Type:
     - `"Get-ChildItem C:\AppTemp | Remove-Item" | Set-Content C:\Scripts\CleanTemp.ps1`
     - Press Enter to create a script that deletes temporary files.
-8. Type:
+1. Type:
     - `Get-Content C:\Scripts\CleanTemp.ps1`
     - Press Enter to verify the script contents. If incorrect, repeat step 7.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
-9. Right-click the Start button and click Computer Management.
-10. In Computer Management, expand Task Scheduler, then click Task Scheduler Library.
-11. In the Actions pane, click Create Basic Task.
-12. In the wizard, enter the name: Clean Application Temp Files, then click Next.
-13. On the Task Trigger screen, select Weekly, then click Next.
-14. On the Weekly screen, set the start time to 11:00:00 PM.
-15. Select Sunday, then click Next.
-16. On the Action screen, select Start a program, then click Next.
-17. In the Program/script box, type:
+1. Right-click the Start button and click Computer Management.
+1. In Computer Management, expand Task Scheduler, then click Task Scheduler Library.
+1. In the Actions pane, click Create Basic Task.
+1. In the wizard, enter the name: Clean Application Temp Files, then click Next.
+1. On the Task Trigger screen, select Weekly, then click Next.
+1. On the Weekly screen, set the start time to 11:00:00 PM.
+1. Select Sunday, then click Next.
+1. On the Action screen, select Start a program, then click Next.
+1. In the Program/script box, type:
     - `powershell.exe`
-18. In the Add arguments box, type:
+1. In the Add arguments box, type:
     - `-File C:\Scripts\CleanTemp.ps1`
     - Then click Next.
     - Click Finish.
-19. Review the security options. The task will run only when you are signed in. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
-20. Double-click **Clean Application Temp Files**.
-21. In the Properties dialog, click **Change User or Group**.
-22. In the Select User or Group dialog, type System, click **Check Names**, then click **OK**.
-23. Click OK to close the Properties dialog.
-24. Right-click Clean Application Temp Files and click Run.
-25. Click the History tab and verify that the task ran successfully. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>.
-26. At the PowerShell prompt, type:
+1. In the Action pane, click properties. Review the security options. The task will run only when you are signed in. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
+1. Double-click **Clean Application Temp Files**.
+1. In the Properties dialog, click **Change User or Group**.
+1. In the Select User or Group dialog, type System, click **Check Names**, then click **OK**.
+1. Click OK to close the Properties dialog.
+1. Right-click Clean Application Temp Files and click Run.
+1. Click the History tab and verify that the task ran successfully. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>.
+1. At the PowerShell prompt, type:
     - `Get-ChildItem C:\AppTemp`
     - Press Enter. No output should appear, confirming the file was deleted.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark>
-27. Close all open windows.
+1. Close all open windows.
