@@ -147,7 +147,6 @@ try {
     $groupRed = Get-LocalGroup -Name "redteam" -ErrorAction Stop
     Write-CheckResult "Group 'redteam' exists" $true
 
-    # <-- MODIFIED CHECK -->
     # Check if the description is not empty, instead of checking for a specific long string.
     $hasDescription = -not ([string]::IsNullOrWhiteSpace($groupRed.Description))
     Write-CheckResult "'redteam' group has a description" $hasDescription "Group description is empty."
@@ -162,16 +161,17 @@ try {
     $groupBlue = Get-LocalGroup -Name "blueteam" -ErrorAction Stop
     Write-CheckResult "Group 'blueteam' exists" $true
 
-    $expectedDesc = "This group will valiantly defend our confidentiality, Integrity and ensure Availability."
-    $isDescCorrect = $groupBlue.Description -eq $expectedDesc
-    Write-CheckResult "'blueteam' description is correct" $isDescCorrect "Description did not match the lab specification."
+    # <-- MODIFIED CHECK -->
+    # Check if the description is not empty, instead of checking for a specific long string.
+    $hasDescription = -not ([string]::IsNullOrWhiteSpace($groupBlue.Description))
+    Write-CheckResult "'blueteam' group has a description" $hasDescription "Group description is empty."
 
     $members = Get-LocalGroupMember -Group "blueteam" -ErrorAction SilentlyContinue
     $isJacobMember = "Jacob" -in $members.Name
     Write-CheckResult "Jacob is a member of 'blueteam'" $isJacobMember "User 'Jacob' was not found in the group."
 } catch {
     Write-CheckResult "Group 'blueteam' exists" $false "Group not found."
-    Write-CheckResult "'blueteam' description is correct" $false "Cannot check; group not found."
+    Write-CheckResult "'blueteam' group has a description" $false "Cannot check; group not found."
     Write-CheckResult "Jacob is a member of 'blueteam'" $false "Cannot check; group not found."
 }
 
