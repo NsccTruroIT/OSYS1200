@@ -73,7 +73,8 @@ try {
     Write-CheckResult "Group 'TestGroup' exists" $true
 
     $members = Get-LocalGroupMember -Group "TestGroup" -ErrorAction SilentlyContinue
-    $isJacobMember = "Jacob" -in $members.Name
+    # <-- CORRECTED CHECK -->
+    $isJacobMember = "Jacob" -in @($members.Name)
     Write-CheckResult "Jacob is a member of 'TestGroup'" $isJacobMember "User 'Jacob' was not found in the group."
 
 } catch {
@@ -86,7 +87,8 @@ try {
     # This check requires both the user 'Jacob' and the group to exist.
     $null = Get-LocalUser -Name "Jacob" -ErrorAction Stop
     $members = Get-LocalGroupMember -Group "Remote Desktop Users" -ErrorAction Stop
-    $isJacobRdpMember = "Jacob" -in $members.Name
+    # <-- CORRECTED CHECK -->
+    $isJacobRdpMember = "Jacob" -in @($members.Name)
     Write-CheckResult "Jacob is a member of 'Remote Desktop Users'" $isJacobRdpMember "User 'Jacob' was not found in the group."
 } catch {
     Write-CheckResult "Jacob is a member of 'Remote Desktop Users'" $false "Could not perform check. User 'Jacob' or group 'Remote Desktop Users' may not exist."
@@ -98,7 +100,7 @@ try {
 Write-Host "`n## Activity 2 Checks" -ForegroundColor Yellow
 
 # Check for the PowerShell history file from the new step.
-$historyPath = "C:\Users\Student\Documents\ps-history.txt"
+$historyPath = "C:\Users\itstudent\Documents\ps-history.txt"
 $historyFileExists = Test-Path -Path $historyPath -PathType Leaf
 Write-CheckResult "PowerShell history file 'ps-history.txt' exists" $historyFileExists "File not found at '$historyPath'."
 
@@ -160,14 +162,14 @@ try {
 try {
     $groupBlue = Get-LocalGroup -Name "blueteam" -ErrorAction Stop
     Write-CheckResult "Group 'blueteam' exists" $true
-
-    # <-- MODIFIED CHECK -->
+    
     # Check if the description is not empty, instead of checking for a specific long string.
     $hasDescription = -not ([string]::IsNullOrWhiteSpace($groupBlue.Description))
     Write-CheckResult "'blueteam' group has a description" $hasDescription "Group description is empty."
 
     $members = Get-LocalGroupMember -Group "blueteam" -ErrorAction SilentlyContinue
-    $isJacobMember = "Jacob" -in $members.Name
+    # <-- CORRECTED CHECK -->
+    $isJacobMember = "Jacob" -in @($members.Name)
     Write-CheckResult "Jacob is a member of 'blueteam'" $isJacobMember "User 'Jacob' was not found in the group."
 } catch {
     Write-CheckResult "Group 'blueteam' exists" $false "Group not found."
