@@ -73,7 +73,6 @@ try {
     Write-CheckResult "Group 'TestGroup' exists" $true
 
     $members = Get-LocalGroupMember -Group "TestGroup" -ErrorAction SilentlyContinue
-    # <-- CORRECTED CHECK --> Looks for a name ending in '\Jacob'
     $isJacobMember = [bool](@($members.Name) | Where-Object { $_ -like "*\Jacob" })
     Write-CheckResult "Jacob is a member of 'TestGroup'" $isJacobMember "User 'Jacob' was not found in the group."
 
@@ -87,7 +86,6 @@ try {
     # This check requires both the user 'Jacob' and the group to exist.
     $null = Get-LocalUser -Name "Jacob" -ErrorAction Stop
     $members = Get-LocalGroupMember -Group "Remote Desktop Users" -ErrorAction Stop
-    # <-- CORRECTED CHECK --> Looks for a name ending in '\Jacob'
     $isJacobRdpMember = [bool](@($members.Name) | Where-Object { $_ -like "*\Jacob" })
     Write-CheckResult "Jacob is a member of 'Remote Desktop Users'" $isJacobRdpMember "User 'Jacob' was not found in the group."
 } catch {
@@ -100,7 +98,7 @@ try {
 Write-Host "`n## Activity 2 Checks" -ForegroundColor Yellow
 
 # Check for the PowerShell history file from the new step.
-$historyPath = "C:\Users\Student\Documents\ps-history.txt"
+$historyPath = "C:\Users\itstudent\Documents\ps-history.txt"
 $historyFileExists = Test-Path -Path $historyPath -PathType Leaf
 Write-CheckResult "PowerShell history file 'ps-history.txt' exists" $historyFileExists "File not found at '$historyPath'."
 
@@ -108,8 +106,9 @@ Write-CheckResult "PowerShell history file 'ps-history.txt' exists" $historyFile
 ## Activity 3: Profile Management
 #------------------------------------------------------------------------------------
 Write-Host "`n## Activity 3 Checks" -ForegroundColor Yellow
-$publicDesktopPath = "C:\Users\Public\Public Desktop"
-$shortcuts = Get-ChildItem -Path $publicDesktopPath -Filter "*.lnk" -ErrorAction SilentlyContinue
+# <-- CORRECTED CHECK --> Updated to the correct path for the Public Desktop.
+$publicDesktopPath = "C:\Users\Public\Desktop"
+$shortcuts = Get-ChildItem -Path $publicDesktopPath -Filter "*.lnk" -ErrorAction SilentlyContinue -Force
 $shortcutExists = $null -ne $shortcuts -and $shortcuts.Count -gt 0
 Write-CheckResult "A shortcut exists in the Public Desktop folder" $shortcutExists "No shortcut (.lnk) files were found in '$publicDesktopPath'."
 
@@ -168,7 +167,6 @@ try {
     Write-CheckResult "'blueteam' group has a description" $hasDescription "Group description is empty."
 
     $members = Get-LocalGroupMember -Group "blueteam" -ErrorAction SilentlyContinue
-    # <-- CORRECTED CHECK --> Looks for a name ending in '\Jacob'
     $isJacobMember = [bool](@($members.Name) | Where-Object { $_ -like "*\Jacob" })
     Write-CheckResult "Jacob is a member of 'blueteam'" $isJacobMember "User 'Jacob' was not found in the group."
 } catch {
