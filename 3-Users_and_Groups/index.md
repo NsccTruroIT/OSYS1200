@@ -223,7 +223,7 @@ Groups will be used to simplify the assignment of privileges and file system per
 1. Right-click on the **Groups** folder and choose **New Group.**
 1. In the "New Group" dialog box:
     - Enter a "Group Name" of `redteam`
-    - Provide a "Description" for the group like `This group will pose as a threat actor and is authorized to conduct a variety of attacks and exploits targeting hosts on our network.`
+    - Provide a "Description" for the group like `A threat actor cleared for attacks and exploits.`
     - This would be a convenient time to add users to our group, but we’ll do that after it’s created. **Grab a screenshot** instead!
 1. Click **Create** to create the group. Close the Create Group dialogue window.
 1. But wait… If you guessed that we might need another group, you were right!  Leave Computer Management open, and launch Powershell as Administrator. Press **`Win + X`** on your keyboard.
@@ -252,7 +252,7 @@ Get-LocalGroup
 
 ```
 
-> Up for a challenge? Remember we added a description to redteam try using powershell  to add the following description to  blueteam:  `This group will valiantly defend our confidentiality, Integrity and ensure Availability.` **Hint**: use `Set-LocalGroup` and specify the group using the `-Name` option
+> Up for a challenge? Remember we added a description to redteam try using powershell  to add the following description to  blueteam:  `Protects Confidentiality/Integrity/Availability` **Hint**: use `Set-LocalGroup` and specify the group using the `-Name` option
 
 ### Part B - Manage Group Members
 
