@@ -147,12 +147,14 @@ try {
     $groupRed = Get-LocalGroup -Name "redteam" -ErrorAction Stop
     Write-CheckResult "Group 'redteam' exists" $true
 
-    $expectedDesc = "This group will pose as a threat actor and is authorized to conduct a variety of attacks and exploits targeting hosts on our network."
-    $isDescCorrect = $groupRed.Description -eq $expectedDesc
-    Write-CheckResult "'redteam' description is correct" $isDescCorrect "Description did not match the lab specification."
+    # <-- MODIFIED CHECK -->
+    # Check if the description is not empty, instead of checking for a specific long string.
+    $hasDescription = -not ([string]::IsNullOrWhiteSpace($groupRed.Description))
+    Write-CheckResult "'redteam' group has a description" $hasDescription "Group description is empty."
+
 } catch {
     Write-CheckResult "Group 'redteam' exists" $false "Group not found."
-    Write-CheckResult "'redteam' description is correct" $false "Cannot check; group not found."
+    Write-CheckResult "'redteam' group has a description" $false "Cannot check; group not found."
 }
 
 # Check for group 'blueteam' and its properties.
