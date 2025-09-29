@@ -100,7 +100,7 @@ try {
 Write-Host "`n## Activity 2 Checks" -ForegroundColor Yellow
 
 # Check for the PowerShell history file from the new step.
-$historyPath = "C:\Users\itstudent\Documents\ps-history.txt"
+$historyPath = "C:\Users\Student\Documents\ps-history.txt"
 $historyFileExists = Test-Path -Path $historyPath -PathType Leaf
 Write-CheckResult "PowerShell history file 'ps-history.txt' exists" $historyFileExists "File not found at '$historyPath'."
 
