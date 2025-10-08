@@ -146,4 +146,66 @@ Get-Command -Module Storage
 
 10. Close the Windows PowerShell prompt window.
 
+
+## Activity 7: Working with Boot Configuration Data (BCD)
+
+In this activity, you will learn how to use the **bcdedit** command-line tool to view, back up, and modify the Boot Configuration Data (BCD) store. The BCD store contains boot configuration parameters and controls how the operating system is started.
+
+### Part A: Viewing the BCD Store
+
+1.  Open an **elevated Command Prompt**. To do this, right-click on the Command Prompt icon and select "Run as administrator".
+
+2.  To view the current BCD store, type the following command and press **Enter**:
+
+    ```
+    bcdedit /enum
+    ```
+
+3.  Examine the output. You should see at least two main entries: **Windows Boot Manager** and **Windows Boot Loader**.
+
+      * The **Windows Boot Manager** is the master boot loader that is responsible for loading the operating system.
+      * The **Windows Boot Loader** is responsible for loading the Windows operating system kernel and drivers.
+
+4.  Take a screenshot of the output and paste it into your lab document.
+
+### Part B: Backing Up and Restoring the BCD
+
+It is always a good idea to back up the BCD store before making any changes. This way, you can easily restore it if something goes wrong.
+
+1.  To back up the BCD store, type the following command and press **Enter**:
+
+    ```
+    bcdedit /export C:\bcdbackup
+    ```
+
+    This will create a file named `bcdbackup` in the root of your C: drive.
+
+2.  To restore the BCD store from the backup, you would use the following command:
+
+    ```
+    bcdedit /import C:\bcdbackup
+    ```
+
+    ***Note: You do not need to run this command for this lab, but it is good to know how to do it.***
+
+### Part C: Modifying BCD Entries
+
+Now, you will modify a BCD entry to change the description of the boot entry. This is a safe and easily verifiable change.
+
+1.  To change the description of the current boot entry, type the following command and press **Enter**:
+
+    ```
+    bcdedit /set {current} description "My Windows Boot Entry"
+    ```
+
+2.  Now, view the BCD store again to see the change you made:
+
+    ```
+    bcdedit /enum
+    ```
+
+3.  Examine the output and find the `description` line under the **Windows Boot Loader** section. It should now say "My Windows Boot Entry".
+
+4.  Take a screenshot of the output showing the modified entry and paste it into your lab document.
+
 [def]: ./screenshot-view.png
