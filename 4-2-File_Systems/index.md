@@ -34,6 +34,15 @@ Your Virtual Machine has been updated with a few files, folders and NTFS ACL’s
     ```
     
 
+    - To run this script on your system
+        - Save the script to a local file i.e. lab4_setup.ps1
+            `notepad lab4_setup.ps1`
+        - Paste the content above into your file and save it
+        - (If Necessary) Set the Execution Policy
+            `Set-ExecutionPolicy Bypass`
+        - Execute the script
+            `.\lab4_setup.ps1`
+
 ## Activity 1 – What File System?
 
 In class we saw a variety of tools that we can use in Windows to collect information about our storage devices. **Answer the following questions and provide a screenshot of how you found each answer (be adventurous!)**:
