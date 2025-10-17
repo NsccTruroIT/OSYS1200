@@ -3,8 +3,7 @@
 Last Updated: October 17, 2024 8:51 AM
 Created By: Matt Redmond Edit Don Geraghty
 Course: OSYS1200
-Status: Done
-🎓 Courses: Untitled (https://www.notion.so/76cdcec8db164964a1c742a10e9bf222?pvs=21)
+Status: incomplete
 
 ## Activity 1 – Password C0mpl3xity (← so weak)
 
