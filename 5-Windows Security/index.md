@@ -57,7 +57,7 @@ One of the big advantages of your new password manager is the ability to use you
 
 ## Activity 2 – Configure a Local Security Policy
 
-This will likely work best if done on an Azure Labs VM.
+This will likely work best if done on your proxmox VM.
 
 1. Click the Start button, type Local, and then click Local Security Policy.
 2. Right click on **Security Settings** and choose **Export policy…**
