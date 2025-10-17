@@ -57,7 +57,7 @@ One of the big advantages of your new password manager is the ability to use you
 
 ## Activity 2 - Trusted Applications
 1. Download this file:
-     [PowerToys](PowerToysUserSetup-0.95.0-x64.exe)
+     [PowerToys](https://github.com/microsoft/PowerToys/releases/download/v0.95.0/PowerToysUserSetup-0.95.0-x64.exe)
 1. **Double click** the download to install.
 1. Accept defaults.
 1. **Wait**... did you just install something you downloaded from a reandom git repo? That's not smart.
