@@ -55,6 +55,32 @@ One of the big advantages of your new password manager is the ability to use you
 - [Desktop App](https://bitwarden.com/help/getting-started-desktop/)
 - Web Interface (logging in via the web)
 
+## Activity 2 - Trusted Applications
+1. Download this file:
+     [PowerToys](PowerToysUserSetup-0.95.0-x64.exe)
+1. **Double click** the download to install.
+1. Accept defaults.
+1. **Wait**... did you just install something you downloaded from a reandom git repo? That's not smart.
+1. It's a little later now, but we should make sure it hasn't been tampered with. SHA hashing provides a solution. Software vendors usually provide the original SHA Hashes so you can confirm your's matches their original. This one should be:
+
+    `F2B57F03575591591192DC486162F5FA113079F515A48E9ED6B3E2ABE0FE81E3`
+1. Check your downloaded file by opening **Powershell** and navigating to your downloads folder (or wherever you save the file above):
+
+   `cd ~/Downloads`
+1. Now generate an SHA 256 hash from the file:
+
+   `Get-FileHash PowerToysUserSetup-0.95.0-x64.exe -Algorithm SHA256`
+
+1. Does the output match? If it does, you're file is that same as the one the vendor provided. Phew. 
+1. But, what if we did tamper with it? Let's inject some malicious text!
+
+    `Add-Content -Path ".\PowerToysUserSetup-0.95.0-x64.exe" -Value "rm / -rf"`
+1. Now let's generate an SHA 256 hash from the file again:
+
+   `Get-FileHash PowerToysUserSetup-0.95.0-x64.exe -Algorithm SHA256`
+
+1. Ahah! This has does not match the hash provided by the vendor! Even the slightest modification to the source file will result in a significantly different Hash.
+
 ## Activity 2 – Configure a Local Security Policy
 
 This will likely work best if done on your proxmox VM.
