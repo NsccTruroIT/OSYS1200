@@ -81,6 +81,8 @@ One of the big advantages of your new password manager is the ability to use you
 
 1. Ahah! This has does not match the hash provided by the vendor! Even the slightest modification to the source file will result in a significantly different Hash.
 
+### Since you already installed it.... Check out Powertoys! Thank me later!
+
 ## Activity 2 – Configure a Local Security Policy
 
 This will likely work best if done on your proxmox VM.
