@@ -1,6 +1,6 @@
 # OSYS1200 Lab 5
 
-Last Updated: October 17, 2024 8:51 AM
+Last Updated: October 19, 2024 8:51 AM
 Created By: Matt Redmond Edit Don Geraghty
 Course: OSYS1200
 Status: incomplete
@@ -83,14 +83,14 @@ One of the big advantages of your new password manager is the ability to use you
 
 ### Since you already installed it.... Check out Powertoys! Thank me later!
 
-## Activity 2 – Configure a Local Security Policy
+## Activity 3 – Configure a Local Security Policy
 
 This will likely work best if done on your proxmox VM.
 
 1. Click the Start button, type Local, and then click Local Security Policy.
 2. Right click on **Security Settings** and choose **Export policy…**
 
-![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%201.png)
+    ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%201.png)
 
 1. Click **Desktop** to select the location and in the **File name** box enter `secpolBackup.inf` and click **save**.
 2. In the Local Security Policy window, in the left pane, expand **Account Policies**, and then click **Password Policies**.
@@ -106,7 +106,7 @@ This will likely work best if done on your proxmox VM.
 12. **Document the steps to use the** **secpolBackup.inf we create in step one to revert your changes.** 
 13. Leave **Local Security Policy** open for the next activity.
 
-## Activity 3 – Auditing
+## Activity 4 – Auditing
 
 - Without auditing, you’re working in the dark (with the lights out, and no back-lit keyboard, um and no display, errr you get what I’m trying to say).
     1. Right-click the **Start** button and then click **Windows PowerShell (Admin)**.
@@ -144,7 +144,7 @@ This will likely work best if done on your proxmox VM.
     21. Starting with the first event, read the Account Name identified in the event. Continue down until the Account Name referenced is **itstudent**. Read the description of the event. The description indicates that a file was written by itstudent, the file opened was Audit.txt; and the program used to write the file was notepad.exe. **Grab a Screenshot!**
     22. Close the Computer Management window.
 
-## Activity 4 – Defender!
+## Activity 5 – Defender!
 
 DESCRIPTION: Windows Defender Antivirus is used to prevent malware installation and remove malware. You can test the functionality of anti-malware software by using the EICAR anti-malware test file. The test file has a specific text string that all anti-malware software detects but poses no risk of a malware infection. In this activity, you test real-time scanning and on-demand scanning.
 
@@ -156,7 +156,7 @@ DESCRIPTION: Windows Defender Antivirus is used to prevent malware installation 
 6. Click on the **three dots** in the upper right corner and click **settings** and type `smart` in the search box.
 7. Find “Microsoft Defender Smart Screen” and toggle it **off**.
 
-![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%203.png)
+    ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%203.png)
 
 1. Click **eicar_com.zip** again to download the file. Still blocked?
 2. Leave the Microsoft Edge window open for later in this activity.
@@ -184,7 +184,7 @@ DESCRIPTION: Windows Defender Antivirus is used to prevent malware installation 
 24. At the Windows PowerShell prompt, type Get-MpComputerStatus and then press Enter. Read the status information. **Grab a screenshot!**
 25. Close the Windows PowerShell window.
 
-## Activity 5 - Advanced Threat Protection 😲
+## Activity 6 - Advanced Threat Protection 😲
 
 Sounds scary, but this is a great opportunity to explore a variety of best practices for mitigating threats. Most of these have already been implemented by Windows or Edge.
 
