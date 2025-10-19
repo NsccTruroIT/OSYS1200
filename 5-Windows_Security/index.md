@@ -109,43 +109,43 @@ This will likely work best if done on your proxmox VM.
 ## Activity 4 – Auditing
 
 - Without auditing, you’re working in the dark (with the lights out, and no back-lit keyboard, um and no display, errr you get what I’m trying to say).
-    1. Open **Windows PowerShell (Admin)**.
-    2. In the User Account Control dialog box, click **Yes**.
-    3. At the Windows PowerShell prompt, type `auditpol /get /category:*` and then press Enter. This displays a list of all the advanced audit policy settings and their configurations.
-    4. Read the list of policy settings that are enabled. **Grab a screenshot!**  (don’t worry if you can’t see them all.) This is the default configuration for Windows 10. Notice that below Object Access, File System auditing is not enabled. After you enable policy settings in the local security policy, these settings are removed, and only the settings explicitly applied in the policy are effective.
-    5. Close the Windows PowerShell prompt window.
-    6. If needed, click the **Start** button, type **local**, and then click **Local Security Policy**.
-    7. In the left pane, expand **Local Policies** and then click **Audit Policy**. Review the list of categories for basic auditing and notice that none is enabled in the local security policy.
-    8. In the left pane, expand **Advanced Audit Policy Configuration**, expand **System Audit Policies - Local Group Policy Object**, and then click Object Access.
+1. Open **Windows PowerShell (Admin)**.
+2. In the User Account Control dialog box, click **Yes**.
+3. At the Windows PowerShell prompt, type `auditpol /get /category:*` and then press Enter. This displays a list of all the advanced audit policy settings and their configurations.
+4. Read the list of policy settings that are enabled. **Grab a screenshot!**  (don’t worry if you can’t see them all.) This is the default configuration for Windows 10. Notice that below Object Access, File System auditing is not enabled. After you enable policy settings in the local security policy, these settings are removed, and only the settings explicitly applied in the policy are effective.
+5. Close the Windows PowerShell prompt window.
+6. If needed, click the **Start** button, type **local**, and then click **Local Security Policy**.
+7. In the left pane, expand **Local Policies** and then click **Audit Policy**. Review the list of categories for basic auditing and notice that none is enabled in the local security policy.
+8. In the left pane, expand **Advanced Audit Policy Configuration**, expand **System Audit Policies - Local Group Policy Object**, and then click Object Access.
         
-        ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%202.png)
+     ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%202.png)
         
     
-    1. Double-click **Audit File System**. This option enables auditing for file access.
-    2. In the Audit File System Properties dialog box, select the **Configure the following audit events** check box and then select the **Success and Failure** check boxes.
-    3. Click the **Explain tab**, read the explanation, and then click OK. The system is now able to track successful file access when users have permission to access a file and unsuccessful file access when users do not have permission to access a file; however, auditing must still be enabled for the individual files. **Take a Screenshot**
-    4. Close Local Security Policy, and close all open windows.
-    5. On the **taskbar**, click **File Explorer** and then click **Documents**.
-    6. Right-click an open area in the **Name column**, point to **New**, and then click **Text Document**.
-    7. Type `Audit` and then press **Enter**.
-    8. Right-click **Audit**, click **Properties**, and then click the **Security tab**.
-    9. In the Audit Properties dialog box, click **Advanced** and then click the **Auditing tab**. Notice that no auditing is configured by default.
-    10. You may need to click on Continue to get admin access. Click **Add**, click Select a **principal**, type `Everyone`, click **Check Names**, and then click **OK**. This configures auditing to track access by all users. You can limit auditing to certain users or groups. 
-    11. In the **Drop Down** box, select **All**. This configures auditing of successful and failed access.
-    12. Below Basic permissions, select the **Full control** check box. This configures auditing to track all changes to the file.
-    13. **Grab a screenshot** and then click **OK** three times to close all open dialog boxes.
-    14. Double-click **Audit** to open the file and then **add some content** to the file. Press **CTRL+s** to save.
-    15. Close the File Explorer window.
-    16. Right-click the Start button and then click Computer Management.
-    17. In the left pane, expand **Event Viewer,** expand **Windows Logs**, and then click **Security**. This displays all the events in the security log.
-    18. Right-click **Security** and then click **Filter Current Log**.
-    19. In the **Event sources box**, select **Microsoft Windows security auditing**.
-    20. In the **<All Event IDs>** box, type `4663` and then click **OK**. Notice that multiple events are listed. These events were generated by editing the file.
+1. Double-click **Audit File System**. This option enables auditing for file access.
+2. In the Audit File System Properties dialog box, select the **Configure the following audit events** check box and then select the **Success and Failure** check boxes.
+3. Click the **Explain tab**, read the explanation, and then click OK. The system is now able to track successful file access when users have permission to access a file and unsuccessful file access when users do not have permission to access a file; however, auditing must still be enabled for the individual files. **Take a Screenshot**
+4. Close Local Security Policy, and close all open windows.
+5. On the **taskbar**, click **File Explorer** and then click **Documents**.
+6. Right-click an open area in the **Name column**, point to **New**, and then click **Text Document**.
+7. Type `Audit` and then press **Enter**.
+8. Right-click **Audit**, click **Properties**, and then click the **Security tab**.
+9. In the Audit Properties dialog box, click **Advanced** and then click the **Auditing tab**. Notice that no auditing is configured by default.
+10. You may need to click on Continue to get admin access. Click **Add**, click Select a **principal**, type `Everyone`, click **Check Names**, and then click **OK**. This configures auditing to track access by all users. You can limit auditing to certain users or groups. 
+11. In the **Drop Down** box, select **All**. This configures auditing of successful and failed access.
+12. Below Basic permissions, select the **Full control** check box. This configures auditing to track all changes to the file.
+13. **Grab a screenshot** and then click **OK** three times to close all open dialog boxes.
+14. Double-click **Audit** to open the file and then **add some content** to the file. Press **CTRL+s** to save.
+15. Close the File Explorer window.
+16. Right-click the Start button and then click Computer Management.
+17. In the left pane, expand **Event Viewer,** expand **Windows Logs**, and then click **Security**. This displays all the events in the security log.
+18. Right-click **Security** and then click **Filter Current Log**.
+19. In the **Event sources box**, select **Microsoft Windows security auditing**.
+20. In the **<All Event IDs>** box, type `4663` and then click **OK**. Notice that multiple events are listed. These events were generated by editing the file.
 
-        ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%207.png)
+    ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%207.png)
 
-    21. Starting with the first event, read the Account Name identified in the event. Continue down until the Account Name referenced is **itstudent**. Read the description of the event. The description indicates that a file was written by itstudent, the file opened was Audit.txt; and the program used to write the file was notepad.exe. **Grab a Screenshot!**
-    22. Close the Computer Management window.
+21. Starting with the first event, read the Account Name identified in the event. Continue down until the Account Name referenced is **itstudent**. Read the description of the event. The description indicates that a file was written by itstudent, the file opened was Audit.txt; and the program used to write the file was notepad.exe. **Grab a Screenshot!**
+22. Close the Computer Management window.
 
 ## Activity 5 – Defender!
 
