@@ -193,27 +193,39 @@ Sounds scary, but this is a great opportunity to explore a variety of best pract
 
 Check out the [Defender ATP](https://demo.wd.microsoft.com/?ocid=cx-wddocs-testground) features.. these are pretty easy to explore by downloading a variety of files. Complete each of the following and **document the results**:
 
-1. [URL Reputation](https://demo.wd.microsoft.com/Page/UrlRep)
+1. [URL Reputation](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-smartscreen-url-reputation)
     1. Expected Results: each page will trigger some type of warning or block content.
-2. [Cloud Delivered Protection](https://demo.wd.microsoft.com/Page/CloudBlock)
+    2. **Screenshot and document the results**
+2. [Cloud Delivered Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-cloud-delivered-protection)
     1. Expected Result: Download is Blocked
+    2. **Screenshot and document the results**
 3. [Block at First Sight (sign in with NSCC account)](https://demo.wd.microsoft.com/Page/BAFS)
     1. Expected Results: Warning message and options to delete, keep, report… etc.
-4. [Potentially Unwanted Apps](https://demo.wd.microsoft.com/Page/PUA)
+    2. Link to Upadted BAFS information: [block at first sight](https://learn.microsoft.com/en-us/defender-endpoint/configure-block-at-first-sight-microsoft-defender-antivirus?ocid=wd-av-demo-fl-bottom)
+    2. **Screenshot and document the results**
+4. [Potentially Unwanted Apps](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-potentially-unwanted-applications)
     1. Expected Results: Different warning message and options to delete, keep, report… etc.
-5. [Controlled Folder Access](https://demo.wd.microsoft.com/Page/CFA)
+    2. **Screenshot and document the results**
+5. [Controlled Folder Access](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-controlled-folder-access)
     - Expected Result (Scenario 1):
+    About five seconds after executing the ransomware test file, you should see a notification that CFA blocked the encryption attempt
         
         ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%204.png)
         
-    - Expected Result (Scenerio 2):
+    - Expected Result (Scenerio 2): The files in c:\demo are encrypted and you should get a warning message.
+Execute the ransomware test file again to decrypt the files
         
         ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%205.png)
         
     
-    ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%206.png)
+        ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%206.png)
+
+         **Screenshot and document the results**
     
-6. [Network Protection](https://demo.wd.microsoft.com/Page/NP)
-    1. Expected Result: Test with Chrome - Page does not  load and notification “Blocked as Malicious”
-7. [Exploit Protection](https://demo.wd.microsoft.com/Page/EP) (Optional)
-8. [Attack Surface Reduction](https://demo.wd.microsoft.com/Page/ASR) (Optional - but don’t be scared!)
+6. [Network Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-network-protection)
+    1. Expected Result: Navigation to the website should be blocked and you should see a Connection blocked notification.
+    2. **Screenshot and document the results**
+7. [Exploit Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-exploit-protection) (Optional)
+    **Screenshot and document the results**
+8. [Attack Surface Reduction](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-attack-surface-reduction-rules) (Optional - but don’t be scared!)
+    **Screenshot and document the results**
