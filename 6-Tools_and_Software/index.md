@@ -248,26 +248,39 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 
 ## Activity 6 – MSI App Install
 
-1. On the taskbar, click **Microsoft Edge**. In Microsoft Edge, in the address bar, type `https://www.7-zip.org/download.html` and then press Enter.
-2. On the Download page, in the first table, in the row with Type of .msi and Windows 64-bit x64, click Download and then click Save.
-3. When the download is complete, click **Open folder**.
-4. In the File Explorer window, double-click the file you downloaded. This starts an installation with the standard user interface.
-5. Click Cancel to stop the installation, click **Yes** to confirm, and then click **Finish**.
-6. Close the File Explorer window.
-7. Click the Start button, type `cmd`, and then click **Run as administrator** below Command Prompt. It is preferable to use a command prompt for this task because the syntax is not interpreted properly by a Windows PowerShell prompt.
-8. In the User Account Control dialog box, click Yes.
-9. At the command prompt, to change to the downloads folder, type `cd \users\user1\downloads` and then press Enter. If necessary, substitute user1 with the name of your user account.
-10. To view the MSI files in the current directory, type `dir *.msi` and then press Enter. Verify that the file you just downloaded is listed.
-11. To view the options for misexec.exe, type `msiexec.exe /?` and then press Enter.
-12. In the Windows Installer dialog box, scroll down, read the available options, and then click OK.
-13. At the command prompt, to install 7-Zip silently, type `msiexec.exe /i 7z1900-x64.msi INSTALLDIR="C:\Program Files\7-Zip" /quiet` and then press Enter. The INSTALLDIR variable could also be set by using a transform file. If necessary, substitute 7z1900-x64.msi with the name of the file you downloaded. **Screenshot it!**
-14. Click the Start button and then click Settings.
-15. In the Settings window, click Apps and then verify that 7-Zip is in the list of installed apps.
+1.  On the taskbar, click **Microsoft Edge**. In Microsoft Edge, in the address bar, type `https://www.7-zip.org/download.html` and then press Enter.
+2.  On the Download page, find the download link for the **64-bit x64** version that has **.msi** in the "Type" column. Click **Download**.
+3.  When the download is complete, click the **"Open folder"** icon in your browser's download pop-up.
+4.  In the File Explorer window, double-click the file you downloaded. This starts an installation with the standard user interface.
+5.  Click **Cancel** to stop the installation, click **Yes** to confirm, and then click **Finish**.
+6.  Close the File Explorer window.
+7.  Click the Start button, type `cmd`, and then click **Run as administrator** below Command Prompt.
+    * *(Note: It is preferable to use a command prompt for this task because the syntax for `msiexec` is not always interpreted properly by a Windows PowerShell prompt.)*
+8.  In the User Account Control dialog box, click **Yes**.
+9.  At the command prompt, type the following command and press **Enter**. This command uses a system variable (`%USERPROFILE%`) to navigate directly to your personal Downloads folder, no matter what your username is:
+    `cd %USERPROFILE%\Downloads`
+10. To view the MSI files in the current directory, type `dir *.msi` and then press Enter. **Verify that the 7-Zip file you just downloaded is listed.** Make a note of its exact filename.
+11. To view the options for `msiexec.exe`, type `msiexec.exe /?` and then press Enter.
+12. In the Windows Installer dialog box, scroll down, read the available options, and then click **OK**.
+13. At the command prompt, to install 7-Zip silently, type the command below and press Enter.
+    * **Important:** Replace `<filename.msi>` with the *actual* filename you saw in Step 10 (e.g., `7z2407-x64.msi`).
+    * **Hint:** Type `msiexec.exe /i 7z` and then press the **Tab** key to autocomplete the name.
+    
+    `msiexec.exe /i <filename.msi> /quiet`
+    
+    **Grab a screenshot!**
+14. Click the Start button and then click **Settings**.
+15. In the Settings window, click **Apps** from the left menu, then click **Apps & features**. Verify that **7-Zip** is in the list of installed apps.
 16. Close the Settings window.
-17. At the command prompt, to remove 7-zip silently, type `msiexec.exe /x 7z1900-x64.msi /quiet` and then press Enter. If necessary, substitute 7z1900-x64.msi with the name of the file you downloaded (remember tab will autocomplete!). **Screenshot it!**
-18. Click the Start button and then click Settings.
-19. In the Settings window, click Apps and then verify that 7-Zip is not in the list of installed apps. **Screenshot it!**
+17. At the command prompt, to remove 7-Zip silently, type the command below and press Enter. (Again, use the **Tab** key to autocomplete the filename).
+    
+    `msiexec.exe /x <filename.msi> /quiet`
+    
+    **Grab a screenshot!**
+18. Click the Start button and then click **Settings**.
+19. In the Settings window, click **Apps** $\rightarrow$ **Apps & features** and verify that 7-Zip is not in the list of installed apps. **Grab a screenshot!**
 20. Close all open windows.
+
 
 ## Activity 7 – UWP Apps
 
