@@ -55,131 +55,129 @@ If necessary, start your computer and sign in.
 17. In the Indexing Options dialog box, click **Close**.
 18. On the taskbar, click the **Search** icon again. Type `Kangaroo` and click the **Documents** filter at the top. This time, the search should find your SearchFile.txt file. Grab a **screenshot** of the search result.
 
-## Activity 2 – One Drive
+
+
+## Activity 2 – OneDrive
 
 ### Part A – Sharing Files
 
-Find a partner to explore file shares with (or share with me!). For this activity,  you can use either the local OneDrive Client or OnDrive Online, although you may find some features are only available online.  **Create the following shared folders and screenshot the configuration of each:**
+Find a partner to explore file shares with (or share with me!). For this activity, you can use either the local OneDrive Client or **OneDrive** Online, although you may find some features are only available online.
 
-1. Folder named “Group Work” – grant Direct Access
-2. File named “Secret Stuff” – this should be read-only!
-3. Folder named “Sharing is Caring” – Provide a link that can be used by external users with full access for one month.
+Create the following shared items and **grab a screenshot** of the share configuration for each before you click "Apply" or "Send."
 
-Now that you have set up your shares… Is there a way to view anything that has been shared by you? But who has accessed the share? **List the steps to view.**
+1.  **Folder named "Group Work":** Share this **directly with a specific person** (your partner or me) using their name or email address. Grant them **"Can edit"** permissions.
+2.  **File named "Secret Stuff":** Share this by creating a link. In the link settings, make sure to set the permission to **"Can view" (read-only)**.
+3.  **Folder named "Sharing is Caring":** Share this using an **"Anyone with the link"** option. Grant **"Can edit"** access and set the link to **expire in one month**.
 
-Is there a way to view that information? **List the steps to create a sharing Report.**
+### Part B – Managing Your Shares
 
-## Activity 3 – Printing
+Now that you have set up your shares, answer the following questions.
 
-### Part A – Stage a Driver
+1.  Is there a way to view a single list of all the files and folders you are currently sharing with others? (Hint: This is much easier to find on OneDrive Online than in the local client).
+    * **List the steps** to find the **"Shared by you"** list.
+    * **Grab a screenshot** of this "Shared by you" view.
 
-1. On the taskbar, click Microsoft Edge.
-2. In the Search or enter web address box, type [`support.hp.com`](https://support.hp.com/ca-en) and then press Enter.
-3. Click Software and Drivers and then click Printer.
-4. On the Identify your printer screen, in the Enter your product name box, type `hp universal print driver` and then click HP Universal Print Driver Series for Windows.
-5. In the search area, click **Search all support** and then select **Software, Drivers, and Updates**.
+2.  From that list, find your **"Secret Stuff"** file. How can you check *who* it is shared with and, more importantly, how would you **stop sharing** that file?
+    * **List the steps** to go to **"Manage access"** for the file and remove the sharing link.
+    * **Grab a screenshot** of the "Manage access" panel for that file.
 
-<aside>
-🔥 If you get lost, you can try [this direct link](https://support.hp.com/ca-en/drivers/hp-universal-print-driver-series-for-windows/503548), but there is a chance this could change.
+## Activity 3 – What's New in Windows 11 25H2?
 
-</aside>
+### Introduction
 
-1. Expand **Driver** – **Universal Print Driver (3)**, and for HP Universal Print Driver for Windows PCL6 (64-bit), click **Download** and then click **Save**
+As IT professionals, one of our most important skills is staying current. Operating systems are constantly evolving with new features, security patches, and interface changes. Your role will often be to understand these changes and explain them to others.
 
-![Untitled](OSYS1200%20Lab%207%209f7a87b855504dd6b25b5a97f8b2c985/Untitled.png)
+In this activity, you will research the latest major update for Windows 11, **version 25H2**, and compare it to the previous version, **version 24H2**, which you have been using.
 
-1. When the download is complete, close the Microsoft Edge window.
-2. On the taskbar, click **File Explorer** and then click **Downloads**.
-3. Double-click the file you just downloaded.
-4. In the WinZip Self-Extractor window, in the Unzip to folder box, type `C:\HPDriver`, deselect the **When done unzipping open: .\install.exe** check box, and then click **Unzip**.
-5. Click **OK** and then close all open windows.
-6. Right-click the Start button, click **Windows PowerShell (Admin)**, and then click **Yes**.
-7. Type `pnputil /?` and then press Enter. This command displays the list of available options for pnputil.exe.
-8. Type `pnputil /enum-drivers` and then press Enter. This command displays the list of third-party driver packages that have been installed. The HP Universal Print Driver package is not listed.
-9. Type `dir C:\HPDriver\*.inf` and then press Enter. This command displays all INF files in the HPDriver directory.
-    
-    <aside>
-    🚧 The next command installs the printer driver package into the printer driver store. If the command prompt is not running as an administrator, this command fails. Pay attention to the filename. This file might not be available in your downloaded version of the driver. If this file is not available, select the verions of the .inf file you downloaded.
-    
-    </aside>
-    
-10. Type `pnputil /add-driver C:\HPDriver\hpcuXXXu.inf`  (remember to use TAB to autocomplete the path) and then press Enter. **Grab a screenshot!** 
-11. After the package is added, type `pnputil /enum-drivers` and then press Enter. Notice that the driver is now listed and named oemx.inf, where x is a number. **Grab a screenshot!** The .inf file for each driver is renamed when it is added to the driver store. This guarantees that all .inf files have a unique name.
-12. Close all open windows.
+### Part A: Initial Research & Key Features
 
-### Part B – Install a Printer
+Using official Microsoft blogs, reputable tech news sites (like The Verge, How-To Geek, Windows Central), or other professional sources, research the main changes introduced in the **25H2** update.
 
-1. Click the **Start** button and then click Settings.
-2. In the **Settings** window, click **Devices** and then click **Printers & scanners**.
-3. Click **Add a printer or scanner**. Windows takes a few minutes to scan the network to attempt to find printers and display any printers that are found.
-4. Click **The printer that I want isn’t listed**.
-5. In the Add Printer dialog box, click **Add a printer using a TCP/IP address or hostname** and then click **Next**.
-6. In the Device type list, select **TCP/IP Device**.
-7. In the Hostname or IP address text box, type `172.16.99.99`. No printer resides at this IP address; it is chosen for the purposes of this activity only to see the interface. **Grab a screenshot.**
-8. Deselect the **Query the printer and automatically select the driver to use** check box and then click **Next**. In most cases, you want to leave this option on. You are deselecting it because this activity simulates the process.
-9. After the TCP/IP port is detected (which might take a few minutes), on the Additional port information required screen, click **Standard** and then click **Next**.
-10. In the Manufacturer area, click **HP**.
-11. In the Printers box, select **HP Universal Printing PCL 6** and then click **Next**.
-12. In the Printer name box, type `HP Printer PCL6` and then click **Next**.
-13. On the Printer Sharing screen, click **Do not share this printer** and then click **Next**. **Grab a screenshot.**
-14. Click Finish.
+In the space below, **list at least five (5) significant new features** or major changes you have found.
 
-### Part C – MMC Snap-in
+1.  **Feature 1:**
+2.  **Feature 2:**
+3.  **Feature 3:**
+4.  **Feature 4:**
+5.  **Feature 5:**
 
-1. Click the Start button, type print, and then click Print Management.
-2. If necessary, in the left pane, expand Custom Filters and then click All Printers. This filter displays all the printers installed on every print server that is being monitored. In this case, only the local printers are displayed because only the local computer is being monitored.
-3. In the left pane, click All Drivers. This filter displays all the printer drivers that are installed on every print server that is being monitored. This allows you to see if different printer driver versions are installed on various print servers.
-4. In the left pane, if necessary, expand Print Servers, expand your computer, and then click Drivers. This node displays only the printer drivers that are installed on your computer.
-5. In the left pane, click Forms. This node displays the forms that are configured on your computer. Forms are the paper sizes the printer is configured to use. You can add, edit, or delete forms by right-clicking the Forms node and then clicking Manage Forms.
-6. In the left pane, click Ports. This node displays all the ports configured on your computer that can be used for printing. You can add additional ports or manage existing ports from here.
-7. In the left pane, click Printers. This node displays all of the printers that are installed on your computer. You can manage the printers from here and install new printers.
-8. In the left pane, right-click Printers and then click Add Printer.
-9. Click Add a new printer using an existing port, if necessary, select LPT1: (Printer Port), and then click Next.
-    
-    <aside>
-    🚧  After printer installation, this printer will generate an error message when you attempt to print because no printer is physically attached to your computer on LPT1.
-    
-    </aside>
-    
-10. Click Use an existing printer driver on the computer, if necessary, click HP Universal Printing PCL6, and then click Next.
-11. In the Printer Name box, type Local.
-12. Leave the option Share this printer checked, type Local in the Share Name box, **Grab a screenshot!** and then click Next.
-13. On the Printer Found screen, click Next.
-14. When the printer installation is finished, click Finish.
-15. In the left pane, click Printers. The new printer named Local is installed here now.
-16. Right-click Local and then click Pause Printing.
-17. Right-click Local and then click Print Test Page.
-18. In the Local dialog box, click Close.
-19. In the left pane, click Printers With Jobs. Notice that this screen now displays the printer Local because a job is in the queue. **Grab a screenshot!**
-20. Close all open windows.
+### Part B: Feature Deep Dive & Screenshots
 
-### Part D – Manage Print Jobs
+From your list in Part A, choose the **three (3) features** you believe are the most important or interesting for an end-user.
 
-1. Click the Start button and then click Settings.
-2. Click Devices, click Printers & scanners, and then click your local printer. Note that the Printer is paused.
-3. Click Open queue. Notice that a Test Page job exists from Part B. **Grab a Screenshot.**
-4. Right-click Test Page and then click Pause. Notice that the status of the job changes to Paused.
-5. Right-click Test Page and then click Resume.
-6. Right-click Test Page and then click Properties.
-7. Click the General tab. You can modify the priority and schedule of the job here.
-8. Click OK to close the Test Page Document Properties dialog box.
-9. Right-click Test Page and then click Cancel.
-10. When prompted, click Yes to confirm canceling the job.
-11. Close all open windows.
+For each of your chosen three, find an article, blog post, or video that clearly demonstrates the change. **Grab a screenshot** of this new feature in action.
+
+Below each screenshot, **write a brief description (in your own words)** explaining what the feature does and how it is different from the way things worked in version 24H2.
+
+---
+
+#### Feature 1: [Enter Feature Name Here]
+
+[**Insert Screenshot Here**]
+
+**My Description:**
+*(Write your 2-3 sentence description here...)*
+
+---
+
+#### Feature 2: [Enter Feature Name Here]
+
+[**Insert Screenshot Here**]
+
+**My Description:**
+*(Write your 2-3 sentence description here...)*
+
+---
+
+#### Feature 3: [Enter Feature Name Here]
+
+[**Insert Screenshot Here**]
+
+**My Description:**
+*(Write your 2-3 sentence description here...)*
+
+---
+
+### Part C: Summary of Differences
+
+In your own words (in a short paragraph or 2-3 bullet points), **summarize the main *theme* of the 25H2 update.**
+
+For example, based on your research, was the primary focus on new AI integrations, security enhancements, user interface (UI) and design changes, or something else?
+
+**My Summary:**
+*(Write your summary here...)*
+
+### Part D – AI Tool Disclosure
+
+**Important:** If you used an AI assistant (like Gemini, ChatGPT, Copilot, etc.) to help you brainstorm, research, or summarize information for this activity, you **must** disclose it here.
+
+Using these tools is permitted, but as a future IT professional, you are responsible for validating the accuracy of the information they provide.
+
+**Task:** If you used an AI tool, list which tool(s) you used. Then, in 1-2 sentences, explain what you learned from the AI and how you verified that its information was correct.
+
+*(Write your AI disclosure here. If you did not use an AI, simply write "No AI tools were used.")*
 
 ## Activity 4 – PowerToys
 
 ### Part A - Install
 
-We looked at Microsofts PowerToys in class. This suite of tools is more of an Administrators productivity tool. There are numerous installation methods available, but the most exciting is via the new package manager winget!
+This suite of tools is more of an Administrator's productivity tool. There are numerous installation methods available, but the most exciting is via the new package manager `winget`!
 
-1. Run Powershell as Administrator
-2. Enter `winget install Microsoft.PowerToys --source winget`
-3. Wow… the game has changed. **Grab a screenshot!**
+1.  Click the **Start** button, type `PowerShell`.
+2.  In the search results, right-click on **Windows PowerShell** and select **Run as administrator**. Click **Yes** at the security prompt.
+3.  At the PowerShell prompt, type the following command and press **Enter**:
+    `winget install Microsoft.PowerToys --source winget`
+4.  **Important:** The `winget` tool will run and then ask you to agree to the terms for the package. Type **`Y`** and press **Enter** to approve the installation.
+5.  The installation will complete on its own. Wow… the game has changed. **Grab a screenshot** showing the successful installation in your PowerShell window!
 
 ### Part B – Demo
 
-Explore the tools and **choose one** that interests you. Demonstrate the capability of this tool and **grab a screenshot** for your lab.
+1.  Once installed, PowerToys will be running. Find its icon in the **System Tray** (in the bottom-right corner of your taskbar, near the clock) and **double-click it** to open the **PowerToys Settings** window.
+2.  Explore the different tools listed in the settings panel and **choose one (1)** that interests you.
+    * *A few popular suggestions:* **FancyZones** (for creating custom window layouts), **PowerRename** (for renaming many files at once), **Color Picker** (for finding the color code for anything on your screen), or **Text Extractor** (for copying text from an image or video).
+3.  In your lab document, **write the name** of the tool you chose.
+4.  **In your own words (2-3 sentences)**, explain what this tool does and how it could be useful for you as a student or future IT professional.
+5.  **Grab a screenshot** that demonstrates this tool in action. (For example, show a FancyZone layout, the Color Picker pop-up, or the Text Extractor highlighting text on an image).
 
 ## Activity 5 – Regedit
 
