@@ -183,66 +183,67 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 
 ### Part A – View and Change
 
-1. Click the Start button, type services, and then click Services.
-2. Scroll down and then double-click the Print Spooler service.
-3. In the Print Spooler Properties (Local Computer) dialog box, read the information for the service and then click Cancel. Notice that the Startup type is Automatic. **Grab a screenshot.**
-4. Click the Start button, type `regedit`, and then click Registry Editor
-5. In the User Account Control dialog box, click Yes.
-6. In the Registry Editor, navigate to **HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler**.
-7. Right-click Spooler and then click Export.
-8. In the Export Registry File window, click This PC and then double-click Local Disk (C:).
-9. In the File name box, type `SpoolerBak` and then click Save.
-10. In the Registry Editor, double-click Start.
-11. In the Edit DWORD (32-bit) Value dialog box, in the Value data box, type 4, **Grab a screenshot** and then click OK.
-12. In the Services window, press F5 to refresh the view, verify that the value in the Startup Type column for the Print Spooler service is now Disabled, **grab a screenshot** and then close the Services window.
-13. In the Registry Editor, collapse all the hives so that no keys are visible and then close the Registry Editor window.
+1.  Click the Start button, type `services`, and then click **Services**.
+2.  Scroll down and then double-click the **Print Spooler** service.
+3.  In the Print Spooler Properties (Local Computer) dialog box, read the information for the service and then click **Cancel**. Notice that the Startup type is **Automatic**. **Grab a screenshot.**
+4.  Click the Start button, type `regedit`, and then click **Registry Editor**.
+5.  In the User Account Control dialog box, click **Yes**.
+6.  In the Registry Editor, navigate to **HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler**.
+    * **Pro-Tip:** Instead of clicking to expand each key, you can **copy the path above** and paste it directly into the **address bar** at the top of the Registry Editor, then press Enter.
+7.  Right-click **Spooler** and then click **Export**.
+8.  In the Export Registry File window, click **This PC** and then double-click **Local Disk (C:)**.
+9.  In the File name box, type `SpoolerBak` and then click **Save**. (This creates `SpoolerBak.reg`).
+10. In the Registry Editor, in the right-hand pane, double-click **Start**.
+11. In the Edit DWORD (32-bit) Value dialog box, in the Value data box, type `4`, **Grab a screenshot** and then click **OK**. (A value of `4` means "Disabled").
+12. In the **Services** window, press **F5** to refresh the view. Verify that the value in the Startup Type column for the Print Spooler service is now **Disabled**. **Grab a screenshot** and then close the Services window.
+13. In the Registry Editor, collapse all the "hives" (the main root folders like HKEY_LOCAL_MACHINE) so that no keys are visible and then close the Registry Editor window.
 
 ### Part B – Restore a Backup
 
-1. On the taskbar, click File Explorer, navigate to C:\, and then double-click **SpoolerBak**.
-2. In the User Account Control dialog box, click Yes. Notice that the Registry Editor is being started.
-3. In the Registry Editor window, click Yes to continue.
-4. Click OK to acknowledge the successful import and then close the File Explorer window.
-5. Click the Start button, type regedit, and then click Registry Editor.
-6. In the User Account Control dialog box, click Yes.
-7. In the Registry Editor, expand HKEY_LOCAL_MACHINE and then click SYSTEM.
-8. Click Edit on the menu bar and then click Find.
-9. In the Find dialog box, in the Find what box, type spooler.
-10. In the Look at area, deselect all check boxes except Keys and then click Find Next.
-11. Keep pressing F3 to Find Next until the Print Spooler service identified in the previous activity is located. This will take about 5–10 presses, but review the information that is found along the way.
-12. Read the Start value and verify that it has been set back to 2. **Grab a screenshot.**
-13. Click the Start button, type services, and then click Services.
-14. Scroll down to the Print Spooler service and verify that the Startup Type is Automatic.
+1.  On the taskbar, click **File Explorer**, navigate to **C:\**, and then double-click **SpoolerBak.reg**. (You must double-click the `.reg` file you created).
+2.  In the User Account Control dialog box, click **Yes**.
+3.  In the Registry Editor confirmation window, click **Yes** to continue.
+4.  Click **OK** to acknowledge the successful import and then close the File Explorer window.
+5.  Click the Start button, type `regedit`, and then click **Registry Editor**.
+6.  In the User Account Control dialog box, click **Yes**.
+7.  In the Registry Editor, expand **HKEY_LOCAL_MACHINE** and then click **SYSTEM**.
+8.  Click **Edit** on the menu bar and then click **Find**.
+9.  In the Find dialog box, in the Find what box, type `spooler`.
+10. In the Look at area, deselect all check boxes except **Keys** and then click **Find Next**.
+11. Keep pressing **F3** to Find Next until the Print Spooler service (`HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler`) is located. This will take about 5–10 presses, but review the information that is found along the way.
+12. Read the **Start** value in the right-hand pane and verify that it has been set back to **2**. (A value of `2` means "Automatic"). **Grab a screenshot.**
+13. Click the Start button, type `services`, and then click **Services**.
+14. Scroll down to the Print Spooler service and verify that the Startup Type is **Automatic**.
 15. Close all open windows.
 
 ### Part C – Commandline
 
-1. If necessary, start your computer and sign in.
-2. Right-click the Start button, click Windows PowerShell (Admin), and then click Yes in the User Account Control dialog box.
-3. At the Windows PowerShell prompt, type `reg /?` and then press Enter to view the general help information.
-4. Type `reg query /?` and then press Enter to view the query help information. Scroll up and down to read all of it.
-5. Type `reg query HKLM\SYSTEM\CurrentControlSet\Services\Spooler` and then press Enter. Verify that the Start value is 0×2.
-6. Type `reg add /?` and then press Enter to view the add help information. Scroll up and down to read all of it.
-7. Type `reg add HKLM\SYSTEM\CurrentControlSet\Services\Spooler /v Start /d 0×4` and then press Enter. This sets the Start value to 0×4.
-8. Press Y and then press Enter to confirm overwriting the value.
-9. Type `reg query HKLM\SYSTEM\CurrentControlSet\Services\Spooler` and then press Enter. Verify that the Start value is 0×4. **Grab a screenshot.**
+1.  If necessary, start your computer and sign in.
+2.  Right-click the Start button, click **Windows PowerShell (Admin)**, and then click **Yes** in the User Account Control dialog box.
+3.  At the Windows PowerShell prompt, type `reg /?` and then press Enter to view the general help information.
+4.  Type `reg query /?` and then press Enter to view the query help information.
+5.  Type `reg query HKLM\SYSTEM\CurrentControlSet\Services\Spooler` and then press Enter. Verify that the Start value is **0x2** (which is Hex for 2).
+6.  Type `reg add /?` and then press Enter to view the add help information.
+7.  Type `reg add HKLM\SYSTEM\CurrentControlSet\Services\Spooler /v Start /d 0x4` and then press Enter.
+8.  The command will ask if you want to overwrite the existing value. Type **Y** and then press **Enter** to confirm.
+9.  Type `reg query HKLM\SYSTEM\CurrentControlSet\Services\Spooler` and then press Enter. Verify that the Start value is now **0x4**. **Grab a screenshot.**
 10. Type `reg import /?` and then press Enter to view the import help information.
 11. Type `reg import C:\SpoolerBak.reg` and then press Enter.
-12. Type `reg query HKLM\SYSTEM\CurrentControlSet\Services\Spooler` and then press Enter. Verify that the Start value is 0x2 as it was restored from the backup. **Grab a screenshot.**
+12. Type `reg query HKLM\SYSTEM\CurrentControlSet\Services\Spooler` and then press Enter. Verify that the Start value is **0x2** as it was restored from the backup. **Grab a screenshot.**
 13. Close the Windows PowerShell prompt window.
 
 ### Part D – Powershell
 
-1. Right-click the Start button and then click Windows PowerShell (Admin).
-2. In the User Account Control dialog box, click Yes.
-3. At the Windows PowerShell prompt, type `Get-PSDrive` and then press Enter. You can see that HKCU and HKLM are available.
-4. Type `Set-Location HKLM:` and then press Enter or use the alias `cd HKLM:` . Notice that the prompt has changed to indicate you are in HKLM.
-5. Type `Get-ChildItem` or try the alias `ls` and then press Enter. You can see the same registry keys as in regedit.
-6. Type `Set-Location SYSTEM\CurrentControlSet\Services\Spooler` and then press Enter.
-7. Type `Get-ItemProperty .` and then press Enter. The period in this command represents the current folder of Spooler. Notice that Start has a value of 2.
-8. Type `Set-ItemProperty . -Name Start -Value 4` and then press Enter. **Grab a screenshot.**
-9. Type `Get-ItemProperty .` and then press Enter. Verify that Start has a value of 4.
-10. Type `reg import C:\SpoolerBak.reg` and then press Enter.
+1.  Right-click the Start button and then click **Windows PowerShell (Admin)**.
+2.  In the User Account Control dialog box, click **Yes**.
+3.  At the Windows PowerShell prompt, type `Get-PSDrive` and then press Enter. You can see that the registry "hives" **HKCU** and **HKLM** are available as drives.
+4.  Type `cd HKLM:` (which is the alias for `Set-Location`) and then press Enter. Notice that the prompt has changed to `PS HKLM:\>`.
+5.  Type `ls` (which is the alias for `Get-ChildItem`) and then press Enter. You can see the same registry keys as in regedit.
+6.  Type `cd SYSTEM\CurrentControlSet\Services\Spooler` (using `Set-Location`) and then press Enter.
+7.  Type `Get-ItemProperty .` and then press Enter. The period (`.`) in this command represents the current folder. Notice that the **Start** property has a value of **2**.
+8.  Type `Set-ItemProperty . -Name Start -Value 4` and then press Enter. **Grab a screenshot.**
+9.  Type `Get-ItemProperty .` and then press Enter. Verify that **Start** now has a value of **4**.
+10. Type `reg import C:\SpoolerBak.reg` and then press Enter to restore your backup.
 11. Close the Windows PowerShell prompt window.
 
 ## Activity 6 – MSI App Install
