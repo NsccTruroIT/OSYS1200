@@ -55,8 +55,6 @@ If necessary, start your computer and sign in.
 17. In the Indexing Options dialog box, click **Close**.
 18. On the taskbar, click the **Search** icon again. Type `Kangaroo` and click the **Documents** filter at the top. This time, the search should find your SearchFile.txt file. Grab a **screenshot** of the search result.
 
-
-
 ## Activity 2 – OneDrive
 
 ### Part A – Sharing Files
@@ -281,20 +279,32 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 19. In the Settings window, click **Apps** $\rightarrow$ **Apps & features** and verify that 7-Zip is not in the list of installed apps. **Grab a screenshot!**
 20. Close all open windows.
 
-
 ## Activity 7 – UWP Apps
 
-1. On the taskbar, click Microsoft Store.
-2. In the Microsoft Store window, in the Search box, type Whiteboard and then press Enter.
-3. In the list of search results, click **Microsoft Whiteboard**.
-4. Read the information about Microsoft Whiteboard and then click **Get**.
-5. In the Use across your devices dialog box, click **No, thanks**.
-6. Wait while Microsoft Whiteboard downloads and installs.
-7. Close the Microsoft Store window.
-8. Right-click the Start button and then click **Windows PowerShell (Admin)**.
-9. In the User Account Control dialog box, click Yes.
-10. At the Windows PowerShell prompt, to view a list of installed packages, type `Get-AppPackage` and then press Enter. Microsoft Whiteboard appears at the end of the list. **Screenshot it!**
-11. To display a simplified list, type `Get-AppPackage | Format-List Name` and then press Enter.
-12. To view only information about Microsoft Whiteboard, type `Get-AppPackage -Name Microsoft.Whiteboard` and then press Enter.
-13. To remove Microsoft Whiteboard, type `Get-AppPackage -Name Microsoft.Whiteboard | Remove-AppPackage` and then press Enter. **Screenshot it!**
-14. Close the Windows PowerShell window.
+1.  On the taskbar, click **Microsoft Store**.
+2.  In the Microsoft Store window, in the Search box, type `Whiteboard` and then press Enter.
+3.  In the list of search results, click **Microsoft Whiteboard**.
+4.  Read the information about Microsoft Whiteboard and then click **Get** (or **Install**).
+5.  **If** a "Use across your devices" dialog box appears, click **No, thanks**. (This pop-up may not always appear).
+6.  Wait while Microsoft Whiteboard downloads and installs.
+7.  Close the Microsoft Store window.
+8.  Right-click the Start button and then click **Windows PowerShell (Admin)**.
+9.  In the User Account Control dialog box, click **Yes**.
+10. At the Windows PowerShell prompt, to view a list of all installed packages, type `Get-AppPackage` and then press Enter. This list will be very long! Microsoft Whiteboard will appear in the list. **Grab a screenshot.**
+11. To display a simplified list of just the names, type `Get-AppPackage | Format-List Name` and then press Enter.
+12. To view only information about Microsoft Whiteboard, type the command below and press Enter.
+    * *(Note: We must use asterisks `*` as wildcards because the full package name is complex (e.g., `Microsoft.Whiteboard_123...`). This command finds any package with 'Whiteboard' in its name.)*
+
+    `Get-AppPackage -Name *Whiteboard*`
+
+13. To remove Microsoft Whiteboard, type the command below and press Enter. This command finds the Whiteboard package (using the wildcard) and "pipes" that object to the `Remove-AppPackage` command.
+
+    `Get-AppPackage -Name *Whiteboard* | Remove-AppPackage`
+
+    **Grab a screenshot** (showing the command being run).
+14. **(New Step)** To verify that the app is gone, run the find command again:
+
+    `Get-AppPackage -Name *Whiteboard*`
+
+    The command should now return no results, proving the removal was successful.
+15. Close the Windows PowerShell window.
