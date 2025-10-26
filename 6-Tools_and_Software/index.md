@@ -1,4 +1,4 @@
-# OSYS1200 Lab 7
+# OSYS1200 Lab 6
 
 Last Updated: October 26, 2024 8:00 AM
 
@@ -13,16 +13,16 @@ Status: In progress
 
 ## Activity 1 – File Explorer
 
-### Part A - Ribbons
+### Part A - File Explorer View Options
 
-In class we discussed the importance of ensuring that File explorer displays the extensions for filenames. This will ensure that we see the full name of the files that are shown in File Explorer. List the steps required to configure File Explorer to show file extensions and hidden files.
+In class we discussed the importance of ensuring that File explorer displays the extensions for filenames. This will ensure that we see the full name of the files that are shown in File Explorer. **List the steps required to configure File Explorer to show file extensions and hidden files.** and add a **Screenshot**
 
 ### Part B – Libraries
 
 If necessary, start your computer and sign in.
 
 1. On the taskbar, click File Explorer.
-2. In the File Explorer window, click the **View** tab, click the **Navigation** pane button, and then click **Show libraries** to place a check mark before that item.
+2. In the File Explorer window, find the Navigation Pane (the sidebar on the left). Right-click on any **empty/blank** space in that pane and click **Show libraries** from the context menu. A check mark will appear next to it. **Screenshot** Libraries in the left panel.
 3. In the navigation pane, expand **Libraries** and then click **Documents**.
 4. Right-click **Documents** and then click **Properties**.
 5. In the Documents Properties window, click **Add**.
@@ -30,29 +30,30 @@ If necessary, start your computer and sign in.
 7. Click **Public Documents** and then click **Include folder**.
 8. In the Document Properties dialog box, the single green check mark identifies the Documents folder as your default save location. The green check mark with the users identifies the Public Documents folder as the public save location.
 9. Right-click **Public Documents**, click **Set as default save location**, and then click **OK**. Notice that the view now includes both locations.
-10. Click the **Home** tab, click **New** item, click **Text Document**, type `NewPublicFile` as the file name, and then press Enter. Notice that the file was created in the Public Documents folder because that is the default save location for the Documents library.
-11. Click the **View** tab, click **Navigation** pane, and then click **Show libraries** to remove the check mark from that item. **Grab a screenshot.**
+10. In the command bar at the top of the window, click the New button (it has a  `+` icon). From the dropdown menu, click **Text Document**. Type `NewPublicFile` as the file name, and then press Enter. Notice that the file was created in the Public Documents folder because that is the default save location for the Documents library. **Grab a screenshot.**
+11. **Right-click on an empty/blank space** in the Navigation Pane again. Click **Show libraries** to remove the check mark from that item. **Grab a screenshot.**
 12. Close the File Explorer window.
 
 ### Part C – Search w/ Indexing
 
-1. On the taskbar, click File Explorer.
+1. On the taskbar, click **File Explorer.**
 2. If necessary, expand **This PC** and then click **Local Disk (C:)**.
-3. Click the **Home** tab, click New folder, type `NewData` as the folder name, and then press Enter.
-4. Double-click the **NewData** folder, click the **Home** tab, click **New item**, click **Text Document**, type `SearchFile` as the file name, and then press **Enter**.
+3. In the command bar at the top, click the New button (the `+` icon) and select **Folder**. Type `NewData` as the folder name, and then press Enter.
+4. Double-click the **NewData** folder. In the command bar, click the **New** button (+) and select Text Document. Type `SearchFile` as the file name, and then press Enter.
 5. Double-click `SearchFile` to open the file in Notepad.
 6. In the Notepad window, type `Kangaroo`, click **File** on the menu bar, and then click **Save**.
 7. Exit Notepad.
-8. On the taskbar, click the **Type here to search** button and then type `Kangaroo`. This displays web searches for Kangaroo.
-9. At the top of the search box, click **Documents** and then click **Kangaroo**. The search should not find any matches.
+8. On the taskbar, click the **Search** icon (it looks like a magnifying glass). In the search box that appears at the top, type `Kangaroo`.
+9. The search panel will show web results. At the top of this panel, click the **Documents** filter. You should see a "No results found" message. This is because the new folder is not indexed.
 10. Close all open windows.
 11. Click the **Start** button and then click **Settings**.
-12. In the Settings window, in the Find a setting box, type `index` and then click **Windows Search settings**.
-13. On the Searching Windows screen, below the Classic option, click **Customize Search locations** here.
-14. In the Indexing Options window, click **Modify**.
-15. In the Indexed Locations window, expand Local Disk (C:), select the NewData check box, **grab a screenshot** and then click **OK**.
-16. In the Indexing Options dialog box, click **Close**.
-17. On the taskbar, click the **Type here to search button**, type `Kangaroo`, and then click **Documents**. This time, the search found the file because it has been indexed.
+12. In the Settings window, click on **Privacy & security** from the left-hand menu.
+13. On the "Privacy & security" page, under the "Windows permissions" section, click on **Searching Windows.**
+14. On the "Searching Windows" screen, under the "Find my files" section, click **Customize search locations here** (it's a link below the "Classic" and "Enhanced" options).
+15. In the Indexing Options window, click **Modify**.
+16. In the Indexed Locations window, expand Local Disk (C:), select the NewData check box, **grab a screenshot** and then click **OK**.
+17. In the Indexing Options dialog box, click **Close**.
+18. On the taskbar, click the **Search** icon again. Type `Kangaroo` and click the **Documents** filter at the top. This time, the search should find your SearchFile.txt file. Grab a **screenshot** of the search result.
 
 ## Activity 2 – One Drive
 
