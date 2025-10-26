@@ -1,6 +1,6 @@
 # OSYS1200 Lab 5
 
-Last Updated: October 17, 2024 8:51 AM
+Last Updated: October 19, 2024 8:51 AM
 Created By: Matt Redmond Edit Don Geraghty
 Course: OSYS1200
 Status: incomplete
@@ -83,14 +83,14 @@ One of the big advantages of your new password manager is the ability to use you
 
 ### Since you already installed it.... Check out Powertoys! Thank me later!
 
-## Activity 2 – Configure a Local Security Policy
+## Activity 3 – Configure a Local Security Policy
 
 This will likely work best if done on your proxmox VM.
 
 1. Click the Start button, type Local, and then click Local Security Policy.
 2. Right click on **Security Settings** and choose **Export policy…**
 
-![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%201.png)
+    ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%201.png)
 
 1. Click **Desktop** to select the location and in the **File name** box enter `secpolBackup.inf` and click **save**.
 2. In the Local Security Policy window, in the left pane, expand **Account Policies**, and then click **Password Policies**.
@@ -106,45 +106,48 @@ This will likely work best if done on your proxmox VM.
 12. **Document the steps to use the** **secpolBackup.inf we create in step one to revert your changes.** 
 13. Leave **Local Security Policy** open for the next activity.
 
-## Activity 3 – Auditing
+## Activity 4 – Auditing
 
 - Without auditing, you’re working in the dark (with the lights out, and no back-lit keyboard, um and no display, errr you get what I’m trying to say).
-    1. Right-click the **Start** button and then click **Windows PowerShell (Admin)**.
-    2. In the User Account Control dialog box, click **Yes**.
-    3. At the Windows PowerShell prompt, type `auditpol /get /category:*` and then press Enter. This displays a list of all the advanced audit policy settings and their configurations.
-    4. Read the list of policy settings that are enabled. **Grab a screenshot!**  (don’t worry if you can’t see them all.) This is the default configuration for Windows 10. Notice that below Object Access, File System auditing is not enabled. After you enable policy settings in the local security policy, these settings are removed, and only the settings explicitly applied in the policy are effective.
-    5. Close the Windows PowerShell prompt window.
-    6. If needed, click the **Start** button, type **local**, and then click **Local Security Policy**.
-    7. In the left pane, expand **Local Policies** and then click **Audit Policy**. Review the list of categories for basic auditing and notice that none is enabled in the local security policy.
-    8. In the left pane, expand **Advanced Audit Policy Configuration**, expand **System Audit Policies - Local Group Policy Object**, and then click Object Access.
+1. Open **Windows PowerShell (Admin)**.
+2. In the User Account Control dialog box, click **Yes**.
+3. At the Windows PowerShell prompt, type `auditpol /get /category:*` and then press Enter. This displays a list of all the advanced audit policy settings and their configurations.
+4. Read the list of policy settings that are enabled. **Grab a screenshot!**  (don’t worry if you can’t see them all.) This is the default configuration for Windows 10. Notice that below Object Access, File System auditing is not enabled. After you enable policy settings in the local security policy, these settings are removed, and only the settings explicitly applied in the policy are effective.
+5. Close the Windows PowerShell prompt window.
+6. If needed, click the **Start** button, type **local**, and then click **Local Security Policy**.
+7. In the left pane, expand **Local Policies** and then click **Audit Policy**. Review the list of categories for basic auditing and notice that none is enabled in the local security policy.
+8. In the left pane, expand **Advanced Audit Policy Configuration**, expand **System Audit Policies - Local Group Policy Object**, and then click Object Access.
         
-        ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%202.png)
+     ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%202.png)
         
     
-    1. Double-click **Audit File System**. This option enables auditing for file access.
-    2. In the Audit File System Properties dialog box, select the **Configure the following audit events** check box and then select the **Success and Failure** check boxes.
-    3. Click the **Explain tab**, read the explanation, and then click OK. The system is now able to track successful file access when users have permission to access a file and unsuccessful file access when users do not have permission to access a file; however, auditing must still be enabled for the individual files.
-    4. Close Local Security Policy, and close all open windows.
-    5. On the **taskbar**, click **File Explorer** and then click **Documents**.
-    6. Right-click an open area in the **Name column**, point to **New**, and then click **Text Document**.
-    7. Type `Audit` and then press **Enter**.
-    8. Right-click **Audit**, click **Properties**, and then click the **Security tab**.
-    9. In the Audit Properties dialog box, click **Advanced** and then click the **Auditing tab**. Notice that no auditing is configured by default.
-    10. Click **Add**, click Select a **principal**, type `Everyone`, click **Check Names**, and then click **OK**. This configures auditing to track access by all users. You can limit auditing to certain users or groups.
-    11. In the **Type** box, select **All**. This configures auditing of successful and failed access.
-    12. Below Basic permissions, select the **Full control** check box. This configures auditing to track all changes to the file.
-    13. **Grab a screenshot** and then click **OK** three times to close all open dialog boxes.
-    14. Double-click **Audit** to open the file and then **add some content** to the file. Press **CTRL+s** to save.
-    15. Close the File Explorer window.
-    16. Right-click the Start button and then click Computer Management.
-    17. In the left pane, expand **Event Viewer,** expand **Windows Logs**, and then click **Security**. This displays all the events in the security log.
-    18. Right-click **Security** and then click **Filter Current Log**.
-    19. In the **Event sources box**, select **Microsoft Windows security auditing**.
-    20. In the **<All Event IDs>** box, type `4663` and then click **OK**. Notice that multiple events are listed. These events were generated by editing the file.
-    21. Starting with the first event, read the Account Name identified in the event. Continue down until the Account Name referenced is **itstudent**. Read the description of the event. The description indicates that a file was written by itstudent, the file opened was Audit.txt; and the program used to write the file was notepad.exe. **Grab a Screenshot!**
-    22. Close the Computer Management window.
+1. Double-click **Audit File System**. This option enables auditing for file access.
+2. In the Audit File System Properties dialog box, select the **Configure the following audit events** check box and then select the **Success and Failure** check boxes.
+3. Click the **Explain tab**, read the explanation, and then click OK. The system is now able to track successful file access when users have permission to access a file and unsuccessful file access when users do not have permission to access a file; however, auditing must still be enabled for the individual files. **Take a Screenshot**
+4. Close Local Security Policy, and close all open windows.
+5. On the **taskbar**, click **File Explorer** and then click **Documents**.
+6. Right-click an open area in the **Name column**, point to **New**, and then click **Text Document**.
+7. Type `Audit` and then press **Enter**.
+8. Right-click **Audit**, click **Properties**, and then click the **Security tab**.
+9. In the Audit Properties dialog box, click **Advanced** and then click the **Auditing tab**. Notice that no auditing is configured by default.
+10. You may need to click on Continue to get admin access. Click **Add**, click Select a **principal**, type `Everyone`, click **Check Names**, and then click **OK**. This configures auditing to track access by all users. You can limit auditing to certain users or groups. 
+11. In the **Drop Down** box, select **All**. This configures auditing of successful and failed access.
+12. Below Basic permissions, select the **Full control** check box. This configures auditing to track all changes to the file.
+13. **Grab a screenshot** and then click **OK** three times to close all open dialog boxes.
+14. Double-click **Audit** to open the file and then **add some content** to the file. Press **CTRL+s** to save.
+15. Close the File Explorer window.
+16. Right-click the Start button and then click Computer Management.
+17. In the left pane, expand **Event Viewer,** expand **Windows Logs**, and then click **Security**. This displays all the events in the security log.
+18. Right-click **Security** and then click **Filter Current Log**.
+19. In the **Event sources box**, select **Microsoft Windows security auditing**.
+20. In the **<All Event IDs>** box, type `4663` and then click **OK**. Notice that multiple events are listed. These events were generated by editing the file.
 
-## Activity 4 – Defender!
+    ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%207.png)
+
+21. Starting with the first event, read the Account Name identified in the event. Continue down until the Account Name referenced is **itstudent**. Read the description of the event. The description indicates that a file was written by itstudent, the file opened was Audit.txt; and the program used to write the file was notepad.exe. **Grab a Screenshot!**
+22. Close the Computer Management window.
+
+## Activity 5 – Defender!
 
 DESCRIPTION: Windows Defender Antivirus is used to prevent malware installation and remove malware. You can test the functionality of anti-malware software by using the EICAR anti-malware test file. The test file has a specific text string that all anti-malware software detects but poses no risk of a malware infection. In this activity, you test real-time scanning and on-demand scanning.
 
@@ -156,7 +159,7 @@ DESCRIPTION: Windows Defender Antivirus is used to prevent malware installation 
 6. Click on the **three dots** in the upper right corner and click **settings** and type `smart` in the search box.
 7. Find “Microsoft Defender Smart Screen” and toggle it **off**.
 
-![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%203.png)
+    ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%203.png)
 
 1. Click **eicar_com.zip** again to download the file. Still blocked?
 2. Leave the Microsoft Edge window open for later in this activity.
@@ -178,39 +181,51 @@ DESCRIPTION: Windows Defender Antivirus is used to prevent malware installation 
 18. Close all open windows.
 19. Click the Start button, type PowerShell, right-click Windows PowerShell, and then click Run as administrator.
 20. In the User Account Control dialog box, click Yes.
-21. At the Windows PowerShell prompt, type Get-MpThreat and then press Enter. Read the threat information. **Grab a screenshot!**
-22. At the Windows PowerShell prompt, type Get-MpThreatDetection and then press Enter. Read the threat detection information.
-23. At the Windows PowerShell prompt, type Get-MpPreference and then press Enter. Read the configuration information.
-24. At the Windows PowerShell prompt, type Get-MpComputerStatus and then press Enter. Read the status information. **Grab a screenshot!**
+21. At the Windows PowerShell prompt, type `Get-MpThreat` and then press Enter. Read the threat information. **Grab a screenshot!**
+22. At the Windows PowerShell prompt, type `Get-MpThreatDetection` and then press Enter. Read the threat detection information.
+23. At the Windows PowerShell prompt, type `Get-MpPreference` and then press Enter. Read the configuration information.
+24. At the Windows PowerShell prompt, type `Get-MpComputerStatus` and then press Enter. Read the status information. **Grab a screenshot!**
 25. Close the Windows PowerShell window.
 
-## Activity 5 - Advanced Threat Protection 😲
+## Activity 6 - Advanced Threat Protection 😲
 
 Sounds scary, but this is a great opportunity to explore a variety of best practices for mitigating threats. Most of these have already been implemented by Windows or Edge.
 
 Check out the [Defender ATP](https://demo.wd.microsoft.com/?ocid=cx-wddocs-testground) features.. these are pretty easy to explore by downloading a variety of files. Complete each of the following and **document the results**:
 
-1. [URL Reputation](https://demo.wd.microsoft.com/Page/UrlRep)
+1. [URL Reputation](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-smartscreen-url-reputation)
     1. Expected Results: each page will trigger some type of warning or block content.
-2. [Cloud Delivered Protection](https://demo.wd.microsoft.com/Page/CloudBlock)
+    2. **Screenshot and document the results**
+2. [Cloud Delivered Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-cloud-delivered-protection)
     1. Expected Result: Download is Blocked
+    2. **Screenshot and document the results**
 3. [Block at First Sight (sign in with NSCC account)](https://demo.wd.microsoft.com/Page/BAFS)
     1. Expected Results: Warning message and options to delete, keep, report… etc.
-4. [Potentially Unwanted Apps](https://demo.wd.microsoft.com/Page/PUA)
+    2. Link to Upadted BAFS information: [block at first sight](https://learn.microsoft.com/en-us/defender-endpoint/configure-block-at-first-sight-microsoft-defender-antivirus?ocid=wd-av-demo-fl-bottom)
+    2. **Screenshot and document the results**
+4. [Potentially Unwanted Apps](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-potentially-unwanted-applications)
     1. Expected Results: Different warning message and options to delete, keep, report… etc.
-5. [Controlled Folder Access](https://demo.wd.microsoft.com/Page/CFA)
+    2. **Screenshot and document the results**
+5. [Controlled Folder Access](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-controlled-folder-access)
     - Expected Result (Scenario 1):
+    About five seconds after executing the ransomware test file, you should see a notification that CFA blocked the encryption attempt
         
         ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%204.png)
         
-    - Expected Result (Scenerio 2):
+    - Expected Result (Scenerio 2): The files in c:\demo are encrypted and you should get a warning message.
+Execute the ransomware test file again to decrypt the files
         
         ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%205.png)
         
     
-    ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%206.png)
+        ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%206.png)
+
+         **Screenshot and document the results**
     
-6. [Network Protection](https://demo.wd.microsoft.com/Page/NP)
-    1. Expected Result: Test with Chrome - Page does not  load and notification “Blocked as Malicious”
-7. [Exploit Protection](https://demo.wd.microsoft.com/Page/EP) (Optional)
-8. [Attack Surface Reduction](https://demo.wd.microsoft.com/Page/ASR) (Optional - but don’t be scared!)
+6. [Network Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-network-protection)
+    1. Expected Result: Navigation to the website should be blocked and you should see a Connection blocked notification.
+    2. **Screenshot and document the results**
+7. [Exploit Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-exploit-protection) (Optional)
+    **Screenshot and document the results**
+8. [Attack Surface Reduction](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-attack-surface-reduction-rules) (Optional - but don’t be scared!)
+    **Screenshot and document the results**
