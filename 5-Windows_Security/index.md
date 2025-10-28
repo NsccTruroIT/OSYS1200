@@ -149,6 +149,8 @@ This will likely work best if done on your proxmox VM.
 
 ## Activity 5 – Defender!
 
+## **IMPORTANT**: If you are not able to download the files because the links are not working you can move down to **Activity 5 – Defender! (Manual File Creation Method) YOU DO NOT HAVE TO DO BOTH!!!**
+
 DESCRIPTION: Windows Defender Antivirus is used to prevent malware installation and remove malware. You can test the functionality of anti-malware software by using the EICAR anti-malware test file. The test file has a specific text string that all anti-malware software detects but poses no risk of a malware infection. In this activity, you test real-time scanning and on-demand scanning.
 
 1. If necessary, start your computer and sign in.
@@ -186,6 +188,72 @@ DESCRIPTION: Windows Defender Antivirus is used to prevent malware installation 
 23. At the Windows PowerShell prompt, type `Get-MpPreference` and then press Enter. Read the configuration information.
 24. At the Windows PowerShell prompt, type `Get-MpComputerStatus` and then press Enter. Read the status information. **Grab a screenshot!**
 25. Close the Windows PowerShell window.
+
+### Activity 5 – Defender! (Manual File Creation Method) **Only do this method if you can not download the files from eicar.org.**
+
+**DESCRIPTION:** Windows Defender Antivirus is used to prevent malware installation and remove malware. You can test the functionality of anti-malware software by using the EICAR anti-malware test file. In this activity, you will test real-time scanning by *creating* the file, and then test on-demand scanning by scanning for the file you created.
+
+If necessary, start your computer and sign in.
+
+---
+
+### Part 1: Test Real-Time Protection
+
+1.  Click the **Start** button and type **Notepad**. Click it to open the text editor.
+2.  Copy the 68-character string below and paste it into the blank Notepad file. Make sure there are no extra spaces or lines.
+    ```
+    X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+    ```
+3.  In Notepad, click **File > Save As...**
+4.  In the **Save As** dialog box:
+    * Navigate to your **Downloads** folder.
+    * Change the "Save as type" dropdown to **"All Files (\*.\*)"**.
+    * Set the "File name" to **`eicar.com`**.
+5.  Click **Save**.
+6.  You should be notified almost immediately that Windows Defender detected malware. The "Save" will fail, and you'll see a pop-up from Windows Security.
+7.  Click the notification pop-up to open Windows Security. You should see the threat listed as "Virus:DOS/EICAR\_Test\_File".
+8.  **Grab a screenshot!** This shows Real-Time Protection is working.
+
+---
+
+### Part 2: Manually Create the File (Bypass Real-Time Protection)
+
+1.  Click the **Start** button and then click **Settings**.
+2.  In the Settings window, click **Update & Security** and then click **Windows Security**.
+3.  On the **Windows Security** screen, click **Virus & threat protection**.
+4.  In the **Windows Security** window, below **Virus & threat protection settings**, click **Manage settings**.
+5.  Click the **Real-time protection** switch to turn it **Off**. If necessary, click **Yes** in the User Account Control prompt to confirm the action.
+6.  Return to **Notepad** (which should still have the EICAR string in it).
+7.  Click **File > Save As...** and again, save the file as `eicar.com` in your **Downloads** folder (remember to set "Save as type" to "All Files").
+8.  This time, the file should save successfully. You can open File Explorer and check your Downloads folder to verify `eicar.com` is there.
+
+---
+
+### Part 3: Test On-Demand Scanning
+
+1.  In the **Windows Security** window, click the **Real-time protection** switch to turn it back **On**.
+2.  Notice that the `eicar.com` file you just saved is *not* detected immediately (because it hasn't been accessed and was created while protection was off).
+3.  In the left navigation pane of Windows Security, click **Virus & threat protection** and then click **Scan options**.
+4.  On the **Scan options** screen, click **Custom scan** and then click **Scan now**.
+5.  In the **Select Folder** dialog box, browse to **Local Disk (C:)**, select the **Users** folder, and then click **Select Folder**.
+6.  When the scan is complete, the EICAR test file is shown as a detected threat.
+7.  Click **See details** (or click the threat name `Virus:DOS/EICAR_Test_File`) and then click **Yes** in the User Account Control prompt.
+8.  **Grab a screenshot!**
+9.  Read the detailed information about the EICAR test file and then click **OK**.
+10. Click **Start actions** to apply the default action (which is usually to "Remove" or "Quarantine" the threat).
+
+---
+
+### Part 4: Review Detections in PowerShell
+
+1.  Close all open windows.
+2.  Click the **Start** button, type **PowerShell**, right-click **Windows PowerShell**, and then click **Run as administrator**.
+3.  In the User Account Control dialog box, click **Yes**.
+4.  At the Windows PowerShell prompt, type `Get-MpThreat` and then press **Enter**. This shows threats that were found. **Grab a screenshot!**
+5.  At the Windows PowerShell prompt, type `Get-MpThreatDetection` and then press **Enter**. This shows a history of *all* detections, including the one from Part 1.
+6.  At the Windows PowerShell prompt, type `Get-MpPreference` and then press **Enter**. Read the configuration information (e.g., you can see if Real-time protection is enabled).
+7.  At the Windows PowerShell prompt, type `Get-MpComputerStatus` and then press **Enter**. This shows the overall AV status. **Grab a screenshot!**
+8.  Close the Windows PowerShell window.
 
 ## Activity 6 - Advanced Threat Protection 😲
 
