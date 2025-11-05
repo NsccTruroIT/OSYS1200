@@ -7,6 +7,10 @@ Course: OSYS1200
 
 # Lab 7 – Performance and Recovery!
 
+> - Administrator privileges required for Activities 3, 4, 5, and 8.  
+> - Ensure at least 5 GB free disk space for Activity 6 (File History).  
+> - Do NOT perform Activity 8 (System Reset) on personal machines.
+
 ## Activity 1 – Task Manager
 
 1.  If necessary, start your computer and sign in.
@@ -104,6 +108,9 @@ Now we'll make the graphs react by putting the system under load. Keep your Perf
 4.  Press **Enter**. Now, type the following command to create the file and press **Enter**:
     `fsutil file createnew C:\temp\testfile.tmp 5368709120`
 5.  **Watch your Performance Monitor!** As the file is being created, you will see the red **Disk** (Avg. Disk sec/Transfer) line spike, showing high latency.
+> **Warning:** The following CPU stress loop will max out your processor.  
+> Press **Ctrl + C immediately after taking your screenshot** to stop it.  
+> Leaving it running may freeze your system.
 6.  Now, let's stress the **CPU**. In the same PowerShell window, type this one-line loop and press **Enter**:
     `while($true){ $i = 1 }`
 7.  **Watch your Performance Monitor!** Your **% Processor Time** line will immediately spike to 100% and stay there. Your computer fan may even spin up.
@@ -168,6 +175,8 @@ Finally, we'll look at a *temporary* startup key.
 7.  Close Task Manager and the Registry Editor.
 
 #### Part D – Testing and Cleanup
+> **Important:** Complete all cleanup steps before leaving the lab.  
+> If you skip this, apps will keep launching at startup.
 
 1.  **Sign out** of your computer and then **sign in** again.
 2.  When you log in, all three programs should start automatically: **Notepad**, **Calculator**, and **Paint**. **Take a screenshot showing all three applications open on your desktop!**
@@ -323,7 +332,7 @@ Now, let's find the logs for what we just did.
 
 ### Activity 8 (Revised) – System Reset
 
-> **WARNING:** This activity will reinstall the Windows 11 operating system. While "Keep my files" *should* protect your data, you should **NEVER** do this on a personal computer you care about.
+> **Critical Warning:** This activity will reinstall the Windows 11 operating system. While "Keep my files" *should* protect your data, you should **NEVER** do this on a personal computer you care about.
 >
 > This activity is intended *only* for lab machines or virtual machines that can be erased.
 
@@ -354,3 +363,39 @@ Now, let's find the logs for what we just did.
 9.  **DO NOT PROCEED** unless you are on a lab machine you are authorized to reset.
 10. If you *do* proceed, the reset will take 30-60 minutes, and the system will reboot several times.
 11. After the reset, sign in. You should find a new file on your desktop named **Removed Apps.html**. **Screenshot your desktop showing this new file!**
+
+## ✅ Lab Completion Checklist
+
+### Screenshots Required:
+- Activity 1: Task Manager – Details tab with `cmd.exe` selected.
+- Activity 1: Performance tab graph.
+- Activity 2: CPU tab sorted alphabetically.
+- Activity 2: Suspend Process test (Notepad frozen).
+- Activity 2: Memory tab physical memory bar.
+- Activity 2: Network tab activity panel.
+- Activity 3: Performance Monitor graph with counters.
+- Activity 3: Graph type changes (bar chart and report).
+- Activity 4: Startup folder showing AutoNotepad shortcut.
+- Activity 4: Task Manager Startup tab showing AutoNotepad and MyCalc.
+- Activity 4: Registry Editor showing MyCalc value.
+- Activity 4: Registry Editor showing RunOnce Paint value.
+- Activity 4: Desktop showing Notepad, Calculator, Paint after sign-in.
+- Activity 4: Registry Editor showing empty RunOnce and Run with MyCalc.
+- Activity 5: Task Scheduler summary window.
+- Activity 5: Event Viewer – Event ID 106 details.
+- Activity 5: Event Viewer filtered log view.
+- Activity 5: Administrative Events view.
+- Activity 5: PowerShell Get-WinEvent outputs (System log and TaskScheduler).
+- Activity 6: Disk Management – drive letter assignment.
+- Activity 6: Disk Management – File History Data drive healthy.
+- Activity 6: Settings Backup options showing drive enabled.
+- Activity 7: Previous Versions tab showing two versions.
+- Activity 7: File History preview showing Version two.
+- Activity 8: Choose settings screen for Remove everything.
+- Activity 8: Apps that will be removed list.
+- Activity 8: Ready to reset this PC screen.
+- Activity 8: Desktop showing Removed Apps.html (if reset performed).
+
+### Input/Action Points:
+- Activity 2: Explain findings after Suspend Process test.
+- Activity 7: Confirm restored version after Previous Versions and File History restore.
