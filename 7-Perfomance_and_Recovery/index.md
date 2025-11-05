@@ -261,6 +261,13 @@ Now, let's find the logs for what we just did.
 >
 > We don't have a second drive, so we will create a **Virtual Hard Disk (VHD)** to *simulate* one.
 
+> **Important for VHD Creation:**  
+> - Ensure your VM has at least **5 GB of free space** on the C: drive.  
+> - You must have **administrator privileges** to create and mount a VHD.  
+> - If you encounter errors, check disk space or confirm you are logged in as an admin.
+
+> **Performance Tip:** VHD creation may take longer on virtual machines with dynamically allocated disks. Be patient during this step.
+
 1.  If necessary, start your computer and sign in.
 2.  **[New Addition]** Open **File Explorer** and navigate to your `C:\` drive. Create a new folder named `Storage`. This is where we will save our virtual disk.
 3.  Right-click the **Start** button and then click **Disk Management**.
