@@ -296,7 +296,8 @@ Now, let's find the logs for what we just did.
 26. In the "Keep my backups" box, select **Until space is needed**.
 27. Below "Overview," click **Back up now**. This will perform the first backup.
 28. Close the Settings window.
- ### Update: Step 21 - Configuring File History (Windows 11)
+
+### Update: Step 21 - Configuring File History (Windows 11)
 
 *Note: Microsoft has moved the legacy File History settings out of the main Settings app. Please use the following instructions to complete this step via the Control Panel.*
 
