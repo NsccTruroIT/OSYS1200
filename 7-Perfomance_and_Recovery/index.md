@@ -296,6 +296,24 @@ Now, let's find the logs for what we just did.
 26. In the "Keep my backups" box, select **Until space is needed**.
 27. Below "Overview," click **Back up now**. This will perform the first backup.
 28. Close the Settings window.
+ ### Update: Step 21 - Configuring File History (Windows 11)
+
+*Note: Microsoft has moved the legacy File History settings out of the main Settings app. Please use the following instructions to complete this step via the Control Panel.*
+
+1. Click the **Start** button.
+2. Type **Control Panel** and press **Enter**.
+3. In the Control Panel, change the "View by" setting (top right) to **Large icons**.
+4. Click on **File History**.
+5. Click **Select drive** on the left-hand menu.
+6. Select the drive labeled **File History Data** and click **OK**.
+7. Click the **Turn on** button (if it is not already on).
+    > **Deliverable:** Screenshot this window showing the drive is enabled (Status should read "File History is on").
+8. Click **Advanced settings** on the left-hand menu.
+9. In the "Save copies of files" box, select **Every 10 minutes**.
+10. In the "Keep saved versions" box, select **Until space is needed**.
+11. Click **Save changes**.
+12. Back on the main screen, click **Run now** (under the drive info) to perform the first backup.
+13. Close the Control Panel.   
 
 ---
 
