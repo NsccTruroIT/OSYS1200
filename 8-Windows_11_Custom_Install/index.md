@@ -32,7 +32,9 @@ In this lab, you will simulate the role of a System Administrator creating a "Re
 3.  **Configure the VM:**
     * **Name:** `Win11-Reference`. Click **Next**.
     * **Generation:** Select **Generation 2** (Required for UEFI/TPM). Click **Next**.
+        > **📝 Note:** Generation 1 emulates older BIOS hardware. Windows 11 requires modern UEFI firmware, which is only available in Generation 2.
     * **Memory:** `4096` MB (4GB). Check **Use Dynamic Memory**. Click **Next**.
+        > **📝 Note:** "Dynamic Memory" allows the VM to release unused RAM back to your physical computer. If you don't check this, the VM locks the full 4GB, which might slow down your PC.
     * **Network:** Select **Default Switch**. Click **Next**.
     * **Hard Disk:** Accept defaults (Create a virtual hard disk). Click **Next**.
     * **Installation Options:** Select **Install an OS from a bootable image file**. Browse to the Windows 11 ISO you just downloaded. Click **Next** -> **Finish**.
@@ -45,6 +47,7 @@ In this lab, you will simulate the role of a System Administrator creating a "Re
     * **Check** `Enable Trusted Platform Module`.
     * **Screenshot this Security Settings window showing both boxes checked!**
     * Click **OK**.
+        > **📝 Why is this required?** The Trusted Platform Module (TPM) is a specialized chip used for encryption (like BitLocker) and security verification. The Windows 11 installer checks for this hardware immediately. If you skip this step, the installation will fail with the error: *"This PC can't run Windows 11."*
 
 ---
 
@@ -70,6 +73,7 @@ In this lab, you will simulate the role of a System Administrator creating a "Re
 2.  Press **Shift + F10** on your keyboard. A black Command Prompt window will open.
 3.  Type the following command and press **Enter**:
     `OOBE\BYPASSNRO`
+    > **📝 What does this do?** `BYPASSNRO` stands for "Bypass Network Requirement Option." This command modifies the Windows Registry to re-enable the hidden "I don't have internet" button, allowing IT professionals to set up machines without forcing a Microsoft account link.
 4.  **Screenshot the command prompt with this command typed in!**
 5.  The system will reboot immediately.
 6.  When it returns to the Region screen, select your Region (Canada/US) and click **Yes**.
@@ -92,7 +96,8 @@ In this lab, you will simulate the role of a System Administrator creating a "Re
 3.  Double-click `sysprep.exe`.
 4.  **Configure Sysprep:**
     * **System Cleanup Action:** Select `Enter System Out-of-Box Experience (OOBE)`.
-    * **Generalize:** **CHECK THIS BOX.** (Critical: This removes the unique ID/SID).
+    * **Generalize:** **CHECK THIS BOX.** (Critical).
+        > **📝 Why Generalize?** Every Windows installation has a unique "Security ID" (SID). If you simply copied this VM without checking "Generalize," all the new computers would have the *same* SID. This causes massive conflicts on a network domain. Generalizing removes the SID so the new computer can generate its own unique one.
     * **Shutdown Options:** Select `Reboot` (so we can verify it worked).
     * **Screenshot the Sysprep window with these settings selected!**
 5.  Click **OK**.
