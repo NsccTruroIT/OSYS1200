@@ -1,110 +1,110 @@
-# OSYS1200 Lab 8: The Final Challenge – Deployment
+# OSYS1200 Lab 8: Deployment & Generalization
 **Course:** OSYS1200
-**Status:** Final Lab
+**Status:** Lab 8
 
 ## 🎯 Lab Objectives
-In this final lab, you will simulate the role of a System Administrator creating a custom deployment image. You are required to:
-1.  Obtain the official Windows 11 installation media directly from Microsoft.
-2.  **Customize the installation media** by injecting a configuration file to force a specific Windows edition.
-3.  Configure a Hyper-V Virtual Machine (VM) that meets strict Windows 11 hardware requirements (TPM/Secure Boot).
-4.  Perform a clean installation using your custom ISO.
-5.  Bypass standard OOBE (Out of Box Experience) restrictions to create a local account.
+In this lab, you will simulate the role of a System Administrator creating a "Reference Image" for deployment. You are required to:
+1.  Obtain official Windows 11 installation media.
+2.  Configure a Hyper-V VM with **TPM and Secure Boot** (Critical for Windows 11).
+3.  Perform a clean installation.
+4.  Bypass the Microsoft Account requirement using the OOBE Bypass method.
+5.  **Generalize** the installation using **Sysprep** so it is ready for cloning.
 
-> 💡 **Submission:** As with previous labs, use the **Snipping Tool** (`Win + Shift + S`) to capture proof of your work. Paste these into a Word document labeled `YourName_Lab9_Final.docx`.
-
----
-
-### Activity 1 – Obtaining the Installation Media
-
-**Scenario:** You need to deploy a fresh image of Windows 11. As a System Administrator, it is critical that you use the official, unmodified source media from the vendor to ensure security and stability.
-
-1.  Open **Google Chrome** or **Microsoft Edge**.
-2.  Navigate to the [Download Windows 11](https://www.microsoft.com/software-download/windows11) page.
-3.  Scroll down to the section titled **Download Windows 11 Disk Image (ISO) for x64 devices**.
-4.  Click the dropdown menu and select **Windows 11 (multi-edition ISO for x64 devices)**.
-5.  Click the **Download Now** button.
-6.  A new section will appear asking for product language. Select **English** (or English International) and click **Confirm**.
-7.  A **64-bit Download** button will appear. Click it to begin the download.
-8.  **Screenshot the browser window showing the download has started!**
-9.  Save the ISO file to your `Downloads` folder (or the `C:\Storage` folder if you created one in Lab 8). The file is approximately 5-6 GB.
+> 💡 **Submission:** Use the **Snipping Tool** (`Win + Shift + S`) to capture proof of your work. Paste these into a Word document labeled `YourName_Lab8.docx`.
 
 ---
 
-### Activity 2 – Customizing the ISO (The "ei.cfg" Trick)
+### Activity 1 – Obtaining Media and VM Prep
 
-**Scenario:** To ensure standardization across the company, you want to prevent technicians from accidentally installing "Windows 11 Home." You will inject a configuration file (`ei.cfg`) into the ISO that forces the installer to select **Windows 11 Pro** automatically.
+**Scenario:** You need to prepare a virtual machine to build your reference disk image. Unlike Windows 10, Windows 11 requires specific security hardware (TPM) to be present, even in a virtual environment.
 
-**Tools Required:** We will use **AnyBurn** (Free) to modify the ISO file structure.
+1.  **Download the ISO:**
+    * Open a browser and visit the [Download Windows 11](https://www.microsoft.com/software-download/windows11) page.
+    * Scroll to **Download Windows 11 Disk Image (ISO)**.
+    * Select **Windows 11 (multi-edition ISO)** -> **Download Now**.
+    * Select **English** -> **Confirm** -> **64-bit Download**.
+    * Save this file to your `Downloads` folder.
 
-#### Part A - Creating the Config File
-1.  Open **Notepad**.
-2.  Type the following lines **exactly**:
-    ```ini
-    [EditionID]
-    Pro
-    [Channel]
-    Retail
-    [VL]
-    0
-    ```
-3.  Click **File > Save As**.
-4.  Change the "Save as type" dropdown to **All Files**.
-5.  Name the file: `ei.cfg`
-6.  Save it to your **Desktop**. **Screenshot your Notepad window showing the code before you close it!**
+2.  **Launch Hyper-V:**
+    * Click Start, type `Hyper-V`, and press **Enter**.
+    * In the Actions pane, click **New > Virtual Machine**.
 
-#### Part B - Injecting the File
-1.  Download and install the free version of **AnyBurn** (or run the portable version).
-2.  Open AnyBurn and select **Edit Image File**.
-3.  Click the folder icon to browse and select the **Windows 11 ISO** you downloaded in Activity 1.
-4.  Click **Next**. You will see the file structure of the ISO.
-5.  In the file list, double-click the **`sources`** folder to enter it.
-6.  Click the **Add** button (green plus sign), browse to your Desktop, and select your `ei.cfg` file.
-7.  Verify that `ei.cfg` now appears inside the `sources` folder list. **Screenshot the AnyBurn window showing the 'ei.cfg' file inside the sources folder!**
-8.  Click **Next**.
-9.  **Save as:** Click "Browse" and name the new file `Win11_Pro_Only.iso`. Save it in the same folder as your original ISO.
-10. Click **Create Now**. Wait for the process to complete.
-11. You now have a custom deployment image.
+3.  **Configure the VM:**
+    * **Name:** `Win11-Reference`. Click **Next**.
+    * **Generation:** Select **Generation 2** (Required for UEFI/TPM). Click **Next**.
+    * **Memory:** `4096` MB (4GB). Check **Use Dynamic Memory**. Click **Next**.
+    * **Network:** Select **Default Switch**. Click **Next**.
+    * **Hard Disk:** Accept defaults (Create a virtual hard disk). Click **Next**.
+    * **Installation Options:** Select **Install an OS from a bootable image file**. Browse to the Windows 11 ISO you just downloaded. Click **Next** -> **Finish**.
 
----
-
-### Activity 3 – Configuring the Hardware (Hyper-V)
-
-Windows 11 has strict hardware requirements (TPM 2.0 and Secure Boot). Standard Virtual Machines will fail the installation unless configured correctly.
-
-1.  Click **Start**, type `Hyper-V Manager`, and press **Enter**.
-2.  In the Actions pane on the right, click **New** > **Virtual Machine**.
-3.  **Name:** Type `Win11-Final-Lab`. Click **Next**.
-4.  **Specify Generation:** **STOP.** You *must* select **Generation 2**.
-    * *Why?* Only Generation 2 supports UEFI and TPM, which are required for Windows 11.
-    * Select **Generation 2** and click **Next**.
-5.  **Assign Memory:** Type `4096` (4GB) or `8192` (8GB) depending on your host RAM. Check **Use Dynamic Memory**. Click **Next**.
-6.  **Configure Networking:** Select **Default Switch**. Click **Next**.
-7.  **Connect Virtual Hard Disk:** Accept the defaults (Create a virtual hard disk). Click **Next**.
-8.  **Installation Options:**
-    * Select **Install an operating system from a bootable image file**.
-    * Click **Browse** and select your **CUSTOM ISO** (`Win11_Pro_Only.iso`). **Do not select the original download.**
-    * Click **Next**, then click **Finish**.
-9.  **Security Configuration (CRITICAL STEP):**
-    * Do *not* start the VM yet.
-    * Right-click your new `Win11-Final-Lab` VM and select **Settings**.
-    * Click on the **Security** tab on the left.
-    * Ensure **Enable Secure Boot** is checked.
-    * Check the box for **Enable Trusted Platform Module (TPM)**.
+4.  **The Critical Security Step (TPM):**
+    * *Do not start the VM yet.*
+    * Right-click your new `Win11-Reference` VM and select **Settings**.
+    * Click **Security** on the left.
+    * **Check** `Enable Secure Boot`.
+    * **Check** `Enable Trusted Platform Module`.
     * **Screenshot this Security Settings window showing both boxes checked!**
-10. Click **OK**.
+    * Click **OK**.
 
 ---
 
-### Activity 4 – The Installation
+### Activity 2 – The Clean Install
 
-1.  Right-click your VM and select **Connect**, then click **Start**.
-2.  **Immediately** press any key when you see "Press any key to boot from CD or DVD..."
-3.  At the Windows Setup screen, select your language and click **Next** > **Install Now**.
-4.  **Verify your ISO Customization:**
-    * Normally, Windows would ask you to select an Edition (Home, Education, Pro).
-    * Because of your `ei.cfg` file, **this screen should be skipped entirely.**
-    * If you go straight to the "Activate Windows" or "License Terms" screen, your customization worked!
-5.  **Activate Windows:** Click **I don't have a product key**.
-6.  **License Terms:** Check the box to accept and click **Next**.
-7.  **Installation Type:** Select **Custom: Install Windows only (advanced)**.
-8.  Select **Drive 0 Unallocated Space** and
+1.  Right-click your VM, click **Connect**, then click **Start**.
+2.  **Immediately** press a key when prompted to boot from DVD.
+3.  Select your Language and click **Next** -> **Install Now**.
+4.  **Activate Windows:** Click **I don't have a product key**.
+5.  **OS Selection:** Select **Windows 11 Pro** (Education is also fine, but Pro is standard). Click **Next**.
+6.  Accept the License Terms and click **Next**.
+7.  **Installation Type:** Click **Custom: Install Windows Only (Advanced)**.
+8.  Verify **Drive 0 Unallocated Space** is selected and click **Next**.
+9.  Wait for the files to copy. The VM will reboot several times.
+
+---
+
+### Activity 3 – The OOBE Bypass (Local Account)
+
+**Scenario:** Windows 11 setup (OOBE) tries to force you to sign in with a Microsoft Account. For a "Reference Image," we want a local administrator account. We will use a command-line trick to bypass the network requirement.
+
+1.  **The Region Screen:** When the installation finishes, you will see the "Is this the right country or region?" screen. **STOP.**
+2.  Press **Shift + F10** on your keyboard. A black Command Prompt window will open.
+3.  Type the following command and press **Enter**:
+    `OOBE\BYPASSNRO`
+4.  **Screenshot the command prompt with this command typed in!**
+5.  The system will reboot immediately.
+6.  When it returns to the Region screen, select your Region (Canada/US) and click **Yes**.
+7.  Select your Keyboard layout and click **Yes** -> **Skip**.
+8.  **The Network Screen:** You will now see a button that says **I don't have internet**. Click it.
+9.  Click **Continue with limited setup**.
+10. **Who's going to use this device?** Type `LabAdmin`. Click **Next**.
+11. **Password:** Leave it blank (for this lab) and click **Next**.
+12. **Privacy:** Uncheck all toggles and click **Accept**.
+13. Wait for the desktop to load.
+
+---
+
+### Activity 4 – Generalizing with Sysprep
+
+**Scenario:** You have installed Windows, but it has a specific Computer Name (SID) and hardware drivers attached to it. Before we can deploy this image to 100 other computers, we must **"Generalize"** it. This strips out the unique identifiers and resets the OOBE so the next user feels like they are unboxing a new PC.
+
+1.  On your VM desktop, open **File Explorer**.
+2.  Navigate to `C:\Windows\System32\sysprep`.
+3.  Double-click `sysprep.exe`.
+4.  **Configure Sysprep:**
+    * **System Cleanup Action:** Select `Enter System Out-of-Box Experience (OOBE)`.
+    * **Generalize:** **CHECK THIS BOX.** (Critical: This removes the unique ID/SID).
+    * **Shutdown Options:** Select `Reboot` (so we can verify it worked).
+    * **Screenshot the Sysprep window with these settings selected!**
+5.  Click **OK**.
+    * *Note:* Sysprep will work for a moment, "Processing generalise phase," and then the VM will reboot.
+
+> **🔥 Troubleshooting:** If Sysprep fails with an error, it is usually because Windows auto-updated an "Appx" package in the background.
+> * **Fix:** If it fails, reboot the VM, wait 5 minutes, and try running Sysprep again.
+
+6.  **Verification:**
+    * Watch the VM reboot.
+    * It should load back into the **"Is this the right country or region?"** screen.
+    * This proves that the system was successfully "Generalised" and reset to factory OOBE status.
+    * **Final Screenshot: Take a screenshot of the Region screen appearing for the second time.**
+
+7.  You can now shut down the VM. You have successfully created a deployment-ready Windows 11 image!
