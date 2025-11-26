@@ -72,6 +72,7 @@ In this lab, you will simulate the role of a System Administrator creating a "Re
 
 1.  **The Region Screen:** When the installation finishes, you will see the "Is this the right country or region?" screen. **STOP.**
 2.  Press **Shift + F10** on your keyboard. A black Command Prompt window will open.
+    > If this doesn't work, check to see if you have a fn key (Laptop User?) try fn+Shift+f10
 3.  Type the following command and press **Enter**:
     `OOBE\BYPASSNRO`
     > **📝 What does this do?** `BYPASSNRO` stands for "Bypass Network Requirement Option." This command modifies the Windows Registry to re-enable the hidden "I don't have internet" button, allowing IT professionals to set up machines without forcing a Microsoft account link.
