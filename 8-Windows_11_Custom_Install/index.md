@@ -19,6 +19,7 @@ In this lab, you will simulate the role of a System Administrator creating a "Re
 **Scenario:** You need to prepare a virtual machine to build your reference disk image. Unlike Windows 10, Windows 11 requires specific security hardware (TPM) to be present, even in a virtual environment.
 
 1.  **Download the ISO:**
+    * Remember, as an alternative to the official MS Download method, you may choose to use the Azure Education Hub.
     * Open a browser and visit the [Download Windows 11](https://www.microsoft.com/software-download/windows11) page.
     * Scroll to **Download Windows 11 Disk Image (ISO)**.
     * Select **Windows 11 (multi-edition ISO)** -> **Download Now**.
