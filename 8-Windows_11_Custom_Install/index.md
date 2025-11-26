@@ -80,6 +80,9 @@ In this lab, you will simulate the role of a System Administrator creating a "Re
 6.  When it returns to the Region screen, select your Region (Canada/US) and click **Yes**.
 7.  Select your Keyboard layout and click **Yes** -> **Skip**.
 8.  **The Network Screen:** You will now see a button that says **I don't have internet**. Click it.
+    > * **Can't find it?** 
+    > * Even with BYPASSNRO run, if Windows 11 detects a live internet connection, it often forces the update check and hides or ignores the "I don't have internet" flow, forcing you back into the Microsoft Account login loop.
+    > * **The Fix**: Just disconnect the Network Adapter in Hyper-V settings and reboot
 9.  Click **Continue with limited setup**.
 10. **Who's going to use this device?** Type `LabAdmin`. Click **Next**.
 11. **Password:** Leave it blank (for this lab) and click **Next**.
