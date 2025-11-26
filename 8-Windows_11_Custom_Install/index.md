@@ -112,6 +112,8 @@ In this lab, you will simulate the role of a System Administrator creating a "Re
 
 > **🔥 Troubleshooting:** If Sysprep fails with an error, it is usually because Windows auto-updated an "Appx" package in the background.
 > * **Fix:** If it fails, reboot the VM, wait 5 minutes, and try running Sysprep again.
+> * Another casue can be bitlocker, try turing off Bitlocker for the C: volume
+> * Finally, you may need to skip the "generalize". Without it you are just going through the motions, that wouldn't suffice for a production environment, but for a lab...
 
 6.  **Verification:**
     * Watch the VM reboot.
