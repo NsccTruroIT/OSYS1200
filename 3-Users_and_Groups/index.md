@@ -1,8 +1,8 @@
-# OSYS1200 Lab 3
+# OSYS1200 Unit 3
 
 # Lab 3 - Managing Users and Groups
 
-> Please use your VM at [172.16.144.118](http://172.16.144.118/) . You should have the hang of connecting to this by now, but if you forgot jump [back to Lab 2](https://nscctruroit.github.io/OSYS1200/2-Utilities_and_Tools/).
+> Please use your VM at https://github.com/redmondmj/nscc-lab-portal/blob/main/STUDENT_GUIDE.md
 
 > Connectivity from F305 and F308 should now be working! Just connect to the Sysnet wifi and you should be good to go!
 
