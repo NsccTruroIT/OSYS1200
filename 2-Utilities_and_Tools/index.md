@@ -34,7 +34,7 @@
 
 ### Part 1
 
-Before you begin this section of the lab you will need to install steam to you vm, you can choose to install another application instead of steam just mkae sure to document the process :)
+Before you begin this section of the lab you will need to install steam to you vm, you can choose to install another application instead of steam just make sure to document the process :)
 
 ### Part 2
 
