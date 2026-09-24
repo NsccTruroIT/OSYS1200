@@ -32,6 +32,12 @@
 
 ## Activity 2 – Steam is the Devil
 
+### Part 1
+
+Before you begin this section of the lab you will need to install steam to you vm, you can choose to install another application instead of steam just mkae sure to document the process :)
+
+### Part 2
+
 Some users have complained recently about an application that seems to start every time the log in to their machine. Please **provide a set of instructions** that can be followed to stop this application from running.
 
 Option (Choose One):
