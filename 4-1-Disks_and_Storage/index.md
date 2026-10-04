@@ -2,7 +2,7 @@
 
 Last Updated: Sept 30, 2025 17:57 PM
 Created By: Matt Redmond
-Upadted By: Don Geraghty
+Updated By: Don Geraghty
 Course: OSYS1200
 
 # Unit 4 Lab – Part 1 Disks and Storage
