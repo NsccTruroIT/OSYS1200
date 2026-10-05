@@ -1,8 +1,8 @@
 # Windows 11 Tools and Utilities
 
->💡To ensure consistency, this activitiy is designed to be completed using your provided Windows 11 Virtual Machine. Use our Get-VM Console page to start and connect to your Virtual Machine.
+> 💡 **Connecting to Your VM**: To ensure consistency, this activity is designed to be completed using your provided Windows 11 Virtual Machine via the [NSCC Virtual Lab Portal](https://labs.nscctruro.ca). If you need help starting or connecting to your VM, refer to the [Student Quick-Start Guide](https://github.com/redmondmj/nscc-lab-portal/blob/main/STUDENT_GUIDE.md).
 
->💡Practice your workflow. Keep these instructions and your Lab Documentation open on your local machine and use the console to your Virtual Machine to execute the steps. Screenshots will be easiest to work with if you switch back to your local machine and then take a screenshot of the console window. 
+> 💡 **Practice your workflow**: Keep these lab instructions and your submission document open on your local physical machine, and use the console (Virt-Viewer / SPICE) to your Virtual Machine to execute the lab steps. Capturing screenshots is easiest if you switch focus to your local machine and take a screenshot of the VM window using **Win + Shift + S** (or **Cmd + Shift + 4** on macOS).
 
 ## Activity 1 – System Settings VS Control Panel (Windows 11 Edition)
 
@@ -11,7 +11,7 @@
 1. In the **Settings** window, click **System**, then scroll down and click **About**.
 1. **Review your device specifications**: processor type and speed, installed RAM, device name, and Windows specifications. <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot 📷</mark>
 1. In the left-hand menu (or use the search bar at the top), click **Apps**, then **Installed apps**.
-    - Use the search bar to find **Steam**.
+    - Use the search bar to find **Microsoft OneDrive** (or **Microsoft 365 Copilot**).
     - Note the version number listed.
 1. In the **Apps** section, click **Startup**.
     - Review the list of apps that launch at startup.
@@ -30,20 +30,14 @@
     - This should redirect you back to the **Control Panel**.
     - <mark style="background-color: red; color: white; font-weight: bold">Take a Screenshot</mark> of this page.
 
-## Activity 2 – Steam is the Devil
+## Activity 2 – OneDrive is the Devil
 
-### Part 1
-
-Before you begin this section of the lab you will need to install steam to you vm, you can choose to install another application instead of steam just make sure to document the process :)
-
-### Part 2
-
-Some users have complained recently about an application that seems to start every time the log in to their machine. Please **provide a set of instructions** that can be followed to stop this application from running.
+Some users have complained recently about an application that seems to start every time they log in to their machine, consuming startup resources (as seen with **OneDrive**'s "High" impact in your Startup apps list). Please **provide a set of instructions** that can be followed to resolve this. *(Note: If you prefer to test with another startup application or game client like Steam, you may choose to install it—just be sure to document your process!)*
 
 Option (Choose One):
 
-1. Document the steps to stop Steam from starting automatically.
-2. Document the steps to uninstall/remove Steam.
+1. Document the steps to stop OneDrive from starting automatically.
+2. Document the steps to uninstall/remove OneDrive from Windows 11.
 
 ## Activity 3 – Configure AutoPlay (Windows 11 Edition)
 

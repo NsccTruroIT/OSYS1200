@@ -1,6 +1,6 @@
 # OSYS1200 Unit 4 - Part 1
 
-Last Updated: Sept 30, 2025 17:57 PM
+Last reviewed: Fall 2026
 Created By: Matt Redmond
 Updated By: Don Geraghty
 Course: OSYS1200
@@ -21,6 +21,12 @@ In class we saw a variety of tools that we can use in Windows to collect informa
 2. What is the capacity of Disk 0?
 3. What file system is used on the D: volume?
 4. How much Free space is available on the C: volume?
+5. **Modern Settings vs. Classic Disk Management Comparison**:
+   - Open **Settings** -> **System** -> **Storage** -> **Advanced storage settings** -> **Disks & volumes**.
+   - Also open classic Disk Management (`diskmgmt.msc` or right-click Start -> **Disk Management**).
+   - Compare how storage information is presented between the modern Windows 11 interface and the classic MMC snap-in.
+   - **Privilege Escalation Observation**: Notice that the Settings app opens immediately at standard/medium user integrity, only prompting for UAC elevation on-demand when attempting modifications. In contrast, classic `diskmgmt.msc` requires full administrator privilege elevation at launch!
+   - **Grab a screenshot** of the Disks & Volumes view in Settings or comparing both tools side-by-side.
 
 ## Activity 2 – Creating VHDs
 
@@ -99,7 +105,7 @@ We should still have two VHD’s mounted from Activity 2, let’s see if we can 
 
 ### Part A - Diskpart
 
-</aside>
+
 
 1. If necessary, start your computer and sign in.
 2. Click the **Start** button, in the search box type `cmd`, and then click **Run as administrator** in the details pane.
@@ -118,7 +124,7 @@ We should still have two VHD’s mounted from Activity 2, let’s see if we can 
 
 ### Part B - Powershell
 
-</aside>
+
 
 1. If necessary, start your computer and sign in.
 2. Right-click the **Start** button and then click **Windows PowerShell** (Admin).
@@ -149,7 +155,7 @@ Get-Command -Module Storage
 
 ## Activity 7: Working with Boot Configuration Data (BCD)
 
-In this activity, you will learn how to use the **bcdedit** command-line tool to view, back up, and modify the Boot Configuration Data (BCD) store. The BCD store contains boot configuration parameters and controls how the operating system is started.
+In this activity, you will learn how to use the **bcdedit** command-line tool to view, back up, and modify the Boot Configuration Data (BCD) store. As covered in Lesson 1, on modern UEFI/GPT systems, the BCD store resides in the hidden EFI System Partition (ESP) at `\EFI\Microsoft\Boot\BCD` and controls the parameters passed to the Windows Boot Manager (`bootmgr.efi`) and OS Loader (`winload.efi`).
 
 ### Part A: Viewing the BCD Store
 

@@ -2,15 +2,29 @@
 
 # Lab 3 - Managing Users and Groups
 
-> Please use your VM at https://github.com/redmondmj/nscc-lab-portal/blob/main/STUDENT_GUIDE.md
+> Please use your VM via the [NSCC Virtual Lab Portal](https://labs.nscctruro.ca) (see the [Student Quick-Start Guide](https://github.com/redmondmj/nscc-lab-portal/blob/main/STUDENT_GUIDE.md) if you need help connecting).
 
 > Connectivity from F305 and F308 should now be working! Just connect to the Sysnet wifi and you should be good to go!
+
+> [!IMPORTANT]
+> ### 🖥️ Connecting to Your VM: Use Virt-Viewer (SPICE Console)
+> For this lab, please connect to your VM using **Virt-Viewer (SPICE Console)** from the lab portal rather than standard Remote Desktop (RDP).
+>
+> **SPICE Console vs. Remote Desktop (RDP):**
+> * **Virt-Viewer (SPICE Console):** Connects directly to the hypervisor's virtual graphics display—just like sitting in front of a physical monitor and keyboard. When you **Sign out** (`log off`) or switch users, **your connection does NOT disconnect!** It drops you right onto the Windows 11 lock screen where all local accounts (`Student`, `Matt`, `Jacob`) can be clicked and logged into. Furthermore, standard user accounts do not require special network permissions to log in at the console.
+> * **Remote Desktop (RDP):** RDP is a single-session network terminal service. When you click "Sign out" inside RDP, your remote session immediately terminates and closes the window. Additionally, standard users cannot connect via RDP unless they are explicitly added to the "Remote Desktop Users" group.
+>
+> **💡 Key Tips for Working in Virt-Viewer:**
+> 1. **Capturing & Releasing Inputs:** Clicking inside the Virt-Viewer window captures your keyboard and mouse focus into the VM. If your cursor gets captured or feels "stuck" inside the VM window, press **`Shift + F12`** (or **`Ctrl + Alt`**) to release mouse and keyboard control back to your host machine.
+> 2. **Copy & Paste Quirks:** Clipboard sharing between your physical machine and the VM relies on the SPICE guest agent running inside Windows. While it generally works, it can occasionally desync. If pasting text or commands doesn't work, type the commands directly.
+> 3. **Capturing Screenshots:** **Always capture screenshots from your local host machine, NOT from inside the VM!** Click outside the Virt-Viewer window on your host computer and use your host's snipping tool (**`Win + Shift + S`** on Windows, or **`Cmd + Shift + 4`** on macOS). This makes it easy to paste screenshots directly into your lab document on your host without having to extract files from the VM.
+> 4. **Forcing Local Sign-In (`.\` Trick):** Campus lab computers are domain-joined, so Windows will often automatically append `@nscctruro.ca` (or the campus domain) to typed usernames. Because your lab VM is a standalone workgroup machine (not domain-joined), `Student@nscctruro.ca` does **not** exist and login will fail! Always prefix the username with **`.\`** (e.g., **`.\Student`**, **`.\Jacob`**, or **`.\Matt`**) whenever typing credentials. The `.\` explicitly tells Windows to authenticate against the local VM rather than the campus domain.
 
 ## Activity 1 – Creating Users and Groups
 
 ### Part A - Making Matt
 
-1. If necessary, start your VM and sign in.
+1. If necessary, start your VM and sign in as **Student**.
 1. Click the **Start** button and then click **Settings**.
 1. In the Settings window, click **Accounts** and then click **Family & other users**.
 1. In the Other users area, click **Add someone else to this PC**.
@@ -29,7 +43,7 @@
 ### Part B – Computer Management - MMC
 
 1. Right-click the Start button and then click **Computer Management**.
-1. In the left pane, expand Local Users and Groups and then click **Users**. Notice the users who are listed here: itstudent, Matt, DefaultAccount, Guest, WDAGUtilityAccount…
+1. In the left pane, expand Local Users and Groups and then click **Users**. Notice the users who are listed here: Student, Matt, DefaultAccount, Guest, WDAGUtilityAccount…
 1. Double-click **Matt**.
 1. In the Matt **Properties** dialog box, on the **General** tab, in the **Full name** box, type `Matt Redmond` and read the other available options.
 1. Click the **Member Of** tab and read the list of groups that Matt is a member of (**Grab a screenshot!**), and then click **Cancel**.
@@ -49,20 +63,20 @@
 1. In the left pane, click **Users**.
 1. Right-click **Jacob** and then click **Properties**.
 1. Click the **Member Of** tab. Notice that Jacob is a member of TestGroup and Users. **Grab a screenshot!**
-1. Log in user to Jacob (Click **Start**, Click your **user** and click **Jacob Smith**). Notice that you are given a message indicating that the password must be changed.
-1. Click **OK** and enter a new password (twice) and press **enter**.
-1. Click **Next** and **Accept** for the provacy settings.
-1. Return to your itstudent session (Click **Start**, Click your **user** and click **itStudent**).
+1. Log in as Jacob (Click **Start**, Click your **user** icon, and click **Jacob Smith**). Notice that you are given a message indicating that the password must be changed.
+1. Click **OK**, enter a new password (twice), and press **Enter**.
+1. Click **Next** and **Accept** for the privacy settings.
+1. Return to your Student session (Click **Start**, Click your **user** icon, and select **Student**).
 1. Next, add Jacob to the “Remote Desktop Users” group.
-    1. Log in as itstudent and launch Computer Management
-    1. Open the account properties dialogue for Jacob
-    1. On the **Member Of** tab, click **Add**
-    1. Click **Advanced** and **Find Now**
-    1. Select **Remote Desktop Users** and click ok twice
-    > This will be important later!
-1. Log in as Jacob.
-1. Launch **Task Manager** and click the **Users** tab. **Take a screenshot**.
-1. Log out.
+    1. Ensure you are logged in as **Student** and launch **Computer Management**.
+    1. Open the account properties dialogue for **Jacob**.
+    1. On the **Member Of** tab, click **Add**.
+    1. Click **Advanced** and **Find Now**.
+    1. Select **Remote Desktop Users** and click **OK** twice.
+    > 📝 Note: While console sessions (like Virt-Viewer) allow standard users to sign in directly at the lock screen, remote access via RDP requires explicit membership in the "Remote Desktop Users" group.
+1. Sign in as **Jacob**.
+1. Launch **Task Manager** and click the **Users** tab. **Take a screenshot** (from your host machine).
+1. Click **Start**, click your **user** icon, and click **Sign out**. Notice that in Virt-Viewer you are returned smoothly to the Windows lock screen without losing your connection. Sign back in as **Student**.
 
 ### Part C – Powershell User Management
 
@@ -126,7 +140,21 @@ Let’s try that again, but this time with some scripting! (Sort of… interacti
 
 ### Part A – Public Profile
 
-This is pretty slick… let’s say you need to make sure every user on the system has a shortcut to an important App. One way to accomplish this is to create the shortcut in the public profile. Try creating a shortcut to Steam (or any other app, you can just copy an existing shortcut like from your "Links" folder) and saving it to **C:\Users\Public\Public Desktop** (note this folder may be hidden by default, in explorer click View→Show->Hidden Items). Check to see if the new shortcut showed up on your desktop. Test your solution by logging in as a different user and see if the shortcut is there. 
+This is pretty slick… let’s say you need to make sure every user on the system has a shortcut to an important App. One way to accomplish this is to create the shortcut in the public profile. 
+
+1. Create a shortcut to Steam (or another application, such as copying an existing shortcut from your "Links" folder or Desktop) and save it to:
+   ```text
+   C:\Users\Public\Desktop
+   ```
+   *(Note: This folder appears as **Public Desktop** in File Explorer. It may be hidden by default—in Explorer click **View > Show > Hidden items** to reveal it).*
+1. Check to see if the new shortcut appeared on your current desktop.
+1. Now test your solution by verifying that other user profiles see the shortcut:
+   - Click **Start**, click your **user** icon, and select **Sign out**.
+   - On the Windows 11 lock screen, click **Matt** (created in Activity 1) and enter his password (`password`).
+   - Notice that the shortcut saved in the Public Desktop is visible on Matt's desktop as well! **Grab a screenshot** (from your host machine).
+   - Click **Start**, click your **user** icon, select **Sign out**, and sign back in as **Student**.
+
+> 💡 *Why test with Matt?* In Activity 1 Part C, Jacob's account was disabled with PowerShell. Matt's account remains active, and because you are connected via the Virt-Viewer console, Matt can sign in locally without needing Remote Desktop permissions!
 
 **Create a set of instructions (written, screenshots, recorded or a combination) for other admins to follow to add additional shortcuts to the public profile.**
 
@@ -201,15 +229,14 @@ Steps:
     ```PowerShell
     Enable-LocalUser Jacob
     ```
-1. Sign out and sign in as Jacob.
-
-    Verify that the Tools group appears in the Start menu. Take a screenshot for your lab documentation.
-1. Revert the Policy
-    
-    Sign back in as your admin user.
-In the Console1 window, double-click Start Layout again.
-Set it to Not Configured and click OK.
-Close all windows. Do not save the MMC console.
+1. Click **Start**, click your **user** icon, and click **Sign out**.
+1. On the Windows 11 lock screen, sign in as **Jacob** (using the password you set in Activity 1).
+    Verify that the Tools group appears in the Start menu. **Take a screenshot** (from your host machine) for your lab documentation.
+1. Revert the Policy:
+    - Click **Start**, click your **user** icon, select **Sign out**, and sign back in as **Student**.
+    - In the Console1 window, double-click **Start Layout** again.
+    - Set it to **Not Configured** and click **OK**.
+    - Close all windows. Do not save the MMC console.
 
 ## Activity 5 - Groups! MMC Vs PS
 
@@ -272,9 +299,9 @@ Get-LocalGroup
 1. AND click **OK** one more time to save the group properties.
 
 ## What to submit
-1. Activity 1: Requested screenshots w/ descriptions.
-1. Activity 2:Requests screenshots & contents of ps-history.txt
-1. Activity 3: Your own instructions & descriptions
+1. Activity 1: Requested screenshots or equivalent written command/result evidence with descriptions.
+1. Activity 2: Requested screenshots or equivalent written command/result evidence, plus the contents of `ps-history.txt`.
+1. Activity 3: Your own instructions and descriptions in written, screenshot, recorded, or combined form.
 1. Activity 4 & 5:
     Screenshot the output of this script to confirm completion
     1. Launch Powershell(Admin) with WIN+X

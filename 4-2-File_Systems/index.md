@@ -1,6 +1,6 @@
 # OSYS1200 Lab 4 - Part 2
 
-Last Updated: Sept 30, 2025 18:18 PM
+Last reviewed: Fall 2026
 Created By: Matt Redmond
 Updated By: Don Geraghty
 Course: OSYS1200
@@ -116,7 +116,7 @@ Now that we have some shiny new storage attached to the system, let’s look at 
 16. In the Block Inheritance warning dialog box, click **Remove all inherited permissions from this object** to start with blank security settings for the Marketing Documents folder.
 17. Click the **Add** button in the Advanced Security dialog box to display the **Permission Entry** dialog box.
 18. Click **Select a principal** link.
-19. Enter itstudent (or your user) and then click **OK** to continue.
+19. Enter Student (or your current user name) and then click **OK** to continue.
 20. In the list of basic permissions, place a check next to the **Full control** permission.
 21. Note that all other basic permissions are automatically assigned and that the permission scope is set to **This folder, subfolder and files**. **Grab a Screenshot!** 
 22. Click **OK** to continue.
@@ -134,19 +134,21 @@ Now that we have some shiny new storage attached to the system, let’s look at 
 
 ## Activity 5 – Share Permissions
 
-Share permissions are sometimes confused with file permissions. Share permissions are a simplified way to provide access to files and folders for other users and groups. They offer a limited set of permissions, but are available for any file system. As we saw NTFS file permissions are more comprehensive, but are only available for NTFS file systems.
+Share permissions are sometimes confused with file permissions. Share permissions are a simplified way to provide access to files and folders for other users and groups over a network. They offer a limited set of permissions (Read, Change, Full Control), but apply across the network regardless of the underlying file system. NTFS file permissions are far more granular and apply both locally and over the network.
 
-1. Someone has created a shared folder in itstudent’s “Documents” folder.
+> **Golden Rule from Lesson 2**: When accessing files over a network share, the **MOST RESTRICTIVE** combination of Share and NTFS permissions always wins! (Effective Access = Share Permissions ∩ NTFS Permissions).
+
+1. A shared folder has been created in Student’s “Documents” folder (`C:\Users\Student\Documents\Shared`).
 
 ![Untitled][def]
 
-1. This makes you wonder… what other shared folders might exist on this machine? Let’s find out.
-2. Right click the **Start** button and open **Computer Management**.
-3. Click the arrow beside **Shared Folders** and click **Shares**. **Grab a screenshot!**
-4. Right click the **Shared** folder and click **properties**.
-5. Click **Share Permissions** and document the current permissions in your lab.
-6. Close **Computer Management** and open **File Explorer**.
-7. **Demonstrate the steps you would take via File Explorer to deny Bad user access to this share?**
+2. This makes you wonder… what other shared folders might exist on this machine? Let’s find out.
+3. Right click the **Start** button and open **Computer Management**.
+4. Click the arrow beside **Shared Folders** and click **Shares**. **Grab a screenshot!**
+5. Right click the **Shared** folder and click **Properties**.
+6. Click **Share Permissions** and document the current permissions in your lab.
+7. Close **Computer Management** and open **File Explorer**.
+8. **Demonstrate the steps you would take via File Explorer to deny Bad user access to this share?**
     
     <aside>
     📂 Be sure not to deny access for everyone though!
@@ -165,8 +167,28 @@ You need to restrict access to this folder for Bad user without disrupting acces
  **You can choose to answer the following questions with screenshots, text, audio, video, links or anything else that works for you** 😊
 
 1. How can you tell what the current permissions are for this folder?
-2. What options are available to ensure the “Bad” user does not have access to “Top Secret”?
-3. Can you prove that you restricted access for Bad?
+2. What options are available to ensure the “Bad” user does not have access to “Top Secret”? *(Consider: Explicit Deny ACE vs. modifying group/user assignments or inheritance, and explain the pros and cons of using an explicit Deny vs. scoping).*
+3. Can you prove that you restricted access for Bad? *(Tip: Check the Effective Access tab in Advanced Security Settings or test access directly).*
+
+## What to submit
+
+Take a screenshot of the Grade-A-Tron output to confirm your lab configuration:
+
+1. Launch **PowerShell (Admin)** with `Win + X`.
+2. Navigate to your Documents folder:
+   ```powershell
+   Set-Location "$env:USERPROFILE\Documents"
+   ```
+3. Download the "Grade-A-Tron" script:
+   ```powershell
+   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/NsccTruroIT/OSYS1200/refs/heads/main/4-2-File_Systems/Lab4-Grade-A-Tron.ps1" -OutFile ".\Lab4-Grade-A-Tron.ps1"
+   ```
+4. Run the validation script:
+   ```powershell
+   .\Lab4-Grade-A-Tron.ps1
+   ```
+5. **Grab a screenshot** of your Grade-A-Tron summary score and include it with your lab submission!
+
 
 [def]: Untitled.png
 [def2]: Untitled1.png
