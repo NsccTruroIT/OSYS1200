@@ -200,7 +200,13 @@ Now, you will modify a BCD entry to change the description of the boot entry. Th
 
 1.  To change the description of the current boot entry, type the following command and press **Enter**:
 
+    *If using PowerShell (Admin):* (Quotes around `"{current}"` are required because PowerShell treats unquoted curly braces `{}` as a ScriptBlock!)
+    ```powershell
+    bcdedit /set "{current}" description "My Windows Boot Entry"
     ```
+
+    *If using Command Prompt (Admin):*
+    ```cmd
     bcdedit /set {current} description "My Windows Boot Entry"
     ```
 
