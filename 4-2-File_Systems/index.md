@@ -10,38 +10,37 @@ Course: OSYS1200
 
 We added some storage… next we’ll explore the existing storage devices on our machines and configure some new storage.
 
-Your Virtual Machine has been updated with a few files, folders and NTFS ACL’s to make it easier to explore. If you prefer to follow along on a different device you can run the following PowerShell commands to quickly set up the environment:
-
-- Code
-    
-    ```powershell
-    #Create Bad User
-    $password = ConvertTo-SecureString "It$tudents" -AsPlainText -Force
-    New-LocalUser -Name "Bad" -Password $password -FullName "Bad User" -Description "Demo User"
-    
-    #Create Top Secrete Folder
-    mkdir C:\TopSecret
-    $NTFSpath = "C:\TopSecret"
-    $acl = Get-Acl -Path $NTFSpath
-    $accessrule = New-Object System.Security.AccessControl.FileSystemAccessRule ('Everyone', 'FullControl', 'ContainerInherit, ObjectInherit', 'InheritOnly', 'Allow')
-    $acl.SetAccessRule($accessrule)
-    Set-Acl -Path $NTFSpath -AclObject $acl
-    
-    # Create Shared folder
-    mkdir "$($env:USERPROFILE)\Documents\Shared"
-    New-SmbShare -Name "Shared" -Path "$($env:USERPROFILE)\Documents\Shared" -ChangeAccess "Users" -FullAccess "Administrators"
-    
-    ```
-    
-
-    - To run this script on your system
-        - Save the script to a local file i.e. lab4_setup.ps1
-            `notepad lab4_setup.ps1`
-        - Paste the content above into your file and save it
-        - (If Necessary) Set the Execution Policy
-            `Set-ExecutionPolicy Bypass`
-        - Execute the script
-            `.\lab4_setup.ps1`
+> ⚠️ **Prerequisite Environment Setup (Recommended for All Students)**:  
+> To ensure your VM has all required lab components in place (the `Bad` demo user, the `C:\TopSecret` folder with baseline permissions, and the `Shared` folder and SMB network share expected in Activity 5 and by Grade-A-Tron), **please run the setup script before beginning this lab**.
+>
+> Open **PowerShell as Administrator** (`Win + X` → **Terminal (Admin)** or **PowerShell (Admin)**) and run:
+> ```powershell
+> irm "https://raw.githubusercontent.com/NsccTruroIT/OSYS1200/refs/heads/main/4-2-File_Systems/Lab4-Setup.ps1" | iex
+> ```
+>
+> *Alternatively, you can download `Lab4-Setup.ps1` from the repository or execute the setup commands below:*
+>
+> ```powershell
+> # 1. Create Bad User
+> if (-not (Get-LocalUser -Name "Bad" -ErrorAction SilentlyContinue)) {
+>     $password = ConvertTo-SecureString 'It$tudents' -AsPlainText -Force
+>     New-LocalUser -Name "Bad" -Password $password -FullName "Bad User" -Description "Demo User" -PasswordNeverExpires
+> }
+> 
+> # 2. Create TopSecret Folder & Baseline Permissions
+> if (-not (Test-Path "C:\TopSecret")) { New-Item -ItemType Directory -Path "C:\TopSecret" -Force | Out-Null }
+> $acl = Get-Acl -Path "C:\TopSecret"
+> $accessrule = New-Object System.Security.AccessControl.FileSystemAccessRule ('Everyone', 'FullControl', 'ContainerInherit, ObjectInherit', 'InheritOnly', 'Allow')
+> $acl.SetAccessRule($accessrule)
+> Set-Acl -Path "C:\TopSecret" -AclObject $acl
+> 
+> # 3. Create Shared Folder & SMB Share
+> $sharedPath = if (Test-Path "C:\Users\Student\Documents") { "C:\Users\Student\Documents\Shared" } else { "$env:USERPROFILE\Documents\Shared" }
+> if (-not (Test-Path $sharedPath)) { New-Item -ItemType Directory -Path $sharedPath -Force | Out-Null }
+> if (-not (Get-SmbShare -Name "Shared" -ErrorAction SilentlyContinue)) {
+>     New-SmbShare -Name "Shared" -Path $sharedPath -ChangeAccess "Users" -FullAccess "Administrators"
+> }
+> ```
 
 ## Activity 1 – What File System?
 
