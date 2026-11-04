@@ -304,3 +304,70 @@ Execute the ransomware test file again to decrypt the files
     **Screenshot and document the results**
 8. [Attack Surface Reduction](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-attack-surface-reduction-rules) (Optional - but don’t be scared!)
     **Screenshot and document the results**
+
+## Activity 7 – Windows Defender Credential Guard & Virtualization-Based Security (VBS)
+
+Even if an attacker gains full Local Administrator rights on a Windows system, their immediate next objective is usually **credential dumping**—extracting plaintext passwords, NTLM hashes, and Kerberos tickets directly from memory used by the Local Security Authority Subsystem Service (`lsass.exe`). Tools like Mimikatz historically made this trivial for Pass-the-Hash and Pass-the-Ticket attacks.
+
+**Enter Credential Guard:**
+Windows Defender Credential Guard uses **Virtualization-Based Security (VBS)** to move sensitive credential storage into an isolated Virtual Secure Mode (VSM) enclave known as **`LSAIso.exe`** (Isolated LSA). The standard Windows OS and `lsass.exe` communicate with the isolated enclave via RPC calls, but the host operating system kernel itself cannot directly access the memory inside the VSM container. Even kernel-level malware or rootkits cannot read those secrets!
+
+Starting with Windows 11 Enterprise and Pro (version 22H2+), Credential Guard is **enabled by default** on supported hardware that has Secure Boot, TPM 2.0, and CPU Virtualization extensions enabled.
+
+---
+
+### Step 1: Check Credential Guard Status in System Information (`msinfo32`)
+
+1. Press `Win + R`, type `msinfo32`, and press **Enter** (or search for **System Information** in the Start Menu).
+2. Ensure **System Summary** is selected in the left pane.
+3. Scroll down in the right pane to find the **Virtualization-based security** properties:
+   - **Virtualization-based security**: Should display `Running` (or `Enabled`).
+   - **Virtualization-based security Services Configured**: Check if `Credential Guard` is listed.
+   - **Virtualization-based security Services Running**: Check if `Credential Guard` is listed.
+4. **Grab a screenshot** showing your System Information summary with these fields clearly visible!
+
+---
+
+### Step 2: Query Credential Guard State via PowerShell (Admin)
+
+Admins and security engineers automate verification using WMI/CIM instead of clicking through GUI menus.
+
+1. Open **Windows PowerShell (Admin)**.
+2. Run the following command to query the `Win32_DeviceGuard` CIM instance:
+
+   ```powershell
+   Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard | Select-Object VirtualizationBasedSecurityStatus, SecurityServicesConfigured, SecurityServicesRunning, RequiredSecurityProperties
+   ```
+
+3. Interpret the output:
+   - `VirtualizationBasedSecurityStatus`: Value `2` means VBS is currently **Running** (`0` = Not enabled, `1` = Configured but not running, `2` = Running).
+   - `SecurityServicesRunning`: An array of numeric IDs for running VBS services. Value **`1`** corresponds to **Credential Guard**, and **`2`** corresponds to **Hypervisor-Enforced Code Integrity (HVCI)**.
+4. For a cleaner, human-readable check, run:
+
+   ```powershell
+   $dg = Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard
+   [PSCustomObject]@{
+       "VBS Status" = switch ($dg.VirtualizationBasedSecurityStatus) { 0 {"Disabled"} 1 {"Configured"} 2 {"Running"} default {"Unknown"} }
+       "Credential Guard Running" = ($dg.SecurityServicesRunning -contains 1)
+       "HVCI / Memory Integrity"   = ($dg.SecurityServicesRunning -contains 2)
+   }
+   ```
+
+5. **Grab a screenshot** of your PowerShell terminal showing the command output!
+
+---
+
+### Step 3: Inspect Core Isolation & Memory Integrity in Windows Security
+
+1. Open the **Start Menu**, search for **Windows Security**, and open it.
+2. In the left navigation, click **Device security**.
+3. Under **Core isolation**, click **Core isolation details**.
+4. Confirm whether **Memory integrity** (Hypervisor-Protected Code Integrity / HVCI) is toggled **On**.
+5. **Grab a screenshot** of the Core Isolation details screen!
+
+---
+
+### Reflection Questions (Include in your Lab Report):
+
+1. **What specific class of cyberattacks does Credential Guard prevent, and how does it prevent an attacker who already has Local Administrator privileges from stealing credentials?**
+2. **What underlying hardware and virtualization features must be enabled in the UEFI/BIOS and hypervisor (like Proxmox or Hyper-V) for Credential Guard and VBS to function?**
