@@ -1,9 +1,9 @@
 # OSYS1200 Lab 5
 
-Last Updated: October 19, 2024 8:51 AM
-Created By: Matt Redmond Edit Don Geraghty
+Last Updated: Fall 2026
+Created By: Matt Redmond
 Course: OSYS1200
-Status: incomplete
+Status: Complete
 
 ## Activity 1 – Password C0mpl3xity (← so weak)
 
@@ -99,6 +99,13 @@ This will likely work best if done on your proxmox VM.
 5. Let’s test it out! Right-click the **Start** button and choose **Computer Management**.
 6. Expand **Local Users and Groups** and click on **Users.**
 7. Right-click **Bad** and choose  **Set Password**.
+
+> [!TIP]
+> If you do not already have the local user account **Bad** on your VM from Lab 4, run in PowerShell (Admin):
+> `powershell
+> New-LocalUser -Name 'Bad' -NoPassword
+> `
+
 8. Ah Warning! Meh… Click **Proceed.**
 9. Enter the new password `12345` and then again… and then click **ok**. **Screenshot the results!** Click **ok →cancel.**
 10. Remember the default expiry of 42 days? Let’s see why that might not always apply. Right-click **Bad** again and choose **Properties**.
