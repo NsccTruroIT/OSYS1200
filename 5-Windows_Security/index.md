@@ -181,21 +181,30 @@ In this activity, you will test:
 
 ### Part 2: Test Real-Time Protection (Local File Creation)
 
-Even if an attacker bypasses the browser or brings malware in via another method, Defender's real-time minifilter driver intercepts any file written to disk.
+Even if a malicious file bypasses the browser or is staged via script, Defender's real-time minifilter driver (`WdFilter.sys`) intercepts disk writes in real time.
 
-1. Click the **Start** button and type **Notepad**. Open it.
-2. Copy the exact 68-character EICAR test string below and paste it into the blank Notepad file (ensure there are no extra spaces or line breaks):
+#### Method A: PowerShell (Recommended & Instant Feedback)
+1. Open **Windows PowerShell** or **Terminal**.
+2. Run the following command to attempt creating the test file directly on disk:
+   ```powershell
+   Set-Content -Path "$HOME\Downloads\eicar.com" -Value 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*'
+   ```
+   > **CRITICAL SYNTAX NOTE:** You **must** use single quotes (`'...'`), **not** double quotes (`"..."`). In PowerShell, double quotes will evaluate `$EICAR` and `$H` as empty variables, shrinking the string from 68 bytes to 60 bytes and breaking the antivirus signature!
+3. Observe what happens immediately:
+   * PowerShell halts with a red error:  
+     `Set-Content : Operation did not complete successfully because the file contains a virus or potentially unwanted software.`
+   * A Windows notification banner pops up in the lower-right corner: *"Threat found - Microsoft Defender Antivirus is taking action."*
+4. Open **Windows Security** (search in Start or click the shield icon in the system tray) and navigate to **Protection history** (under **Virus & threat protection**). You will see the detected threat: `Virus:DOS/EICAR_Test_File`.
+5. **Grab a screenshot** showing the PowerShell error and the real-time detection in Windows Security!
+
+#### Method B: Notepad
+1. Open **Notepad**.
+2. Copy and paste the exact 68-character EICAR test string (ensure `$EICAR` is present in the text):
    ```
    X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
    ```
-   *(Alternatively, in an elevated PowerShell window, you can run:*  
-   `Set-Content -Path "$HOME\Downloads\eicar.com" -Value 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*'`*)*
-3. In Notepad, click **File > Save As...**.
-4. Set the destination to your **Downloads** folder, change "Save as type" to **"All Files (*.*)"**, and enter the file name: **`eicar.com`**.
-5. Click **Save**.
-6. Almost instantly, Windows Defender will intercept the write. The save will fail or be aborted, and a Windows Security toast notification will appear in the bottom-right corner.
-7. Click the notification (or open **Windows Security > Protection history**). You will see the detected threat: `Virus:DOS/EICAR_Test_File`.
-8. **Grab a screenshot** showing the real-time detection in Windows Security!
+3. Click **File > Save As...**, select your **Downloads** folder, change "Save as type" to **All Files (*.*)**, and save as **`eicar.com`**.
+   *(Note: Modern Windows 11 Notepad is an asynchronous Store app with background buffering; if the save succeeds without a modal dialog, check Windows Security Protection History to observe Defender flagging or quarantining the file).*
 
 ---
 
@@ -247,46 +256,56 @@ To test an on-demand scan, we will temporarily disable Real-Time Protection, sta
 
 ## Activity 6 - Advanced Threat Protection 😲
 
-Sounds scary, but this is a great opportunity to explore a variety of best practices for mitigating threats. Most of these have already been implemented by Windows or Edge.
+Explore modern endpoint protection features provided by Microsoft Defender and SmartScreen. These demonstrations test how Windows mitigates phishing, malicious downloads, unapproved apps, and ransomware.
 
-Check out the [Defender ATP](https://demo.wd.microsoft.com/?ocid=cx-wddocs-testground) features.. these are pretty easy to explore by downloading a variety of files. Complete each of the following and **document the results**:
+> **Note on Sign-In:** Microsoft has migrated all demonstration scenarios to the public, login-free [Microsoft Learn Defender Endpoint Demonstrations](https://learn.microsoft.com/en-ca/defender-endpoint/defender-endpoint-demonstrations). **No Microsoft or NSCC account login is required!** Use the direct test links below to trigger each feature.
 
-1. [URL Reputation](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-smartscreen-url-reputation)
-    1. Expected Results: each page will trigger some type of warning or block content.
-    2. **Screenshot and document the results**
-2. [Cloud Delivered Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-cloud-delivered-protection)
-    1. Expected Result: Download is Blocked
-    2. **Screenshot and document the results**
-3. [Block at First Sight (sign in with NSCC account)](https://demo.wd.microsoft.com/Page/BAFS)
-    1. Expected Results: Warning message and options to delete, keep, report… etc.
-    2. Link to Upadted BAFS information: [block at first sight](https://learn.microsoft.com/en-us/defender-endpoint/configure-block-at-first-sight-microsoft-defender-antivirus?ocid=wd-av-demo-fl-bottom)
-    2. **Screenshot and document the results**
-4. [Potentially Unwanted Apps](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-potentially-unwanted-applications)
-    1. Expected Results: Different warning message and options to delete, keep, report… etc.
-    2. **Screenshot and document the results**
-5. [Controlled Folder Access](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-controlled-folder-access)
-    - Expected Result (Scenario 1):
-    About five seconds after executing the ransomware test file, you should see a notification that CFA blocked the encryption attempt
-        
-        ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%204.png)
-        
-    - Expected Result (Scenerio 2): The files in c:\demo are encrypted and you should get a warning message.
-Execute the ransomware test file again to decrypt the files
-        
-        ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%205.png)
-        
-    
-        ![Untitled](OSYS1200%20Lab%206%20fecc521bed2a4eefaeb3df3bc5fd961e/Untitled%206.png)
+Complete each of the following demonstrations and **document your results with screenshots**:
 
-         **Screenshot and document the results**
-    
-6. [Network Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-network-protection)
-    1. Expected Result: Navigation to the website should be blocked and you should see a Connection blocked notification.
-    2. **Screenshot and document the results**
-7. [Exploit Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-exploit-protection) (Optional)
-    **Screenshot and document the results**
-8. [Attack Surface Reduction](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-attack-surface-reduction-rules) (Optional - but don’t be scared!)
-    **Screenshot and document the results**
+1. **[URL Reputation (SmartScreen)](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-smartscreen-url-reputation)**:
+   * Test the browser reputation filter by opening any of these live Microsoft test URLs in Edge:
+     * **Phishing Warning:** [demo.smartscreen.msft.net/phishingdemo.html](https://demo.smartscreen.msft.net/phishingdemo.html) *(Triggers red phishing warning)*
+     * **Malware Warning:** [demo.smartscreen.msft.net/other/malware.html](https://demo.smartscreen.msft.net/other/malware.html) *(Triggers red malware warning)*
+     * **Blocked Download:** [freevideo.exe](https://demo.smartscreen.msft.net/download/malwaredemo/freevideo.exe) *(Edge SmartScreen blocks the download)*
+   * Expected Result: Microsoft Defender SmartScreen displays a full-screen warning or blocks the download.
+   * **Screenshot and document the result!**
+
+2. **[Cloud-Delivered Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-cloud-delivered-protection)**:
+   * Download the official Microsoft cloud protection test archive: [Download MDECloudProtectionDemoTest.zip](https://go.microsoft.com/fwlink/?linkid=2298135)
+   * Extract the zip (the archive password is **`infected`**).
+   * Double-click the extracted test file.
+   * Expected Result: Microsoft Advanced Protection Service (MAPS) cloud lookup detects the file hash and Defender instantly deletes/quarantines it.
+   * **Screenshot and document the result!**
+
+3. **[Block at First Sight (BAFS)](https://learn.microsoft.com/en-us/defender-endpoint/configure-block-at-first-sight-microsoft-defender-antivirus)**:
+   * Review how Block at First Sight coordinates with Cloud-Delivered Protection: when a new, unknown file is observed for the very first time across the globe, Defender holds execution for up to 50 seconds while querying the Microsoft Security Graph cloud backend.
+   * Document in your report: How does BAFS differ from traditional signature-based AV updates?
+
+4. **[Potentially Unwanted Applications (PUA)](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-potentially-unwanted-applications)**:
+   * Navigate to the [AMTSO PUA Feature Settings Check](http://www.amtso.org/feature-settings-check-potentially-unwanted-applications/) and click the test download button.
+   * Expected Result: Defender flags the file as potentially unwanted (`PUA:Win32/...`), providing options to review or remove it.
+   * **Screenshot and document the result!**
+
+5. **[Controlled Folder Access (Anti-Ransomware)](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-controlled-folder-access-ransomware)**:
+   * Controlled Folder Access (CFA) prevents untrusted binaries from modifying protected user directories (Documents, Pictures, Desktop, etc.).
+   * Download the direct unsigned ransomware simulator and decrypter:
+     * **Ransomware Simulator:** [ransomware_testfile_unsigned.exe](https://demo.wd.microsoft.com/Content/ransomware_testfile_unsigned.exe)
+     * **Cleanup/Decryption Tool:** [ransomware_cleanup_encrypt_decrypt.exe](https://demo.wd.microsoft.com/Content/ransomware_cleanup_encrypt_decrypt.exe)
+   * **Scenario 1:** Enable CFA in Windows Security (**Virus & threat protection > Ransomware protection > Controlled folder access = On**). Run `ransomware_testfile_unsigned.exe`. Defender will block the write and display a notification.
+   * **Scenario 2:** Temporarily toggle CFA Off, run the test file to observe test encryption in `C:\demo`, then execute `ransomware_cleanup_encrypt_decrypt.exe` to restore your files.
+   * **Screenshot and document the blocked CFA notification!**
+
+6. **[Network Protection](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-network-protection)**:
+   * Navigate to the Microsoft network protection test endpoint in your browser: [smartscreentestratings2.net](https://smartscreentestratings2.net/)
+   * Expected Result: The connection is blocked at the network layer with a "Connection blocked" notification.
+   * **Screenshot and document the result!**
+
+7. **[Exploit Protection (EP)](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-exploit-protection)** (Optional):
+   * Test browser exploit mitigation: [demo.smartscreen.msft.net/other/exploit.html](https://demo.smartscreen.msft.net/other/exploit.html)
+   * **Screenshot and document the result!**
+
+8. **[Attack Surface Reduction (ASR)](https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-attack-surface-reduction-rules)** (Optional):
+   * Explore Microsoft Defender ASR rules designed to block malicious macros, child process creation from Office apps, and script abuse.
 
 ## Activity 7 – Windows Defender Credential Guard & Virtualization-Based Security (VBS)
 
@@ -296,6 +315,10 @@ Even if an attacker gains full Local Administrator rights on a Windows system, t
 Windows Defender Credential Guard uses **Virtualization-Based Security (VBS)** to move sensitive credential storage into an isolated Virtual Secure Mode (VSM) enclave known as **`LSAIso.exe`** (Isolated LSA). The standard Windows OS and `lsass.exe` communicate with the isolated enclave via RPC calls, but the host operating system kernel itself cannot directly access the memory inside the VSM container. Even kernel-level malware or rootkits cannot read those secrets!
 
 Starting with Windows 11 Enterprise and Pro (version 22H2+), Credential Guard is **enabled by default** on supported hardware that has Secure Boot, TPM 2.0, and CPU Virtualization extensions enabled.
+
+> ⚠️ **CRITICAL LAB ENVIRONMENT NOTE (Proxmox VM vs. Physical Lab PC):**  
+> * **Inside your Proxmox Virtual Machine:** Virtualization-Based Security and Credential Guard will report **`0` (Disabled / Not Running)**. This is normal because virtualized hypervisors do not support nested virtualization by default.
+> * **On your Physical NSCC Lab PC (or Windows 11 Laptop):** The physical workstation runs on bare-metal hardware with physical Intel VT-x/AMD-V, TPM 2.0, and Secure Boot. **Perform Step 1 and Step 2 on your physical desk machine** to observe Credential Guard and VBS actively running (`VirtualizationBasedSecurityStatus : 2` and `SecurityServicesRunning : {1}`)!
 
 ---
 
