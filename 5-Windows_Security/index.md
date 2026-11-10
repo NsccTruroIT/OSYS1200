@@ -365,6 +365,12 @@ Admins and security engineers automate verification using WMI/CIM instead of cli
 
 ### Step 3: Inspect Core Isolation & Memory Integrity in Windows Security
 
+> [!NOTE]
+> **Proxmox VM Notice — Memory Integrity & Driver Incompatibility:**  
+> If you see Memory Integrity toggled **Off** with *"Resolve any driver incompatibilities and scan again"*, **you did not miss any steps!**  
+> Windows 11 scans kernel drivers before checking virtualization, and flags the virtual machine's display driver (`qxldod.sys`).  
+> 👉 Simply click **"Review incompatible drivers"**, grab a screenshot showing the flagged driver, and note it in your report. Documenting this finding earns **100% full credit**!
+
 1. Open the **Start Menu**, search for **Windows Security**, and open it.
 2. In the left navigation, click **Device security**.
 3. Under **Core isolation**, click **Core isolation details**.
