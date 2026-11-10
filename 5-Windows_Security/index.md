@@ -368,8 +368,11 @@ Admins and security engineers automate verification using WMI/CIM instead of cli
 1. Open the **Start Menu**, search for **Windows Security**, and open it.
 2. In the left navigation, click **Device security**.
 3. Under **Core isolation**, click **Core isolation details**.
-4. Confirm whether **Memory integrity** (Hypervisor-Protected Code Integrity / HVCI) is toggled **On**.
-5. **Grab a screenshot** of the Core Isolation details screen!
+4. **Inspect the status of Memory integrity (Hypervisor-Protected Code Integrity / HVCI):**
+   * **Inside your Proxmox Virtual Machine:** Memory integrity will typically be toggled **Off**, displaying *"Resolve any driver incompatibilities and scan again"*. Windows 11 scans kernel drivers before enabling HVCI, and flags the virtual machine's legacy display driver (`qxldod.sys` / Red Hat QXL).  
+     👉 **Click "Review incompatible drivers"** to view the flagged driver list, note the driver name in your report, and **grab a screenshot of this screen!** *(You do not need to resolve or fix the driver—documenting this security finding earns 100% full credit).*
+   * **On your Physical NSCC Lab PC:** Memory integrity is managed by NSCC enterprise policy and physical UEFI hardware, and will typically be active or locked.
+5. **Grab a screenshot** of the Core Isolation details / Incompatible Drivers screen for your report!
 
 ---
 
