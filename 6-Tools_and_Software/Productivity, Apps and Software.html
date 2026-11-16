@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="Matts_Brightspace_HTML_Template/_assets/thirdpartylib/bootstrap-4.3.1/css/bootstrap.min.css">
+   <!-- Font Awesome CSS -->
+   <link rel="stylesheet" href="Matts_Brightspace_HTML_Template/_assets/thirdpartylib/fontawesome-free-5.9.0-web/css/all.min.css">
+   <!-- Template CSS -->
+   <link rel="stylesheet" href="Matts_Brightspace_HTML_Template/_assets/css/styles.min.css">
+   <link rel="stylesheet" href="Matts_Brightspace_HTML_Template/_assets/css/custom.css">
+   <title>Productivity, Apps and Software | OSYS1200</title>
+</head><body><div class="container-fluid">
+<div class="row">
+<div class="col-12 banner-img">
+<p><img src="Matts_Brightspace_HTML_Template/_assets/img/banner_08.jpg" alt="OSYS1200 Module 8 Banner"></p>
+</div>
+<div class="col-sm-10 offset-sm-1">
+
+<h1>Tools, Software, and Applications</h1>
+<p class="lead">In this module, we move beyond OS installation and security baselines to examine how Windows 11 organizes user data, stores system configuration in the Registry, and packages, installs, and removes applications at scale.</p>
+
+<div class="alert alert-info" role="alert">
+  <strong>Module Objectives:</strong> By the end of this unit and Lab 6, you will be able to configure File Explorer and Search Indexing for administrative visibility, manage OneDrive sharing permissions securely, inspect and modify the Windows Registry safely, and compare/deploy <code>.exe</code>, <code>.msi</code>, <code>AppX/MSIX</code>, and <code>winget</code> software packages.
+</div>
+
+<hr>
+
+<h2>1. Windows Productivity Tools</h2>
+
+<h3>File Explorer &amp; Windows Search</h3>
+<ul>
+  <li><strong>Show File Extensions &amp; Hidden Items:</strong> By default, Windows hides known file extensions (e.g., showing <code>invoice.pdf.exe</code> as <code>invoice.pdf</code>). Enabling <em>View &rarr; Show &rarr; File name extensions</em> and <em>Hidden items</em> is a mandatory first step for troubleshooting and security awareness.</li>
+  <li><strong>Tabs &amp; Navigation:</strong> Windows 11 File Explorer supports multi-tab browsing (<code>Ctrl+T</code>) and quick path navigation via the address bar (including environment variables like <code>%USERPROFILE%\Downloads</code>).</li>
+  <li><strong>Libraries:</strong> A virtual collection that aggregates multiple physical folders (e.g., your local <code>Documents</code> and <code>C:\Users\Public\Documents</code>) into one unified view, with a configurable default save location.</li>
+  <li><strong>Windows Search Indexing:</strong> Windows Search relies on a background index database rather than scanning the entire disk on every query. Folders outside default user profiles (e.g., <code>C:\NewData</code>) do not appear in filtered <em>Documents</em> search results until added in <em>Settings &rarr; Privacy &amp; security &rarr; Searching Windows &rarr; Customize search locations</em>.</li>
+</ul>
+
+<h3>OneDrive (Personal vs. Work/School)</h3>
+<ul>
+  <li><strong>Personal vs. M365 Business/Education:</strong> Personal OneDrive ties to a consumer Microsoft Account, whereas NSCC's M365 OneDrive for Business is governed by Entra ID / SharePoint policies (supporting organization-only links, audit logs, and link expiration dates).</li>
+  <li><strong>Files On-Demand:</strong> Cloud-only placeholders save local disk space (especially important on VMs), downloading files only when opened unless pinned as <em>Always keep on this device</em>.</li>
+  <li><strong>Sharing &amp; Access Control:</strong> Always follow least privilege when sharing—prefer <em>Specific people</em> or <em>Read-only (Can view)</em> links over open <em>Anyone with the link can edit</em>, set expiration dates when available, and use <strong>Manage access</strong> to audit or revoke active links.</li>
+</ul>
+
+<h3>Printers, Drivers &amp; Browsers</h3>
+<ul>
+  <li><strong>Printing Architecture:</strong> Print jobs queue through the <strong>Print Spooler</strong> service (<code>spoolsv.exe</code>) before reaching local USB or TCP/IP network printers. Administrators stage and inspect printer <code>.inf</code> packages in the Windows Driver Store using <code>pnputil</code>.</li>
+  <li><strong>Modern Browsers:</strong> Chromium-based browsers (Microsoft Edge, Chrome) share the Blink rendering engine and V8 JavaScript engine, while Firefox uses Gecko. In enterprise Windows environments, Edge integrates directly with <strong>Microsoft Defender SmartScreen</strong>, Windows Security Zones, and certificate stores, and includes Developer Tools (<code>F12</code>) for inspecting network traffic and client-side behavior.</li>
+</ul>
+
+<hr>
+
+<h2>2. The Windows Registry</h2>
+<p>Every time you change a Windows setting, configure a service startup type, or install software, Windows stores that configuration in a centralized hierarchical database called the <strong>Windows Registry</strong>.</p>
+
+<h3>Registry Structure &amp; Terminology</h3>
+<p><strong>Hierarchy:</strong> <code>Hive &rarr; Key &rarr; Value &rarr; Data</code></p>
+<ul>
+  <li><strong>Hives (Root Keys):</strong>
+    <ul>
+      <li><code>HKEY_LOCAL_MACHINE (HKLM)</code> – System-wide hardware, driver, service, and software settings (applies to all users).</li>
+      <li><code>HKEY_CURRENT_USER (HKCU)</code> – Preferences and settings for the currently signed-in user.</li>
+      <li><code>HKEY_CLASSES_ROOT (HKCR)</code> – File extension associations and COM class registrations.</li>
+      <li><code>HKEY_USERS (HKU)</code> – Profiles for all loaded user accounts on the machine.</li>
+      <li><code>HKEY_CURRENT_CONFIG (HKCC)</code> – Current hardware profile at boot.</li>
+    </ul>
+  </li>
+  <li><strong>Keys &amp; Subkeys:</strong> Folder-like containers (e.g., <code>HKLM\SYSTEM\CurrentControlSet\Services\Spooler</code>).</li>
+  <li><strong>Values &amp; Data Types:</strong> Named entries inside a key holding configuration data—most commonly <code>REG_SZ</code> (text string), <code>REG_DWORD</code> (32-bit integer, e.g., Service <code>Start = 2</code> for Automatic or <code>4</code> for Disabled), and <code>REG_BINARY</code>.</li>
+</ul>
+
+<h3>Three Ways Administrators Manage the Registry</h3>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Use Case</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Registry Editor (<code>regedit.exe</code>)</strong></td>
+      <td>Interactive GUI inspection, search (<code>Ctrl+F</code>), and manual <code>.reg</code> export/import backups.</td>
+      <td>Right-click key &rarr; <em>Export</em> to <code>C:\SpoolerBak.reg</code></td>
+    </tr>
+    <tr>
+      <td><strong>Command Line (<code>reg.exe</code>)</strong></td>
+      <td>Fast queries, batch scripting, and restoring <code>.reg</code> backups from CMD/PowerShell.</td>
+      <td><code>reg query HKLM\SYSTEM\CurrentControlSet\Services\Spooler</code></td>
+    </tr>
+    <tr>
+      <td><strong>PowerShell Registry Provider</strong></td>
+      <td>Navigating <code>HKLM:</code> and <code>HKCU:</code> like filesystem drives for automation.</td>
+      <td><code>Set-ItemProperty HKLM:\...\Spooler -Name Start -Value 4</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="alert alert-warning" role="alert">
+  <strong>Golden Rule of Registry Editing:</strong> Unlike normal Settings menus, <code>regedit</code> does not ask "Are you sure?" before saving changes. Always <strong>Export</strong> a <code>.reg</code> backup of the target key before editing <code>HKLM</code>!
+</div>
+
+<hr>
+
+<h2>3. Software Packaging &amp; Installation Methods</h2>
+<p>Installing an application is rarely just copying files into a folder. A Windows installer typically extracts binaries to <code>C:\Program Files</code>, registers uninstall metadata under <code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall</code>, configures background services or drivers, and creates Start Menu shortcuts.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Format</th>
+      <th>Engine / Technology</th>
+      <th>Supported Platforms</th>
+      <th>Pros</th>
+      <th>Cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><code>Setup.exe</code></strong></td>
+      <td>Legacy Win32 executable wrapper (Inno Setup, NSIS, InstallShield)</td>
+      <td>Windows 11, Windows 10, Legacy</td>
+      <td>Highly customizable UI and pre-install prerequisite checks.</td>
+      <td>Silent install switches vary by vendor (<code>/S</code>, <code>/silent</code>, <code>/quiet</code>); inconsistent uninstallers.</td>
+    </tr>
+    <tr>
+      <td><strong><code>.msi</code> (Windows Installer)</strong></td>
+      <td>Microsoft Windows Installer service (<code>msiexec.exe</code>)</td>
+      <td>Windows 11, Windows 10, Windows Server</td>
+      <td>Standardized silent flags (<code>/i</code>, <code>/x</code>, <code>/quiet</code>), transactional rollback on failure, enterprise GPO/Intune ready.</td>
+      <td>Requires structured database packaging; trickier to wrap multi-step scripts without an MST/PSADT wrapper.</td>
+    </tr>
+    <tr>
+      <td><strong><code>AppX</code> (UWP)</strong></td>
+      <td>Universal Windows Platform container</td>
+      <td>Windows 11, Windows 10</td>
+      <td>Sandboxed permissions, clean uninstall with zero registry clutter, distributed via Microsoft Store.</td>
+      <td>Restricted APIs; limited to UWP architecture.</td>
+    </tr>
+    <tr>
+      <td><strong><code>MSIX</code></strong></td>
+      <td>Modern Windows App Package</td>
+      <td>Windows 11, Windows 10</td>
+      <td>Containerizes Win32, .NET, and UWP apps; clean installs/uninstalls, delta updates, and digital signing.</td>
+      <td>Requires code-signing certificates and MSIX packaging tools for legacy apps.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Modern App Deployment &amp; Automation</h3>
+<ul>
+  <li><strong><code>winget</code> (Windows Package Manager):</strong> Built into Windows 11 for CLI discovery, silent installation, and patching (e.g., <code>winget install Microsoft.PowerToys</code>, <code>winget upgrade --all</code>).</li>
+  <li><strong><code>msiexec.exe</code> (Silent MSI Control):</strong> Standard administrative deployment from Command Prompt (<code>msiexec.exe /i 7z-x64.msi /quiet</code> to install, <code>/x</code> to uninstall).</li>
+  <li><strong>PowerShell AppX Cmdlets:</strong> Query and remove Store/UWP packages per-user or provisioned (<code>Get-AppPackage -Name *Whiteboard* | Remove-AppPackage</code>).</li>
+  <li><strong>Enterprise Tooling:</strong> Organizations combine <strong>Microsoft Intune / Company Portal</strong> (self-service approved catalog), <strong>Chocolatey</strong>, and <strong>PSAppDeployToolkit (PSADT)</strong> to deploy software silently across hundreds of endpoints without user interaction.</li>
+</ul>
+
+<hr>
+
+<h2>4. Windows 11 25H2 &amp; PowerToys</h2>
+<ul>
+  <li><strong>Windows 11 Version 25H2 Servicing:</strong> Rather than a full OS wipe-and-replace upgrade, version 25H2 builds on the shared 24H2 servicing branch via a lightweight <strong>Enablement Package (eKB)</strong>, turning on staged features with a single fast reboot.</li>
+  <li><strong>Microsoft PowerToys:</strong> An open-source suite of administrator and power-user utilities—including <strong>FancyZones</strong> (custom window snapping), <strong>PowerRename</strong> (regex bulk file renaming), <strong>Text Extractor</strong> (OCR from any screen region), and <strong>Color Picker</strong>.</li>
+</ul>
+
+</div>
+<div class="col-12"><footer>
+<p><img src="Matts_Brightspace_HTML_Template/_assets/img/logo.png" alt="NSCC Logo"></p>
+</footer></div>
+</div>
+</div>
+<script src="Matts_Brightspace_HTML_Template/_assets/thirdpartylib/jquery/jquery-3.3.1.slim.min.js"></script>
+<script src="Matts_Brightspace_HTML_Template/_assets/thirdpartylib/popper-js/popper.min.js"></script>
+<script src="Matts_Brightspace_HTML_Template/_assets/thirdpartylib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+<script src="Matts_Brightspace_HTML_Template/_assets/js/scripts.min.js"></script>
+</body></html>

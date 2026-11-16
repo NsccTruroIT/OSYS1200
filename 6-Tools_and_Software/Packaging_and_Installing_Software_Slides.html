@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Packaging &amp; Installing Software in Windows 11 | OSYS1200</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-2: #273549;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --red: #f87171;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .deck {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 4rem 4.5rem;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1120px;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 3.1rem;
+      line-height: 1.15;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 2.15rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #ffffff;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.65rem;
+    }
+
+    p.lead {
+      font-size: 1.35rem;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 820px;
+    }
+
+    ul, ol {
+      padding-left: 1.4rem;
+      font-size: 1.15rem;
+      line-height: 1.65;
+    }
+
+    li { margin-bottom: 0.55rem; }
+    li strong { color: #ffffff; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.1rem;
+      margin-top: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem 1.5rem;
+    }
+
+    .card.accent-top {
+      border-top: 3px solid var(--accent);
+    }
+
+    .card.green-top { border-top: 3px solid var(--green); }
+    .card.amber-top { border-top: 3px solid var(--amber); }
+    .card.purple-top { border-top: 3px solid var(--accent-2); }
+
+    code {
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--accent);
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+
+    pre {
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.15rem 1.35rem;
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    pre .cmt { color: #64748b; }
+    pre .cmd { color: #38bdf8; font-weight: 600; }
+    pre .flag { color: #34d399; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 1.02rem;
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    th, td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--surface-2);
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .callout {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      font-size: 1.08rem;
+      line-height: 1.5;
+    }
+
+    .callout.warn {
+      background: rgba(251, 191, 36, 0.1);
+      border-left-color: var(--amber);
+    }
+
+    .callout.good {
+      background: rgba(52, 211, 153, 0.1);
+      border-left-color: var(--green);
+    }
+
+    .controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      background: rgba(15, 23, 42, 0.92);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .controls button {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-left: 0.4rem;
+    }
+
+    .controls button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.25s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <main class="deck">
+    <!-- Slide 1 -->
+    <section class="slide active">
+      <span class="tag">OSYS1200 &bull; Module 8</span>
+      <h1>Packaging &amp; Installing<br>Software in Windows 11</h1>
+      <p class="lead">From legacy <code>Setup.exe</code> wizards to silent <code>.msi</code> deployments, containerized <code>MSIX</code>/<code>AppX</code> packages, and modern CLI automation with <code>winget</code>.</p>
+      <div class="callout" style="margin-top: 2rem; max-width: 720px;">
+        <strong>Today's Goal:</strong> Understand what happens under the hood when software installs on Windows—and how administrators deploy, audit, and remove apps without clicking <em>Next &rarr; Next &rarr; Finish</em>.
+      </div>
+    </section>
+
+    <!-- Slide 2 -->
+    <section class="slide">
+      <span class="tag">Under the Hood</span>
+      <h2>What Does an Installer <em>Actually</em> Do?</h2>
+      <p class="lead" style="margin-bottom: 1.25rem;">Installing software is rarely just copying files. A standard Windows installer touches four layers of the OS:</p>
+      <div class="grid-4">
+        <div class="card accent-top">
+          <h3>1. Filesystem</h3>
+          <p>Extracts binaries to <code>C:\Program Files</code> (64-bit) or <code>Program Files (x86)</code>, plus shared runtime DLLs.</p>
+        </div>
+        <div class="card purple-top">
+          <h3>2. Registry</h3>
+          <p>Writes app settings, file associations (<code>HKCR</code>), and <strong>Uninstall metadata</strong> in <code>HKLM</code>.</p>
+        </div>
+        <div class="card amber-top">
+          <h3>3. Services &amp; Drivers</h3>
+          <p>Registers background Windows services (e.g., updaters), scheduled tasks, or kernel drivers.</p>
+        </div>
+        <div class="card green-top">
+          <h3>4. Shell &amp; PATH</h3>
+          <p>Creates Start Menu shortcuts, Desktop icons, and adds CLI tools to the system <code>PATH</code>.</p>
+        </div>
+      </div>
+      <div class="callout warn">
+        <strong>Why "Just Deleting the Folder" Breaks Windows:</strong> Deleting <code>C:\Program Files\App</code> leaves orphaned Registry keys, broken background services, and phantom entries in <em>Installed apps</em>.
+      </div>
+    </section>
+
+    <!-- Slide 3 -->
+    <section class="slide">
+      <span class="tag">Where Windows Tracks Apps</span>
+      <h2>How Does Settings Know What's Installed?</h2>
+      <p class="lead">Every traditional installer writes an entry into the Windows Registry Uninstall key:</p>
+      <pre>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall</pre>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Key Values Written</h3>
+          <ul>
+            <li><code>DisplayName</code> &rarr; App name shown in Settings</li>
+            <li><code>DisplayVersion</code> &rarr; Version number for patching audits</li>
+            <li><code>Publisher</code> &rarr; Vendor name</li>
+            <li><code>UninstallString</code> &rarr; Exact command Windows runs when you click <strong>Uninstall</strong></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Why Admins Care</h3>
+          <ul>
+            <li>Inventory scripts and tools like <strong>Intune</strong> or <strong>SCCM</strong> read these keys to verify software versions.</li>
+            <li><code>winget list</code> cross-references these Registry entries to track installed Win32 apps.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4 -->
+    <section class="slide">
+      <span class="tag">Package Formats</span>
+      <h2>The 4 Windows Packaging Formats</h2>
+      <div class="grid-2">
+        <div class="card amber-top">
+          <h3>1. Traditional <code>Setup.exe</code></h3>
+          <ul>
+            <li>A compiled executable running a custom installer engine (NSIS, Inno Setup, InstallShield).</li>
+            <li>Each vendor invents their own command-line switches.</li>
+          </ul>
+        </div>
+        <div class="card accent-top">
+          <h3>2. Windows Installer (<code>.msi</code>)</h3>
+          <ul>
+            <li>Not an executable—it's a structured <strong>relational database</strong> interpreted by Windows (<code>msiexec.exe</code>).</li>
+            <li>Built for enterprise standardization &amp; clean rollbacks.</li>
+          </ul>
+        </div>
+        <div class="card purple-top">
+          <h3>3. UWP / <code>AppX</code></h3>
+          <ul>
+            <li>Sandboxed Universal Windows Platform package (Microsoft Store apps like Calculator, Whiteboard).</li>
+            <li>Isolated filesystem &amp; registry virtualization.</li>
+          </ul>
+        </div>
+        <div class="card green-top">
+          <h3>4. Modern <code>MSIX</code></h3>
+          <ul>
+            <li>Microsoft's modern unified container format for <strong>Win32, .NET, and UWP</strong> apps.</li>
+            <li>Supports delta updates, mandatory digital signing, and 100% clean uninstalls.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5 -->
+    <section class="slide">
+      <span class="tag">Deep Dive 1</span>
+      <h2>Legacy <code>Setup.exe</code> (The Wild West)</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Strengths</h3>
+          <ul>
+            <li><strong>Total Flexibility:</strong> Vendors can bundle custom splash screens, prerequisite installers (.NET, C++ redistributables), and complex pre/post scripts.</li>
+            <li><strong>Ubiquitous:</strong> Still the most common format downloaded by consumers from the web.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>The Admin Headache</h3>
+          <ul>
+            <li><strong>No Universal Silent Flag:</strong> Is it <code>/S</code> (case-sensitive!), <code>/silent</code>, <code>/verysilent</code>, or <code>/qn</code>?</li>
+            <li><strong>Registry Rot:</strong> Messy uninstallers often leave orphaned files and Registry entries behind.</li>
+            <li><strong>Harder to Automate:</strong> Requires testing or wrapping before fleet deployment.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Pro Tip:</strong> Running <code>setup.exe /?</code> in a terminal often reveals the hidden silent switches—if the vendor bothered to document them.
+      </div>
+    </section>
+
+    <!-- Slide 6 -->
+    <section class="slide">
+      <span class="tag">Deep Dive 2</span>
+      <h2>Windows Installer (<code>.msi</code>) &amp; <code>msiexec.exe</code></h2>
+      <p class="lead">Because <code>.msi</code> files are databases processed by the built-in Windows Installer service, every <code>.msi</code> shares identical administrative flags.</p>
+      <div class="grid-2">
+        <div class="card accent-top">
+          <h3>Standardized Flags</h3>
+          <ul>
+            <li><code>/i</code> &rarr; Install package</li>
+            <li><code>/x</code> &rarr; Uninstall package</li>
+            <li><code>/quiet</code> (or <code>/qn</code>) &rarr; Zero UI / unattended</li>
+            <li><code>/norestart</code> &rarr; Prevent surprise reboots</li>
+            <li><code>/l*v install.log</code> &rarr; Full verbose logging</li>
+          </ul>
+        </div>
+        <div class="card green-top">
+          <h3>Enterprise Superpowers</h3>
+          <ul>
+            <li><strong>Transactional Rollback:</strong> If an install fails at 90%, Windows reverts every file and Registry change cleanly.</li>
+            <li><strong>Transforms (<code>.mst</code>):</strong> Admins can override defaults (license keys, install paths) without modifying the vendor's signed <code>.msi</code>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7 -->
+    <section class="slide">
+      <span class="tag">Deep Dive 3</span>
+      <h2><code>AppX</code> &amp; <code>MSIX</code> (Containerized Apps)</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>How Containerization Fixes "WinRot"</h3>
+          <ul>
+            <li>Apps write their files to protected folders under <code>C:\Program Files\WindowsApps</code>.</li>
+            <li>Registry writes go into an isolated, app-specific virtual registry hive—not shared <code>HKLM</code>.</li>
+            <li><strong>Result:</strong> Uninstalling removes 100% of the app's footprint cleanly.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Security &amp; Trust</h3>
+          <ul>
+            <li><strong>Mandatory Digital Signature:</strong> Windows refuses to install an unsigned <code>MSIX</code> package unless sideloading/dev certs are explicitly trusted.</li>
+            <li><strong>Block-based Updates:</strong> Only changed 64KB blocks download during app updates.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8 -->
+    <section class="slide">
+      <span class="tag">Comparison Matrix</span>
+      <h2>Choosing the Right Format</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Format</th>
+            <th>Silent Install Standard</th>
+            <th>Clean Uninstall</th>
+            <th>Sandboxed</th>
+            <th>Primary Delivery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Setup.exe</code></td>
+            <td>Varies by vendor (<code>/S</code>, <code>/silent</code>)</td>
+            <td>Often leaves residue</td>
+            <td>No</td>
+            <td>Web downloads, wrapped in Intune/PSADT</td>
+          </tr>
+          <tr>
+            <td><code>.msi</code></td>
+            <td>Uniform (<code>msiexec /i ... /quiet</code>)</td>
+            <td>High (tracked database)</td>
+            <td>No</td>
+            <td>GPO, Intune, SCCM, enterprise scripts</td>
+          </tr>
+          <tr>
+            <td><code>AppX (UWP)</code></td>
+            <td><code>Add-AppPackage</code> / Store</td>
+            <td>Complete (zero residue)</td>
+            <td>Yes</td>
+            <td>Microsoft Store, PowerShell</td>
+          </tr>
+          <tr>
+            <td><code>MSIX</code></td>
+            <td><code>Add-AppPackage</code> / <code>winget</code></td>
+            <td>Complete (zero residue)</td>
+            <td>Yes</td>
+            <td>MS Store, Intune, modern Win32 packaging</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Slide 9 -->
+    <section class="slide">
+      <span class="tag">Deployment at Scale</span>
+      <h2>How Admins Deploy Software Today</h2>
+      <p class="lead">You don't walk around with a USB stick clicking <em>Next</em> on 500 laptops. Modern Windows administration relies on four deployment layers:</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Package Managers (CLI)</h3>
+          <ul>
+            <li><strong><code>winget</code>:</strong> Native Windows 11 CLI package manager (backed by Microsoft's curated repository).</li>
+            <li><strong>Chocolatey:</strong> Mature PowerShell-based package manager widely used in DevOps and Windows automation.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>MDM &amp; Enterprise Toolkits</h3>
+          <ul>
+            <li><strong>Intune / Company Portal:</strong> Cloud MDM pushing <code>.msi</code>, <code>.msix</code>, and Store apps—plus a self-service Company Portal for approved apps.</li>
+            <li><strong>PSAppDeployToolkit (PSADT):</strong> Industry-standard PowerShell wrapper for pre-install checks, closing open apps, and logging.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 10 -->
+    <section class="slide">
+      <span class="tag">Lab 6 Connection &bull; Activity 4</span>
+      <h2><code>winget</code>: Windows Package Manager</h2>
+      <p class="lead">Think of <code>winget</code> as <code>apt</code> or <code>dnf</code> for Windows—handling discovery, silent downloads, and upgrades from PowerShell.</p>
+      <pre><span class="cmt"># Search for an application ID</span>
+<span class="cmd">winget search</span> PowerToys
+
+<span class="cmt"># Install silently from the official winget repository</span>
+<span class="cmd">winget install</span> Microsoft.PowerToys <span class="flag">--source winget</span>
+
+<span class="cmt"># Check installed packages or upgrade everything at once</span>
+<span class="cmd">winget list</span>
+<span class="cmd">winget upgrade</span> <span class="flag">--all</span></pre>
+      <div class="callout good">
+        <strong>Lab 6 Tip:</strong> If you already installed PowerToys during Lab 5, run <code>winget upgrade Microsoft.PowerToys</code> or <code>winget list Microsoft.PowerToys</code> to verify it via CLI!
+      </div>
+    </section>
+
+    <!-- Slide 11 -->
+    <section class="slide">
+      <span class="tag">Lab 6 Connection &bull; Activity 6</span>
+      <h2>Silent <code>.msi</code> Deployment with <code>msiexec</code></h2>
+      <pre><span class="cmt"># Run in Command Prompt (Admin) from %USERPROFILE%\Downloads</span>
+<span class="cmd">msiexec.exe</span> <span class="flag">/i</span> 7z2409-x64.msi <span class="flag">/quiet</span>
+
+<span class="cmt"># Verify in Settings &rarr; Apps &rarr; Installed apps, then silently remove:</span>
+<span class="cmd">msiexec.exe</span> <span class="flag">/x</span> 7z2409-x64.msi <span class="flag">/quiet</span></pre>
+      <div class="callout warn">
+        <strong>Why Command Prompt instead of PowerShell?</strong><br>
+        PowerShell can misinterpret mixed slashes and arguments passed to legacy Win32 tools like <code>msiexec.exe</code> unless carefully quoted or invoked with <code>Start-Process</code>. Using <code>cmd.exe</code> avoids argument-parsing surprises.
+      </div>
+    </section>
+
+    <!-- Slide 12 -->
+    <section class="slide">
+      <span class="tag">Lab 6 Connection &bull; Activity 7</span>
+      <h2>Managing Store / UWP Apps in PowerShell</h2>
+      <p class="lead">Store apps don't use <code>msiexec</code>—they are managed as AppX packages via PowerShell.</p>
+      <pre><span class="cmt"># List all Store/UWP packages installed for your user</span>
+<span class="cmd">Get-AppPackage</span>
+
+<span class="cmt"># Filter using wildcards for a specific app</span>
+<span class="cmd">Get-AppPackage</span> <span class="flag">-Name</span> *Whiteboard*
+
+<span class="cmt"># Pipe the package object directly to remove it cleanly</span>
+<span class="cmd">Get-AppPackage</span> <span class="flag">-Name</span> *Whiteboard* | <span class="cmd">Remove-AppPackage</span></pre>
+      <div class="callout">
+        <strong>Admin Use Case:</strong> Sysadmins use this exact pipeline pattern in provisioning scripts to de-bloat consumer apps from enterprise Windows 11 images.
+      </div>
+    </section>
+
+    <!-- Slide 13 -->
+    <section class="slide">
+      <span class="tag">Summary</span>
+      <h2>Key Takeaways for Today's Lab</h2>
+      <div class="card" style="margin-top: 1rem;">
+        <ul>
+          <li><strong>Installers touch Files, Registry, Services, and PATH</strong>—never "uninstall" by deleting folders.</li>
+          <li><strong><code>.msi</code> gives admins uniform silent control</strong> (<code>/i</code>, <code>/x</code>, <code>/quiet</code>) and safe transactional rollbacks.</li>
+          <li><strong><code>AppX</code> / <code>MSIX</code> isolate apps in containers</strong> so uninstalls leave zero Registry clutter.</li>
+          <li><strong><code>winget</code> &amp; PowerShell automate the lifecycle</strong>—turning multi-step GUI clicks into repeatable one-liners.</li>
+        </ul>
+      </div>
+      <div class="callout good" style="margin-top: 1.5rem;">
+        <strong>Next Step:</strong> Head to the <strong>OSYS1200 Notion Course Hub &rarr; Lab 6: Tools, Software and Applications</strong> to get started!
+      </div>
+    </section>
+  </main>
+
+  <footer class="controls">
+    <div>OSYS1200 &bull; Packaging &amp; Installing Software &bull; Use <strong>&larr; / &rarr;</strong> or <strong>Space</strong> &bull; <strong>F</strong> for Fullscreen</div>
+    <div>
+      <span id="slideCounter" style="margin-right: 0.75rem;">1 / 13</span>
+      <button onclick="prevSlide()">&larr; Prev</button>
+      <button onclick="nextSlide()">Next &rarr;</button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counter = document.getElementById('slideCounter');
+    const progressBar = document.getElementById('progressBar');
+    let current = 0;
+
+    function updateSlide(idx) {
+      slides[current].classList.remove('active');
+      current = Math.max(0, Math.min(idx, slides.length - 1));
+      slides[current].classList.add('active');
+      counter.textContent = `${current + 1} / ${slides.length}`;
+      progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+    }
+
+    function nextSlide() { updateSlide(current + 1); }
+    function prevSlide() { updateSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    });
+
+    updateSlide(0);
+  </script>
+</body>
+</html>
