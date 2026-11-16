@@ -1,14 +1,10 @@
-# OSYS1200 Lab 6
+# OSYS1200 Lab 6 – Tools, Software and Applications
 
-Last Updated: October 26, 2024 8:00 AM
-
+Last Updated: Fall 2026
 Created By: Matt Redmond
-
 Edit: Don Geraghty
-
 Course: OSYS1200
-
-Status: In progress
+Status: Complete
 
 
 ## Activity 1 – File Explorer
@@ -59,7 +55,7 @@ If necessary, start your computer and sign in.
 
 ### Part A – Sharing Files
 
-Find a partner to explore file shares with (or share with me!). For this activity, you can use either the local OneDrive Client or **OneDrive** Online, although you may find some features are only available online.
+Find a partner to explore file shares with (or share with me!). For this activity, use **OneDrive Online** (sign into [onedrive.live.com](https://onedrive.live.com) or your NSCC Microsoft 365 portal in Edge with your `@nscc.ca` account) so you don't need to sync personal files onto your VM. Some sharing expiration features are also only available online.
 
 Create the following shared items and **grab a screenshot** of the share configuration for each before you click "Apply" or "Send."
 
@@ -165,7 +161,8 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 2.  In the search results, right-click on **Windows PowerShell** and select **Run as administrator**. Click **Yes** at the security prompt.
 3.  At the PowerShell prompt, type the following command and press **Enter**:
     `winget install Microsoft.PowerToys --source winget`
-4.  **Important:** The `winget` tool will run and then ask you to agree to the terms for the package. Type **`Y`** and press **Enter** to approve the installation.
+4.  **Important:** The `winget` tool will run and ask you to agree to the source/package terms. Type **`Y`** and press **Enter** to approve the installation.
+    * *(Note: If you already installed PowerToys in Lab 5, `winget` will tell you it is already installed. Run `winget upgrade Microsoft.PowerToys` or `winget list Microsoft.PowerToys` instead and screenshot that output!)*
 5.  The installation will complete on its own. Wow… the game has changed. **Grab a screenshot** showing the successful installation in your PowerShell window!
 
 ### Part B – Demo
@@ -268,7 +265,7 @@ This suite of tools is more of an Administrator's productivity tool. There are n
     
     **Grab a screenshot!**
 14. Click the Start button and then click **Settings**.
-15. In the Settings window, click **Apps** from the left menu, then click **Apps & features**. Verify that **7-Zip** is in the list of installed apps.
+15. In the Settings window, click **Apps** from the left menu, then click **Installed apps**. Verify that **7-Zip** is in the list of installed apps.
 16. Close the Settings window.
 17. At the command prompt, to remove 7-Zip silently, type the command below and press Enter. (Again, use the **Tab** key to autocomplete the filename).
     
@@ -276,7 +273,7 @@ This suite of tools is more of an Administrator's productivity tool. There are n
     
     **Grab a screenshot!**
 18. Click the Start button and then click **Settings**.
-19. In the Settings window, click **Apps** $\rightarrow$ **Apps & features** and verify that 7-Zip is not in the list of installed apps. **Grab a screenshot!**
+19. In the Settings window, click **Apps** $\rightarrow$ **Installed apps** and verify that 7-Zip is not in the list of installed apps. **Grab a screenshot!**
 20. Close all open windows.
 
 ## Activity 7 – UWP Apps
@@ -285,7 +282,7 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 2.  In the Microsoft Store window, in the Search box, type `Whiteboard` and then press Enter.
 3.  In the list of search results, click **Microsoft Whiteboard**.
 4.  Read the information about Microsoft Whiteboard and then click **Get** (or **Install**).
-5.  **If** a "Use across your devices" dialog box appears, click **No, thanks**. (This pop-up may not always appear).
+5.  **If** a Microsoft Account sign-in or "Use across your devices" dialog box appears, click **No, thanks** or close the prompt (free Store apps install without signing in).
 6.  Wait while Microsoft Whiteboard downloads and installs.
 7.  Close the Microsoft Store window.
 8.  Right-click the Start button and then click **Windows PowerShell (Admin)**.
