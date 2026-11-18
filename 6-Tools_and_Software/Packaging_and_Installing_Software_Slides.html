@@ -549,10 +549,10 @@ HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall</pre>
 <span class="cmd">Get-AppPackage</span>
 
 <span class="cmt"># Filter using wildcards for a specific app</span>
-<span class="cmd">Get-AppPackage</span> <span class="flag">-Name</span> *Whiteboard*
+<span class="cmd">Get-AppPackage</span> <span class="flag">-Name</span> *Sysinternals*
 
 <span class="cmt"># Pipe the package object directly to remove it cleanly</span>
-<span class="cmd">Get-AppPackage</span> <span class="flag">-Name</span> *Whiteboard* | <span class="cmd">Remove-AppPackage</span></pre>
+<span class="cmd">Get-AppPackage</span> <span class="flag">-Name</span> *Sysinternals* | <span class="cmd">Remove-AppPackage</span></pre>
       <div class="callout">
         <strong>Admin Use Case:</strong> Sysadmins use this exact pipeline pattern in provisioning scripts to de-bloat consumer apps from enterprise Windows 11 images.
       </div>

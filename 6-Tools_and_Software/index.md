@@ -279,29 +279,29 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 ## Activity 7 – UWP Apps
 
 1.  On the taskbar, click **Microsoft Store**.
-2.  In the Microsoft Store window, in the Search box, type `Whiteboard` and then press Enter.
-3.  In the list of search results, click **Microsoft Whiteboard**.
-4.  Read the information about Microsoft Whiteboard and then click **Get** (or **Install**).
+2.  In the Microsoft Store window, in the Search box, type `Sysinternals Suite` and then press Enter.
+3.  In the list of search results, click **Sysinternals Suite** (published by Microsoft Corporation).
+4.  Read the information about Sysinternals Suite and then click **Get** (or **Install**).
 5.  **If** a Microsoft Account sign-in or "Use across your devices" dialog box appears, click **No, thanks** or close the prompt (free Store apps install without signing in).
-6.  Wait while Microsoft Whiteboard downloads and installs.
+6.  Wait while Sysinternals Suite downloads and installs.
 7.  Close the Microsoft Store window.
 8.  Right-click the Start button and then click **Windows PowerShell (Admin)**.
 9.  In the User Account Control dialog box, click **Yes**.
-10. At the Windows PowerShell prompt, to view a list of all installed packages, type `Get-AppPackage` and then press Enter. This list will be very long! Microsoft Whiteboard will appear in the list. **Grab a screenshot.**
+10. At the Windows PowerShell prompt, to view a list of all installed packages, type `Get-AppPackage` and then press Enter. This list will be very long! Sysinternals Suite will appear in the list. **Grab a screenshot.**
 11. To display a simplified list of just the names, type `Get-AppPackage | Format-List Name` and then press Enter.
-12. To view only information about Microsoft Whiteboard, type the command below and press Enter.
-    * *(Note: We must use asterisks `*` as wildcards because the full package name is complex (e.g., `Microsoft.Whiteboard_123...`). This command finds any package with 'Whiteboard' in its name.)*
+12. To view only information about Sysinternals Suite, type the command below and press Enter.
+    * *(Note: We must use asterisks `*` as wildcards because the full package name is complex (e.g., `Microsoft.SysinternalsSuite_...`). This command finds any package with 'Sysinternals' in its name.)*
 
-    `Get-AppPackage -Name *Whiteboard*`
+    `Get-AppPackage -Name *Sysinternals*`
 
-13. To remove Microsoft Whiteboard, type the command below and press Enter. This command finds the Whiteboard package (using the wildcard) and "pipes" that object to the `Remove-AppPackage` command.
+13. To remove Sysinternals Suite, type the command below and press Enter. This command finds the Sysinternals package (using the wildcard) and "pipes" that object to the `Remove-AppPackage` command.
 
-    `Get-AppPackage -Name *Whiteboard* | Remove-AppPackage`
+    `Get-AppPackage -Name *Sysinternals* | Remove-AppPackage`
 
     **Grab a screenshot** (showing the command being run).
 14. **(New Step)** To verify that the app is gone, run the find command again:
 
-    `Get-AppPackage -Name *Whiteboard*`
+    `Get-AppPackage -Name *Sysinternals*`
 
     The command should now return no results, proving the removal was successful.
 15. Close the Windows PowerShell window.
