@@ -1,11 +1,10 @@
-# OSYS1200 Lab 
+# OSYS1200 Lab 7 – Performance and Recovery
 
-Last Updated: November 05, 2025 11:57 AM
+Last Updated: Fall 2026
 Created By: Matt Redmond
 Edited By: Don Geraghty
 Course: OSYS1200
-
-# Lab 7 – Performance and Recovery!
+Status: Complete
 
 > - Administrator privileges required for Activities 3, 4, 5, and 8.  
 > - Ensure at least 5 GB free disk space for Activity 6 (File History).  
@@ -285,36 +284,12 @@ Now, let's find the logs for what we just did.
 15. Click **Finish**. Your new drive is now formatted and ready.
 16. **[New Addition]** Your Disk Management window should now show the new disk as "Online" and "Healthy." **Screenshot the bottom pane of Disk Management showing your new 'File History Data' drive!**
 17. Close the Disk Management window.
-18. Click the **Start** button and then click **Settings**.
-19. **[Win 11 Update]** In the Settings window, click **System** on the left, then click **Storage**.
-20. **[Win 11 Update]** Scroll down and click **Advanced storage settings**, and then click **Backup options**.
-21. Under the heading "Back up using File History," click **Add a drive**.
-22. When the drive search completes, click the drive labeled **File History Data**.
-23. The "Add a drive" section is replaced with a toggle switch. **Screenshot this 'Backup options' window showing the drive is enabled!**
-24. Click **More options**.
-25. In the "Back up my files" box, select **Every 10 minutes**.
-26. In the "Keep my backups" box, select **Until space is needed**.
-27. Below "Overview," click **Back up now**. This will perform the first backup.
-28. Close the Settings window.
-
-### Update: Step 21 - Configuring File History (Windows 11)
-
-*Note: Microsoft has moved the legacy File History settings out of the main Settings app. Please use the following instructions to complete this step via the Control Panel.*
-
-1. Click the **Start** button.
-2. Type **Control Panel** and press **Enter**.
-3. In the Control Panel, change the "View by" setting (top right) to **Large icons**.
-4. Click on **File History**.
-5. Click **Select drive** on the left-hand menu.
-6. Select the drive labeled **File History Data** and click **OK**.
-7. Click the **Turn on** button (if it is not already on).
-    > **Deliverable:** Screenshot this window showing the drive is enabled (Status should read "File History is on").
-8. Click **Advanced settings** on the left-hand menu.
-9. In the "Save copies of files" box, select **Every 10 minutes**.
-10. In the "Keep saved versions" box, select **Until space is needed**.
-11. Click **Save changes**.
-12. Back on the main screen, click **Run now** (under the drive info) to perform the first backup.
-13. Close the Control Panel.   
+18. Click the **Start** button, type `Control Panel`, and press **Enter**.
+19. In Control Panel, set **View by** (top right) to **Large icons**, then click **File History**.
+20. Click **Select drive** on the left-hand menu, select **File History Data**, and click **OK**.
+21. Click **Turn on** (if it is not already on). **Screenshot this window showing `"File History is on"`!**
+22. Click **Advanced settings** on the left-hand menu, set **Save copies of files** to **Every 10 minutes** and **Keep saved versions** to **Until space is needed**, then click **Save changes**.
+23. Back on the main File History screen, click **Run now** to perform the first backup, then close Control Panel.
 
 ---
 
@@ -325,13 +300,12 @@ Now, let's find the logs for what we just did.
 3.  Edit the name to be `Grocery List` and press **Enter**.
 4.  Double-click the **Grocery List** text document. In the Notepad editor, enter the text `Version one – eggs`.
 5.  Exit Notepad and click **Save**.
-6.  Click the **Start** button, type `backup`, and then click **Backup settings**.
-7.  Below "Back up using File History," click **More options** and then click **Back up now**. This forces a backup of "Version one."
-8.  Leave the Settings window open.
-9.  On the Desktop, double-click the **Grocery List** text document.
-10. Edit the text to read `Version two – eggs, apples`.
-11. Exit Notepad and click **Save**.
-12. In the Settings window, click **Back up now**. This forces a backup of "Version two."
+6.  Open **Control Panel → File History** and click **Run now**. This forces a backup of "Version one."
+7.  Leave the File History window open.
+8.  On the Desktop, double-click the **Grocery List** text document.
+9.  Edit the text to read `Version two – eggs, apples`.
+10. Exit Notepad and click **Save**.
+11. In the File History window, click **Run now**. This forces a backup of "Version two."
 
 #### Part A - Restore using "Previous Versions"
 
@@ -385,10 +359,9 @@ Now, let's find the logs for what we just did.
 5.  On the "Ready to reset this PC" screen, it will warn you what will happen. Click the **View apps that will be removed** link.
 6.  This list shows all desktop apps that will be uninstalled (apps from the Microsoft Store are usually kept). **[New Addition] Take a screenshot of the 'apps that will be removed' list!** (If it's empty, that's fine, just screenshot that).
 7.  Click **Back**.
-8.  On the "Ready to reset this PC" screen, click **Reset**. **Screenshot the final "Ready to reset this PC" screen!**
-9.  **DO NOT PROCEED** unless you are on a lab machine you are authorized to reset.
-10. If you *do* proceed, the reset will take 30-60 minutes, and the system will reboot several times.
-11. After the reset, sign in. You should find a new file on your desktop named **Removed Apps.html**. **Screenshot your desktop showing this new file!**
+8.  On the "Ready to reset this PC" screen, **Screenshot the screen BEFORE clicking Reset!**
+9.  **STOP — DO NOT click Reset** unless you are on a disposable lab VM with a fresh Proxmox snapshot (resetting removes installed apps and earlier lab configurations, and takes 30–60 minutes).
+10. If you *do* proceed on a snapshotted VM, after the reset completes and you sign in, you will find a file on your desktop named **Removed Apps.html**.
 
 ## ✅ Lab Completion Checklist
 
