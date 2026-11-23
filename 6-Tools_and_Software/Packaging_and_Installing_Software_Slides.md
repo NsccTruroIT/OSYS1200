@@ -109,8 +109,8 @@ msiexec.exe /x 7z2409-x64.msi /quiet
 ## Slide 12: Managing Store / UWP Apps in PowerShell (Lab 6 Activity 7)
 ```powershell
 Get-AppPackage
-Get-AppPackage -Name *Sysinternals*
-Get-AppPackage -Name *Sysinternals* | Remove-AppPackage
+Get-AppPackage -Name *Todos*
+Get-AppPackage -Name *Todos* | Remove-AppPackage
 ```
 * Sysadmins use this exact pipeline pattern to audit and de-bloat consumer apps from enterprise Windows 11 images.
 

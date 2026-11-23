@@ -276,32 +276,42 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 19. In the Settings window, click **Apps** $\rightarrow$ **Installed apps** and verify that 7-Zip is not in the list of installed apps. **Grab a screenshot!**
 20. Close all open windows.
 
-## Activity 7 – UWP Apps
+## Activity 7 – UWP Apps & Sysinternals Suite
 
-1.  On the taskbar, click **Microsoft Store**.
-2.  In the Microsoft Store window, in the Search box, type `Sysinternals Suite` and then press Enter.
-3.  In the list of search results, click **Sysinternals Suite** (published by Microsoft Corporation).
-4.  Read the information about Sysinternals Suite and then click **Get** (or **Install**).
-5.  **If** a Microsoft Account sign-in or "Use across your devices" dialog box appears, click **No, thanks** or close the prompt (free Store apps install without signing in).
-6.  Wait while Sysinternals Suite downloads and installs.
-7.  Close the Microsoft Store window.
-8.  Right-click the Start button and then click **Windows PowerShell (Admin)**.
-9.  In the User Account Control dialog box, click **Yes**.
-10. At the Windows PowerShell prompt, to view a list of all installed packages, type `Get-AppPackage` and then press Enter. This list will be very long! Sysinternals Suite will appear in the list. **Grab a screenshot.**
-11. To display a simplified list of just the names, type `Get-AppPackage | Format-List Name` and then press Enter.
-12. To view only information about Sysinternals Suite, type the command below and press Enter.
-    * *(Note: We must use asterisks `*` as wildcards because the full package name is complex (e.g., `Microsoft.SysinternalsSuite_...`). This command finds any package with 'Sysinternals' in its name.)*
+> **Why we split this into two parts on Proxmox VMs:** Because our student VMs use local SAM accounts (`.\student`) without a Microsoft or Entra ID sign-in, the Microsoft Store can hang at *"Reserving space"* (`0x80073CF8` / `0x87e10bc6` license ticket error). Using `--source winget` installs Sysinternals cleanly (and keeps it ready for Lab 7!), while PowerShell lets us inspect and remove a pre-installed UWP app directly.
 
-    `Get-AppPackage -Name *Sysinternals*`
+### Part A – Install Sysinternals Suite via `winget` (Keep for Lab 7!)
 
-13. To remove Sysinternals Suite, type the command below and press Enter. This command finds the Sysinternals package (using the wildcard) and "pipes" that object to the `Remove-AppPackage` command.
+1. Right-click the Start button and click **Windows PowerShell (Admin)** (click **Yes** at UAC).
+2. Install the Sysinternals Suite from the `winget` repository (bypassing the Microsoft Store source):
+   ```powershell
+   winget install Microsoft.Sysinternals.Suite --source winget
+   ```
+3. Accept the source/package prompts if asked (**`Y`**). **Grab a screenshot** showing the successful installation! *(Leave Sysinternals installed—we will use it in Lab 7!)*
 
-    `Get-AppPackage -Name *Sysinternals* | Remove-AppPackage`
+### Part B – Inspect & Remove a UWP App via PowerShell
 
-    **Grab a screenshot** (showing the command being run).
-14. **(New Step)** To verify that the app is gone, run the find command again:
-
-    `Get-AppPackage -Name *Sysinternals*`
-
-    The command should now return no results, proving the removal was successful.
-15. Close the Windows PowerShell window.
+1. In the same elevated PowerShell window, list all installed AppX/UWP packages:
+   ```powershell
+   Get-AppPackage
+   ```
+   This list will be very long! **Grab a screenshot.**
+2. Display a simplified list of just the package names:
+   ```powershell
+   Get-AppPackage | Format-List Name
+   ```
+3. Inspect the pre-installed **Microsoft To Do** UWP package using a wildcard (`*`):
+   ```powershell
+   Get-AppPackage -Name *Todos*
+   ```
+4. Remove the package by piping it to `Remove-AppPackage`:
+   ```powershell
+   Get-AppPackage -Name *Todos* | Remove-AppPackage
+   ```
+   **Grab a screenshot** showing the command being run.
+5. Verify that the app is gone by running the query again:
+   ```powershell
+   Get-AppPackage -Name *Todos*
+   ```
+   The command should return no results, proving the removal was successful.
+6. Close the Windows PowerShell window.
