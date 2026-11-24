@@ -1,11 +1,11 @@
 ### In-Class Activity: Network Printer Installation
 
 **Scenario:**
-A new printer has been set up in the hallway for student use. Your task is to connect your Windows 11 machine to this printer. This will involve verifying network connectivity, gathering information from its web page, pre-staging the driver, installing the printer manually, and verifying your work.
+A network printer has been set up in the lab (Room 312) for student use. Your task is to connect your Windows 11 machine to this printer. This will involve verifying network connectivity, gathering information from its web page, pre-staging the driver, installing the printer manually, and verifying your work.
 
 **Teacher-Provided Information:**
-* **Printer IP Address:** `172.16.144.2`
-* **Printer Manufacturer & Model:** `Kyocera ECOSYS P3150dn`
+* **Printer IP Address:** `10.20.0.2`
+* **Printer Manufacturer & Model:** `Kyocera ECOSYS FS-2020D`
 
 ---
 
@@ -14,7 +14,7 @@ A new printer has been set up in the hallway for student use. Your task is to co
 Before we can install a printer, we must confirm our computer can communicate with it over the network.
 
 1.  Click the **Start** button, type `cmd`, and open the **Command Prompt** app.
-2.  At the prompt, type `ping 172.16.144.2` (using the IP address provided by your teacher) and press **Enter**.
+2.  At the prompt, type `ping 10.20.0.2` (using the IP address provided by your teacher) and press **Enter**.
 3.  If the ping is successful, you will see "Reply from..." lines. This confirms you are on the same network.
 4.  **Grab a screenshot** of the successful ping replies.
     * *(If your ping fails, stop and notify your instructor. This is a common troubleshooting step.)*
@@ -26,11 +26,11 @@ Before we can install a printer, we must confirm our computer can communicate wi
 Since you can `ping` the printer, it's "on the network." This means it's likely hosting a configuration webpage. This is the best place to find real-time information.
 
 1.  Open **your favorite web browser**.
-2.  In the address bar, type the printer's IP address (e.g., `http://172.16.144.2`) and press **Enter**.
-3.  You may see a "Not secure" warning. This is normal for an internal device. Click **"Advanced"** and then **"Proceed..."**.
-4.  This will open the printer's built-in control panel (for this printer, it's the **Kyocera Command Center RX**).
+2.  In the address bar, type the printer's IP address (e.g., `http://10.20.0.2`) and press **Enter**.
+3.  If you see a "Not secure" warning, click **"Advanced"** and then **"Proceed..."**. (This is normal for an internal device.)
+4.  This will open the printer's built-in control panel (**Kyocera Command Center**).
 5.  On this page, look at the valuable information it gives you, such as device status, paper levels, and toner.
-6.  Find the **Toner** level (e.g., "Black: 69%").
+6.  Find the **Toner** status/level.
 7.  **Grab a screenshot** of this web UI, showing the device status or toner/paper levels.
 
 ---
@@ -39,11 +39,11 @@ Since you can `ping` the printer, it's "on the network." This means it's likely 
 
 Now that you've confirmed the exact model from the web UI, you need to "pre-stage" (install) the driver onto the Windows driver store.
 
-1.  Go to the manufacturer's support website (for this lab, search for `Kyocera ECOSYS P3150dn driver`).
-2.  Find the **Windows 11 (64-bit)** or **Windows 10 (64-bit)** drivers. (A recent 64-bit Windows 10 driver will almost always work on Windows 11).
+1.  Go to the manufacturer's support website (for this lab, search for `Kyocera ECOSYS FS-2020D driver` or `Kyocera KX Universal Printer Driver`).
+2.  Find the **Windows 11 (64-bit)** or **Windows 10 (64-bit)** **KX Driver** package. *(A 64-bit Windows 10 KX Driver or Kyocera KX Universal Printer Driver works on Windows 11.)*
 3.  Download the driver package (it will likely be a `.zip` or `.exe` file).
 4.  If the file is a `.zip`, right-click and **Extract All...**. If it's an `.exe`, it is likely a Self-Extractor, so double-click it to extract the files.
-5.  Once the files are extracted, browse the folder and run the **`Setup.exe`** or **`KmInst64.exe`** application.
+5.  Once the files are extracted, browse the folder and run **`Setup.exe`** or **`KmInst64.exe`** (or keep the extracted folder handy to point to its `.inf` file via **Have Disk...** in Part D if the installer complains about the OS version).
 6.  The "Express Install" will likely fail to find the printer. If it does, choose a **"Custom Install"** option. Your goal is to install the *driver* onto the system, not to find the printer (we will do that manually in the next step).
 7.  Complete the installation wizard to get the driver files onto your computer.
 
@@ -61,13 +61,13 @@ This is the most important part! Now that the driver is pre-staged, we will manu
 4.  In the "Add Printer" dialog box, select **Add a printer using a TCP/IP address or hostname** and then click **Next**.
 5.  On the "Type a printer hostname or IP address" screen:
     * **Device type:** Select `TCP/IP Device`.
-    * **Hostname or IP address:** Type `172.16.144.2`.
-    * **Port name:** This box will auto-fill. Just click inside it, and it will copy the IP address (`172.16.144.2`). This is correct.
+    * **Hostname or IP address:** Type `10.20.0.2`.
+    * **Port name:** This box will auto-fill. Just click inside it, and it will copy the IP address (`10.20.0.2`). This is correct.
     * **Crucially:** **Deselect** the **"Query the printer and automatically select the driver to use"** check box. This forces Windows to ask *us* for the driver.
 6.  Click **Next**. Windows will try to detect the port (this may take a moment).
 7.  You are now at the "Install the printer driver" screen.
-8.  From the **Manufacturer** list on the left, click **"Kyocera"**.
-9.  From the **Printers** list on the right, select **"Kyocera ECOSYS P3150dn KX"** and click **Next**.
+8.  From the **Manufacturer** list on the left, click **"Kyocera"** (or click **Have Disk...** and browse to the `.inf` file in your extracted driver folder if the model isn't listed yet).
+9.  From the **Printers** list on the right, select **"Kyocera ECOSYS FS-2020D KX"** (or the matching KX/Universal driver) and click **Next**.
 10. In the "Printer name" box, give it a unique name: `[Your Name]'s Kyocera Printer`. Click **Next**.
 11. On the "Printer Sharing" screen, select **Do not share this printer** and then click **Next**.
 12. **Grab a screenshot** of this "Printer Sharing" screen.
@@ -89,7 +89,7 @@ Let's create a test job.
 
     * **Note:** This job will print *very* fast. By the time you open the print queue, it will likely already be gone. This is normal! In the next step, we will learn how to "catch" a job.
 
-6.  Go to the hallway printer and retrieve your printed page to show your instructor.
+6.  Go to the lab printer in Room 312 and retrieve your printed page to show your instructor.
 
 ---
 
@@ -112,6 +112,6 @@ You've seen the "user" way to print. Now, let's use the "IT Professional" tool t
 11. Click **Yes** to confirm. The job will disappear. This is how you manually clear a stuck job.
 12. Close the print queue window. Back in the main **Print Management** console, **right-click** your printer and select **"Resume Printing"** to un-pause it.
 13. While you are still in Print Management, click the **"Drivers"** folder in the left pane. Do you see your Kyocera driver?
-14. Click the **"Ports"** folder. Do you see the Standard TCP/IP Port with the IP `172.16.144.2`?
+14. Click the **"Ports"** folder. Do you see the Standard TCP/IP Port with the IP `10.20.0.2`?
 15. **Grab one final screenshot** showing either the `Drivers` or `Ports` list.
 16. Close all windows. You have successfully completed the lab!
