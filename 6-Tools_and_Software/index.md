@@ -282,15 +282,19 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 
 ### Part A – Install Sysinternals Suite via `winget` (Keep for Lab 7!)
 
-> **Why standard (non-admin) PowerShell + `--ignore-security-hash`?** Microsoft updates `SysinternalsSuite.zip` in place at its rolling download URL, so the `.zip` hash frequently moves ahead of the `winget` manifest. `winget` refuses to override a hash mismatch when running as Administrator (`this cannot be overridden when running as admin`), so run this in a **standard (non-elevated)** PowerShell window.
+> **Why two PowerShell windows (`InstallerHashOverride` + standard user)?** Microsoft updates `SysinternalsSuite.zip` in place at its rolling download URL, so the `.zip` hash frequently moves ahead of the `winget` manifest. In `winget`, enabling `InstallerHashOverride` requires **Administrator**, while actually using `--ignore-security-hash` is **blocked** in an Admin shell (`this cannot be overridden when running as admin`)—so we enable the setting as Admin, then run the install as a standard user.
 
-1. Click the Start button, type `powershell`, and open **Windows PowerShell** *(standard user—do **not** run as Administrator)*.
-2. Install the Sysinternals Suite from the `winget` repository:
+1. Right-click the Start button, open **Windows PowerShell (Admin)** (click **Yes** at UAC), and enable hash override:
+   ```powershell
+   winget settings --enable InstallerHashOverride
+   ```
+   *(Close this Admin window when done, or leave it for Part B.)*
+2. Click the Start button, type `powershell`, and open a **standard (non-Administrator) Windows PowerShell** window.
+3. Install the Sysinternals Suite from the `winget` repository:
    ```powershell
    winget install Microsoft.Sysinternals.Suite --source winget --ignore-security-hash
    ```
-   *(If `winget` reports that hash override is disabled by settings, run `winget settings --enable InstallerHashOverride` first and re-run the command above.)*
-3. Accept the source/package prompts if asked (**`Y`**). **Grab a screenshot** showing the successful installation! *(Leave Sysinternals installed—we will use it in Lab 7!)*
+4. Accept the source/package prompts if asked (**`Y`**). **Grab a screenshot** showing the successful installation! *(Leave Sysinternals installed—we will use it in Lab 7!)*
 
 ### Part B – Inspect & Remove a UWP App via PowerShell
 
