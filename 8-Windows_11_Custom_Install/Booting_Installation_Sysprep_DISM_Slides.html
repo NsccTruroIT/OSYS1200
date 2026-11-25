@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booting, Installation, Sysprep &amp; DISM | OSYS1200</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-2: #273549;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --red: #f87171;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .deck {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 4rem 4.5rem;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1120px;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .slide.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 3.1rem;
+      line-height: 1.15;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 2.15rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #ffffff;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.65rem;
+    }
+
+    p.lead {
+      font-size: 1.35rem;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 860px;
+    }
+
+    ul, ol {
+      padding-left: 1.4rem;
+      font-size: 1.15rem;
+      line-height: 1.65;
+    }
+
+    li { margin-bottom: 0.55rem; }
+    li strong { color: #ffffff; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.1rem;
+      margin-top: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem 1.5rem;
+    }
+
+    .card.accent-top { border-top: 3px solid var(--accent); }
+    .card.green-top { border-top: 3px solid var(--green); }
+    .card.amber-top { border-top: 3px solid var(--amber); }
+    .card.purple-top { border-top: 3px solid var(--accent-2); }
+
+    code {
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--accent);
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+
+    pre {
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.15rem 1.35rem;
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    pre .cmt { color: #64748b; }
+    pre .cmd { color: #38bdf8; font-weight: 600; }
+    pre .flag { color: #34d399; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 1.02rem;
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    th, td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--surface-2);
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .callout {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      font-size: 1.08rem;
+      line-height: 1.5;
+    }
+
+    .callout.warn {
+      background: rgba(251, 191, 36, 0.1);
+      border-left-color: var(--amber);
+    }
+
+    .callout.good {
+      background: rgba(52, 211, 153, 0.1);
+      border-left-color: var(--green);
+    }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin: 1.15rem 0;
+    }
+
+    .flow-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .flow-arrow {
+      color: var(--accent);
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .progress-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--surface);
+      z-index: 10;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.2s ease;
+    }
+
+    .controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      background: rgba(15, 23, 42, 0.92);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .controls button {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-left: 0.4rem;
+    }
+
+    .controls button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+  <main class="deck">
+    <!-- Slide 1 -->
+    <section class="slide active">
+      <span class="tag">OSYS1200 &bull; Module 10</span>
+      <h1>Booting, Installation, Sysprep &amp; DISM</h1>
+      <p class="lead">From firmware power-on to building, generalizing, inspecting, and servicing enterprise Windows 11 images.</p>
+      <div class="grid-4" style="margin-top: 2rem;">
+        <div class="card accent-top">
+          <h3>1. Booting</h3>
+          <p style="color: var(--muted); font-size: 0.98rem;">UEFI/GPT, Secure Boot, TPM 2.0, and the Windows Boot Manager chain.</p>
+        </div>
+        <div class="card green-top">
+          <h3>2. Installation</h3>
+          <p style="color: var(--muted); font-size: 0.98rem;">Setup phases, Hyper-V Gen 2 VMs, and Audit Mode vs. OOBE.</p>
+        </div>
+        <div class="card amber-top">
+          <h3>3. Sysprep</h3>
+          <p style="color: var(--muted); font-size: 0.98rem;">Generalization, SID removal, and preparing reference images safely.</p>
+        </div>
+        <div class="card purple-top">
+          <h3>4. DISM</h3>
+          <p style="color: var(--muted); font-size: 0.98rem;">Inspecting <code>.wim</code>/<code>.esd</code> images, capturing, and online health servicing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2 -->
+    <section class="slide">
+      <span class="tag">Objectives</span>
+      <h2>What You Will Master Today</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Trace the Windows 11 boot sequence</strong> from UEFI firmware and the EFI System Partition (ESP) through <code>BCD</code> and <code>winload.efi</code>.</li>
+          <li><strong>Prepare a Hyper-V Generation 2 reference VM</strong> with Secure Boot and Virtual TPM enabled.</li>
+          <li><strong>Contrast OOBE vs. Audit Mode</strong> (<code>Ctrl + Shift + F3</code>) for clean administrative image staging.</li>
+          <li><strong>Generalize a reference installation</strong> using <code>sysprep.exe</code> and troubleshoot errors via <code>Panther</code> logs.</li>
+          <li><strong>Use <code>DISM</code></strong> to inspect Windows installation media (<code>/Get-WimInfo</code>) and verify/repair a running OS component store (<code>/Online /Cleanup-Image</code>).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Slide 3 -->
+    <section class="slide">
+      <span class="tag">Part 1 &bull; Booting</span>
+      <h2>Legacy BIOS/MBR vs. Modern UEFI/GPT</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Legacy BIOS + MBR (Gen 1)</th>
+            <th>UEFI + GPT (Gen 2 &mdash; Win11 Required)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Firmware Interface</strong></td>
+            <td>16-bit real-mode BIOS, executes MBR boot sector</td>
+            <td>Modern 64-bit UEFI runtime, reads FAT32 <strong>ESP</strong> directly</td>
+          </tr>
+          <tr>
+            <td><strong>Disk Partitioning</strong></td>
+            <td>MBR (max 2 TB, 4 primary partitions)</td>
+            <td>GPT (up to 9.4 ZB, 128 partitions, redundant header)</td>
+          </tr>
+          <tr>
+            <td><strong>Boot Security</strong></td>
+            <td>No cryptographic boot verification</td>
+            <td><strong>Secure Boot</strong> checks signed bootloaders (<code>bootmgfw.efi</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>Hardware Root of Trust</strong></td>
+            <td>Optional / legacy</td>
+            <td><strong>TPM 2.0</strong> required for Windows 11 &amp; BitLocker key sealing</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <strong>Hyper-V Rule:</strong> Always choose <strong>Generation 2</strong> for Windows 11 VMs. Generation 1 emulates Legacy BIOS and has no virtual TPM or Secure Boot.
+      </div>
+    </section>
+
+    <!-- Slide 4 -->
+    <section class="slide">
+      <span class="tag">Part 1 &bull; Booting</span>
+      <h2>The Windows 11 UEFI Boot Chain</h2>
+      <div class="flow">
+        <div class="flow-step">1. UEFI + Secure Boot</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">2. ESP: <code>bootmgfw.efi</code></div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">3. <code>BCD</code> Store</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">4. <code>winload.efi</code></div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">5. <code>ntoskrnl.exe</code> &amp; Logon</div>
+      </div>
+      <div class="grid-2">
+        <div class="card accent-top">
+          <h3>Key Boot Components</h3>
+          <ul>
+            <li><strong>ESP (EFI System Partition):</strong> Hidden FAT32 partition holding <code>\EFI\Microsoft\Boot\bootmgfw.efi</code> and the <code>BCD</code> file.</li>
+            <li><strong>Boot Configuration Data (BCD):</strong> Firmware-independent database replacing old <code>boot.ini</code>.</li>
+            <li><strong><code>winload.efi</code>:</strong> Loads the kernel (<code>ntoskrnl.exe</code>), HAL, and boot-start drivers.</li>
+          </ul>
+        </div>
+        <div class="card green-top">
+          <h3>Inspecting Boot Config (Lab 4-1 Callback)</h3>
+          <pre><span class="cmt"># Run in elevated PowerShell or CMD</span>
+<span class="cmd">bcdedit</span> <span class="flag">/enum</span>
+
+<span class="cmt"># Look for:</span>
+<span class="cmt"># path  \EFI\Microsoft\Boot\bootmgfw.efi</span>
+<span class="cmt"># path  \WINDOWS\system32\winload.efi</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5 -->
+    <section class="slide">
+      <span class="tag">Part 2 &bull; Installation</span>
+      <h2>Windows 11 Setup Phases &amp; Options</h2>
+      <div class="grid-2">
+        <div class="card accent-top">
+          <h3>Clean Install vs. In-Place Upgrade</h3>
+          <ul>
+            <li><strong>Clean Install:</strong> Boots from USB/ISO/PXE into <strong>WinPE</strong>, wipes or uses unallocated space, applies fresh <code>install.wim</code>. Zero legacy clutter.</li>
+            <li><strong>In-Place Upgrade:</strong> Runs <code>setup.exe</code> from inside Windows; preserves apps, user profiles, and settings.</li>
+          </ul>
+        </div>
+        <div class="card purple-top">
+          <h3>The 4 Setup Passes</h3>
+          <ol>
+            <li><strong>Windows PE:</strong> Partitions disk, formats NTFS/ESP, lays down image.</li>
+            <li><strong>Offline Servicing:</strong> Injects drivers/updates before first boot.</li>
+            <li><strong>Specialize:</strong> Generates unique SID, computer name, Plug &amp; Play.</li>
+            <li><strong>OOBE:</strong> Region, network, user account, privacy toggles.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Notice:</strong> Windows Setup doesn't "copy files one by one" like an app installer&mdash;it expands a compressed <strong>WIM/ESD image</strong> directly onto the partition!
+      </div>
+    </section>
+
+    <!-- Slide 6 -->
+    <section class="slide">
+      <span class="tag">Part 2 &bull; Installation</span>
+      <h2>Hyper-V Reference VM Checklist</h2>
+      <div class="grid-2">
+        <div class="card accent-top">
+          <h3>VM Creation Settings</h3>
+          <ul>
+            <li><strong>Name:</strong> <code>Win11-Reference</code></li>
+            <li><strong>Generation:</strong> <strong>Generation 2</strong> (UEFI)</li>
+            <li><strong>Memory:</strong> <code>4096 MB</code> (4 GB)</li>
+            <li><strong>Processors:</strong> <code>2</code> virtual CPUs</li>
+            <li><strong>Virtual Hard Disk:</strong> <code>64 GB</code> or larger (new VHDX)</li>
+            <li><strong>Media:</strong> Official Windows 11 ISO</li>
+          </ul>
+        </div>
+        <div class="card amber-top">
+          <h3>Security Settings (Before Power-On!)</h3>
+          <ul>
+            <li>Open <strong>VM Settings &rarr; Security</strong>.</li>
+            <li>Check <strong>Enable Secure Boot</strong> (Template: <em>Microsoft Windows</em>).</li>
+            <li>Check <strong>Enable Trusted Platform Module (TPM)</strong>.</li>
+          </ul>
+          <div class="callout warn" style="margin-top: 1rem;">
+            Skipping TPM triggers: <em>"This PC can't run Windows 11."</em>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7 -->
+    <section class="slide">
+      <span class="tag">Part 2 &bull; Installation</span>
+      <h2>OOBE vs. Audit Mode (<code>Ctrl + Shift + F3</code>)</h2>
+      <div class="grid-2">
+        <div class="card accent-top">
+          <h3>Why Not Finish OOBE?</h3>
+          <ul>
+            <li>Completing OOBE creates a user profile, binds a Microsoft Account (unless bypassed with <code>OOBE\BYPASSNRO</code>), and starts background Store app updates.</li>
+            <li>Those Store app updates are a top cause of <strong>Sysprep failures</strong> later!</li>
+          </ul>
+        </div>
+        <div class="card green-top">
+          <h3>Audit Mode Workflow</h3>
+          <ul>
+            <li>Stop at the <strong>Country or Region</strong> screen.</li>
+            <li>Press <strong><code>Ctrl + Shift + F3</code></strong> (or <code>Fn + Ctrl + Shift + F3</code>).</li>
+            <li>VM reboots into the built-in <strong>Administrator</strong> account with the <strong>Sysprep</strong> dialog open.</li>
+            <li>Stage software/drivers cleanly without creating user profiles.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8 -->
+    <section class="slide">
+      <span class="tag">Part 3 &bull; Sysprep</span>
+      <h2>Generalizing with Sysprep</h2>
+      <p class="lead"><code>C:\Windows\System32\Sysprep\sysprep.exe</code> prepares a Windows installation to be cloned or captured.</p>
+      <div class="grid-2" style="margin-top: 1.25rem;">
+        <div class="card amber-top">
+          <h3>Why Check "Generalize"?</h3>
+          <ul>
+            <li>Every Windows install has a unique <strong>SID (Security Identifier)</strong>&mdash;separate from its hostname.</li>
+            <li>Cloning without Generalize creates duplicate SIDs, breaking Active Directory trusts, WSUS, and security tokens.</li>
+            <li><strong>Generalize</strong> strips the SID, hardware-specific drivers, and event logs so the next boot runs <em>Specialize</em> fresh.</li>
+          </ul>
+        </div>
+        <div class="card green-top">
+          <h3>Required Sysprep Settings</h3>
+          <ul>
+            <li><strong>System Cleanup Action:</strong> <code>Enter System Out-of-Box Experience (OOBE)</code></li>
+            <li><strong>Generalize:</strong> <strong>Checked</strong></li>
+            <li><strong>Shutdown Options:</strong> <code>Shutdown</code></li>
+          </ul>
+          <div class="callout good" style="margin-top: 1rem;">
+            <strong>Leave it Off!</strong> Booting the reference VM again starts OOBE/Specialize and ruins its generalized state. Always test copies, never the master!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 9 -->
+    <section class="slide">
+      <span class="tag">Part 3 &bull; Sysprep</span>
+      <h2>Sysprep Troubleshooting &amp; Logs</h2>
+      <div class="grid-2">
+        <div class="card accent-top">
+          <h3>Where to Look When Sysprep Fails</h3>
+          <p style="margin-bottom: 0.75rem;">Sysprep writes detailed logs inside the VM at:</p>
+          <pre><span class="cmd">C:\Windows\System32\Sysprep\Panther\setuperr.log</span>
+<span class="cmd">C:\Windows\System32\Sysprep\Panther\setupact.log</span></pre>
+          <p style="color: var(--muted); font-size: 0.98rem;">Always read <code>setuperr.log</code> first&mdash;it names the exact blocking Appx package or service.</p>
+        </div>
+        <div class="card amber-top">
+          <h3>Common Sysprep Blockers</h3>
+          <ul>
+            <li><strong>Microsoft Store AppX updates:</strong> An app updated for one user, not provisioned for all users.</li>
+            <li><strong>BitLocker enabled:</strong> Encryption must be suspended/off before generalizing.</li>
+            <li><strong>Rearm limit:</strong> Activation rearm count exceeded (<code>slmgr /dlv</code>).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 10 -->
+    <section class="slide">
+      <span class="tag">Part 4 &bull; DISM</span>
+      <h2>DISM &amp; Windows Image Formats</h2>
+      <p class="lead"><strong>DISM</strong> (<em>Deployment Image Servicing and Management</em>) is the Swiss Army knife for Windows <code>.wim</code>, <code>.esd</code>, and live OS servicing.</p>
+      <div class="grid-2" style="margin-top: 1.25rem;">
+        <div class="card accent-top">
+          <h3>File-Based Imaging (<code>.wim</code> / <code>.esd</code>)</h3>
+          <ul>
+            <li><strong><code>.wim</code> (Windows Imaging Format):</strong> File-based, supports multiple editions (indexes) in one file using single-instance storage, and can be <strong>mounted</strong> read/write.</li>
+            <li><strong><code>.esd</code> (Electronic Software Download):</strong> Higher compression (smaller ISOs), read-only until exported to <code>.wim</code>.</li>
+          </ul>
+        </div>
+        <div class="card purple-top">
+          <h3>Inside Your Windows 11 ISO</h3>
+          <pre><span class="cmt"># List all Windows editions inside the ISO</span>
+<span class="cmd">dism</span> <span class="flag">/Get-WimInfo</span> <span class="flag">/WimFile:</span>D:\sources\install.wim
+
+<span class="cmt"># (Consumer ISOs often use install.esd)</span>
+<span class="cmd">dism</span> <span class="flag">/Get-WimInfo</span> <span class="flag">/WimFile:</span>D:\sources\install.esd</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 11 -->
+    <section class="slide">
+      <span class="tag">Part 4 &bull; DISM</span>
+      <h2>Offline Imaging: Capture, Mount &amp; Apply</h2>
+      <pre><span class="cmt"># 1. Capture a generalized C:\ volume (from WinPE) into a .wim image</span>
+<span class="cmd">dism</span> <span class="flag">/Capture-Image</span> <span class="flag">/ImageFile:</span>E:\Images\Win11Ref.wim <span class="flag">/CaptureDir:</span>C:\ <span class="flag">/Name:</span>"Win11 Pro Ref"
+
+<span class="cmt"># 2. Mount an offline .wim to inject drivers or updates without booting it</span>
+<span class="cmd">dism</span> <span class="flag">/Mount-Image</span> <span class="flag">/ImageFile:</span>E:\Images\Win11Ref.wim <span class="flag">/Index:</span>1 <span class="flag">/MountDir:</span>C:\Mount
+<span class="cmd">dism</span> <span class="flag">/Image:</span>C:\Mount <span class="flag">/Add-Driver</span> <span class="flag">/Driver:</span>C:\Drivers <span class="flag">/Recurse</span>
+<span class="cmd">dism</span> <span class="flag">/Unmount-Image</span> <span class="flag">/MountDir:</span>C:\Mount <span class="flag">/Commit</span>
+
+<span class="cmt"># 3. Apply the captured .wim to a freshly partitioned target drive (from WinPE)</span>
+<span class="cmd">dism</span> <span class="flag">/Apply-Image</span> <span class="flag">/ImageFile:</span>E:\Images\Win11Ref.wim <span class="flag">/Index:</span>1 <span class="flag">/ApplyDir:</span>W:\</pre>
+      <div class="callout">
+        <strong>After <code>/Apply-Image</code>:</strong> You run <code>bcdboot W:\Windows /s S: /f UEFI</code> to write the UEFI boot files onto the target ESP!
+      </div>
+    </section>
+
+    <!-- Slide 12 -->
+    <section class="slide">
+      <span class="tag">Part 4 &bull; DISM</span>
+      <h2>Online Servicing: Component Store Repair</h2>
+      <p class="lead">You also use DISM on a <strong>running</strong> Windows system (<code>/Online</code>) to verify and repair the Windows Component Store (<code>C:\Windows\WinSxS</code>).</p>
+      <pre><span class="cmt"># Quick check: has the component store already been flagged as corrupted?</span>
+<span class="cmd">dism</span> <span class="flag">/Online /Cleanup-Image /CheckHealth</span>
+
+<span class="cmt"># Deep scan: actually scans component store files for corruption</span>
+<span class="cmd">dism</span> <span class="flag">/Online /Cleanup-Image /ScanHealth</span>
+
+<span class="cmt"># Repair: downloads clean files from Windows Update (or a /Source WIM)</span>
+<span class="cmd">dism</span> <span class="flag">/Online /Cleanup-Image /RestoreHealth</span>
+
+<span class="cmt"># Then verify protected OS system files</span>
+<span class="cmd">sfc</span> <span class="flag">/scannow</span></pre>
+      <div class="callout good">
+        <strong>Best Practice Order:</strong> Always run <code>DISM /RestoreHealth</code> <strong>before</strong> <code>sfc /scannow</code>&mdash;SFC pulls its replacement files from the Component Store that DISM repairs.
+      </div>
+    </section>
+
+    <!-- Slide 13 -->
+    <section class="slide">
+      <span class="tag">Summary</span>
+      <h2>Key Takeaways for Lab 8</h2>
+      <div class="card" style="margin-top: 1rem;">
+        <ul>
+          <li><strong>Booting:</strong> Windows 11 requires <strong>UEFI/GPT + Secure Boot + TPM 2.0</strong>; <code>bootmgfw.efi</code> &rarr; <code>BCD</code> &rarr; <code>winload.efi</code> &rarr; kernel.</li>
+          <li><strong>Audit Mode (<code>Ctrl + Shift + F3</code>):</strong> Stage a clean reference VM without creating user profiles or triggering Store updates.</li>
+          <li><strong>Sysprep (<code>OOBE + Generalize + Shutdown</code>):</strong> Strips SIDs and hardware bindings; leave the master VM <strong>Off</strong>.</li>
+          <li><strong>DISM:</strong> Works both <strong>offline</strong> on <code>.wim</code>/<code>.esd</code> images (<code>/Get-WimInfo</code>, <code>/Capture-Image</code>, <code>/Apply-Image</code>) and <strong>online</strong> (<code>/CheckHealth</code>, <code>/ScanHealth</code>, <code>/RestoreHealth</code>).</li>
+        </ul>
+      </div>
+      <div class="callout good" style="margin-top: 1.5rem;">
+        <strong>Next Step:</strong> Head to the <strong>OSYS1200 Notion Course Hub &rarr; Lab 8: Booting, Installation, Sysprep &amp; DISM</strong> and build your Hyper-V reference VM!
+      </div>
+    </section>
+  </main>
+
+  <footer class="controls">
+    <div>OSYS1200 &bull; Booting, Installation, Sysprep &amp; DISM &bull; Use <strong>&larr; / &rarr;</strong> or <strong>Space</strong> &bull; <strong>F</strong> for Fullscreen</div>
+    <div>
+      <span id="slideCounter" style="margin-right: 0.75rem;">1 / 13</span>
+      <button onclick="prevSlide()">&larr; Prev</button>
+      <button onclick="nextSlide()">Next &rarr;</button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counter = document.getElementById('slideCounter');
+    const progressBar = document.getElementById('progressBar');
+    let current = 0;
+
+    function updateSlide(idx) {
+      slides[current].classList.remove('active');
+      current = Math.max(0, Math.min(idx, slides.length - 1));
+      slides[current].classList.add('active');
+      counter.textContent = `${current + 1} / ${slides.length}`;
+      progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+    }
+
+    function nextSlide() { updateSlide(current + 1); }
+    function prevSlide() { updateSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    });
+
+    updateSlide(0);
+  </script>
+</body>
+</html>
