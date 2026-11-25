@@ -256,7 +256,7 @@ Now, let's find the logs for what we just did.
 
 ### Activity 6 (Revised) – File History
 
-> **Known Windows 11 `25H2` (`26200.9457` / `KB5124007`) Bug:** If **Run now** fails with a false **"Reconnect your drive"** error even though your VHDX is mounted and healthy in Disk Management, your VM is hitting a September 2026 cumulative update bug (`KB5124007`). Go to **Settings → Windows Update → Check for updates**, install the newer cumulative update (`KB5124010` or later), and reboot before retrying File History.
+> **Known Windows 11 `25H2` (`26200.9457` / `KB5124007`) Bug:** If **Run now** fails with a false **"Reconnect your drive"** error even though your VHDX is mounted and healthy in Disk Management, your VM is hitting a September 2026 cumulative update bug (`KB5124007`). Go to **Settings → Windows Update → Check for updates**, install the newer cumulative update (`KB5124010` or later), and reboot before retrying File History. *(Tip: RDP/browser sessions disconnect during update reboots—open the VM via **Virt-Viewer** in the Lab Portal if you want to watch the live update progress.)*
 
 > **Understanding File History:** File History is Windows' built-in, automatic backup tool for user files. It works by "snapshotting" your libraries (Desktop, Documents, Pictures, etc.) and saving any changes to a *separate* drive. It requires a second drive to function (like a USB drive or network share).
 >
