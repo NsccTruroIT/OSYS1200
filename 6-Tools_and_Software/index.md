@@ -282,16 +282,19 @@ This suite of tools is more of an Administrator's productivity tool. There are n
 
 ### Part A – Install Sysinternals Suite via `winget` (Keep for Lab 7!)
 
-1. Right-click the Start button and click **Windows PowerShell (Admin)** (click **Yes** at UAC).
-2. Install the Sysinternals Suite from the `winget` repository (bypassing the Microsoft Store source):
+> **Why standard (non-admin) PowerShell + `--ignore-security-hash`?** Microsoft updates `SysinternalsSuite.zip` in place at its rolling download URL, so the `.zip` hash frequently moves ahead of the `winget` manifest. `winget` refuses to override a hash mismatch when running as Administrator (`this cannot be overridden when running as admin`), so run this in a **standard (non-elevated)** PowerShell window.
+
+1. Click the Start button, type `powershell`, and open **Windows PowerShell** *(standard user—do **not** run as Administrator)*.
+2. Install the Sysinternals Suite from the `winget` repository:
    ```powershell
-   winget install Microsoft.Sysinternals.Suite --source winget
+   winget install Microsoft.Sysinternals.Suite --source winget --ignore-security-hash
    ```
+   *(If `winget` reports that hash override is disabled by settings, run `winget settings --enable InstallerHashOverride` first and re-run the command above.)*
 3. Accept the source/package prompts if asked (**`Y`**). **Grab a screenshot** showing the successful installation! *(Leave Sysinternals installed—we will use it in Lab 7!)*
 
 ### Part B – Inspect & Remove a UWP App via PowerShell
 
-1. In the same elevated PowerShell window, list all installed AppX/UWP packages:
+1. Right-click the Start button and open **Windows PowerShell (Admin)** (click **Yes** at UAC), then list all installed AppX/UWP packages:
    ```powershell
    Get-AppPackage
    ```
